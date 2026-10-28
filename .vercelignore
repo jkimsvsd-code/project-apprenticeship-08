@@ -1,8 +1,6 @@
 node_modules
 runtime
 dist
-public/assets
-public/index.html
 .git
 .env
 .env.*

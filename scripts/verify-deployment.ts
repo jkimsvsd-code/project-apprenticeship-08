@@ -102,6 +102,12 @@ try {
   expect(publicResponse.status()).toBe(200);
   expect(publicResponse.headers()['content-security-policy']).toContain("script-src 'self'");
   const publicHtml = await publicResponse.text();
+  // A 200 HTML shell does not prove the CDN delivered its JavaScript or CSS.
+  for (const match of publicHtml.matchAll(/(?:src|href)="(\/assets\/[^\"]+)"/g)) {
+    const asset = await anonymous.request.get(match[1]);
+    expect(asset.status()).toBe(200);
+    expect(asset.headers()['content-type']).toMatch(/javascript|text\/css/);
+  }
   const denied = await anonymous.request.get('/api/private/items');
   expect(denied.status()).toBe(401);
   records.push({ label: 'anonymous private data request', method: 'GET', path: '/api/private/items', status: denied.status(), response: await denied.json() });
