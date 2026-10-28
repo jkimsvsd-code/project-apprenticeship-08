@@ -1,8 +1,8 @@
 {
-  "executedAt": "2026-10-28T05:27:41.286Z",
+  "executedAt": "2026-10-28T05:56:06.477Z",
   "timezone": "Asia/Seoul",
   "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
-  "sourceDigest": "adfbbd693295dc22e09bd2b22557d3ddd917f5ace49491d4a9613e7b96b4cbfa",
+  "sourceDigest": "b00832cbf14e2367389345b5c7734963791709236b39014404ac0119b524eceb",
   "first": {
     "options": {
       "method": "POST",
@@ -10,15 +10,15 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "aa368b06-8a8c-4cae-ad9b-805194c285cf",
+        "challengeId": "2f560a2c-46fa-458d-b20a-0b448af5e893",
         "options": {
-          "challenge": "aKd_Eu-4ApjkT_uVIPcMcrdrfOItFOp1E4qIdGB1uog",
+          "challenge": "IuMWhrF-hQ9QQ5BXWSWJqJKzbRFDxGhbeaQOfbxVrds",
           "rp": {
             "name": "J · 나만의 공간",
             "id": "localhost"
           },
           "user": {
-            "id": "XSoBtEtiBeJAzLGY4ZdLcyFsA5Ah13fyhweMvqYxI10",
+            "id": "lKZK9fSvbOhduvMoQUJVM3nJC2BHPEkn0dcVPhsMV0I",
             "name": "가상 사용자 A",
             "displayName": "가상 사용자 A"
           },
@@ -51,19 +51,19 @@
       "method": "POST",
       "path": "/api/auth/registration/verify",
       "request": {
-        "challengeId": "aa368b06-8a8c-4cae-ad9b-805194c285cf",
+        "challengeId": "2f560a2c-46fa-458d-b20a-0b448af5e893",
         "response": {
-          "id": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
-          "rawId": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
+          "id": "eZBgwlBPg-8KJNPXGaoQ3E8WSIxvrHYHGUCamBHftrA",
+          "rawId": "eZBgwlBPg-8KJNPXGaoQ3E8WSIxvrHYHGUCamBHftrA",
           "response": {
-            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikSZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAQECAwQFBgcIAQIDBAUGBwgAILUU0_BsqXQUk3yt5VypoUO6nN0Z837fPZj-yhTy71whpQECAyYgASFYIJxsU054uwztt06i2uIEWuB-IQIH2v6BJCjMWclAPddmIlgg_nBql80ys3WF3ttoGw6_2HHXXAnxAtuyITgHYMoim70",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiYUtkX0V1LTRBcGprVF91VklQY01jcmRyZk9JdEZPcDFFNHFJZEdCMXVvZyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
+            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikSZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAQECAwQFBgcIAQIDBAUGBwgAIHmQYMJQT4PvCiTT1xmqENxPFkiMb6x2BxlAmpgR37awpQECAyYgASFYIPh_SRELo1-jG7m23GRvmR__MArqfMXzmIMsIysyULrcIlggL8jySjSqNFRoguz1bXcxtNO9OvK1wovH3CQjcT9o8c4",
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiSXVNV2hyRi1oUTlRUTVCWFdTV0pxSkt6YlJGRHhHaGJlYVFPZmJ4VnJkcyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
             "transports": [
               "internal"
             ],
             "publicKeyAlgorithm": -7,
-            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnGxTTni7DO23TqLa4gRa4H4hAgfa_oEkKMxZyUA912b-cGqXzTKzdYXe22gbDr_YcddcCfEC27IhOAdgyiKbvQ",
-            "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAQECAwQFBgcIAQIDBAUGBwgAILUU0_BsqXQUk3yt5VypoUO6nN0Z837fPZj-yhTy71whpQECAyYgASFYIJxsU054uwztt06i2uIEWuB-IQIH2v6BJCjMWclAPddmIlgg_nBql80ys3WF3ttoGw6_2HHXXAnxAtuyITgHYMoim70"
+            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE-H9JEQujX6MbubbcZG-ZH_8wCup8xfOYgywjKzJQutwvyPJKNKo0VGiC7PVtdzG007068rXCi8fcJCNxP2jxzg",
+            "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAQECAwQFBgcIAQIDBAUGBwgAIHmQYMJQT4PvCiTT1xmqENxPFkiMb6x2BxlAmpgR37awpQECAyYgASFYIPh_SRELo1-jG7m23GRvmR__MArqfMXzmIMsIysyULrcIlggL8jySjSqNFRoguz1bXcxtNO9OvK1wovH3CQjcT9o8c4"
           },
           "type": "public-key",
           "clientExtensionResults": {
@@ -89,15 +89,15 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "2461ae74-75f2-4f51-94cf-43f1c2fec12b",
+        "challengeId": "aee26715-3ea3-4afe-956b-afa46ae7ffac",
         "options": {
-          "challenge": "Yc9X_h8jL9s-RviQexnYexs6qcPHdAF5Zds17VoSKds",
+          "challenge": "JgcYnDq0-4CRK-FQFU5XlxiMUD2m51ubAjyNVmcwZ7M",
           "rp": {
             "name": "J · 나만의 공간",
             "id": "localhost"
           },
           "user": {
-            "id": "XSoBtEtiBeJAzLGY4ZdLcyFsA5Ah13fyhweMvqYxI10",
+            "id": "lKZK9fSvbOhduvMoQUJVM3nJC2BHPEkn0dcVPhsMV0I",
             "name": "가상 사용자 A",
             "displayName": "가상 사용자 A"
           },
@@ -115,7 +115,7 @@
           "attestation": "none",
           "excludeCredentials": [
             {
-              "id": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
+              "id": "eZBgwlBPg-8KJNPXGaoQ3E8WSIxvrHYHGUCamBHftrA",
               "transports": [
                 "internal"
               ],
@@ -138,19 +138,19 @@
       "method": "POST",
       "path": "/api/auth/registration/verify",
       "request": {
-        "challengeId": "2461ae74-75f2-4f51-94cf-43f1c2fec12b",
+        "challengeId": "aee26715-3ea3-4afe-956b-afa46ae7ffac",
         "response": {
-          "id": "zn3ocWzsLjkp3MTGDLNhr0Rzqr2sF5PuOnqum70K__Y",
-          "rawId": "zn3ocWzsLjkp3MTGDLNhr0Rzqr2sF5PuOnqum70K__Y",
+          "id": "U6AF1Ze-NMIFMHcaY2mqlqHV4syUvOVnOQ6oa025mEw",
+          "rawId": "U6AF1Ze-NMIFMHcaY2mqlqHV4syUvOVnOQ6oa025mEw",
           "response": {
-            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikSZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAQECAwQFBgcIAQIDBAUGBwgAIM596HFs7C45KdzExgyzYa9Ec6q9rBeT7jp6rpu9Cv_2pQECAyYgASFYIA7CNxq1Q3UoJpDP7qUxWMOnhuOTEYiEBgB0HkHkof2-IlggG8Gg_sgXQi9vpBkCNFiufJ1UtPpLGBHInvPOnLekP7I",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiWWM5WF9oOGpMOXMtUnZpUWV4bllleHM2cWNQSGRBRjVaZHMxN1ZvU0tkcyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikSZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAQECAwQFBgcIAQIDBAUGBwgAIFOgBdWXvjTCBTB3GmNpqpah1eLMlLzlZzkOqGtNuZhMpQECAyYgASFYILnwBC1NN0p_e2yFy2hEcMBr4Ck78JdmwIjjib6pzgSHIlggJ_WILg4fmF6wGZCPrJhwSmT6fO7TWHZL4TK_wgmQUuM",
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiSmdjWW5EcTAtNENSSy1GUUZVNVhseGlNVUQybTUxdWJBanlOVm1jd1o3TSIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
             "transports": [
               "internal"
             ],
             "publicKeyAlgorithm": -7,
-            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEDsI3GrVDdSgmkM_upTFYw6eG45MRiIQGAHQeQeSh_b4bwaD-yBdCL2-kGQI0WK58nVS0-ksYEcie886ct6Q_sg",
-            "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAQECAwQFBgcIAQIDBAUGBwgAIM596HFs7C45KdzExgyzYa9Ec6q9rBeT7jp6rpu9Cv_2pQECAyYgASFYIA7CNxq1Q3UoJpDP7qUxWMOnhuOTEYiEBgB0HkHkof2-IlggG8Gg_sgXQi9vpBkCNFiufJ1UtPpLGBHInvPOnLekP7I"
+            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEufAELU03Sn97bIXLaERwwGvgKTvwl2bAiOOJvqnOBIcn9YguDh-YXrAZkI-smHBKZPp87tNYdkvhMr_CCZBS4w",
+            "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAQECAwQFBgcIAQIDBAUGBwgAIFOgBdWXvjTCBTB3GmNpqpah1eLMlLzlZzkOqGtNuZhMpQECAyYgASFYILnwBC1NN0p_e2yFy2hEcMBr4Ck78JdmwIjjib6pzgSHIlggJ_WILg4fmF6wGZCPrJhwSmT6fO7TWHZL4TK_wgmQUuM"
           },
           "type": "public-key",
           "clientExtensionResults": {
@@ -171,16 +171,16 @@
   },
   "storedPublicKeys": [
     {
-      "id": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
+      "id": "eZBgwlBPg-8KJNPXGaoQ3E8WSIxvrHYHGUCamBHftrA",
       "name": "A 첫 패스키",
-      "publicKeyBase64": "pQECAyYgASFYIJxsU054uwztt06i2uIEWuB+IQIH2v6BJCjMWclAPddmIlgg/nBql80ys3WF3ttoGw6/2HHXXAnxAtuyITgHYMoim70=",
+      "publicKeyBase64": "pQECAyYgASFYIPh/SRELo1+jG7m23GRvmR//MArqfMXzmIMsIysyULrcIlggL8jySjSqNFRoguz1bXcxtNO9OvK1wovH3CQjcT9o8c4=",
       "counter": 1,
       "deviceType": "singleDevice"
     },
     {
-      "id": "zn3ocWzsLjkp3MTGDLNhr0Rzqr2sF5PuOnqum70K__Y",
+      "id": "U6AF1Ze-NMIFMHcaY2mqlqHV4syUvOVnOQ6oa025mEw",
       "name": "A 예비 패스키",
-      "publicKeyBase64": "pQECAyYgASFYIA7CNxq1Q3UoJpDP7qUxWMOnhuOTEYiEBgB0HkHkof2+IlggG8Gg/sgXQi9vpBkCNFiufJ1UtPpLGBHInvPOnLekP7I=",
+      "publicKeyBase64": "pQECAyYgASFYILnwBC1NN0p/e2yFy2hEcMBr4Ck78JdmwIjjib6pzgSHIlggJ/WILg4fmF6wGZCPrJhwSmT6fO7TWHZL4TK/wgmQUuM=",
       "counter": 1,
       "deviceType": "singleDevice"
     }

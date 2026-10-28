@@ -83,7 +83,13 @@ async function signOut(page: Page, context: BrowserContext) {
   records.push({ label: 'logged-out session reuse', method: 'GET', path: '/api/private/items', status: reused.status, response: await reused.json() });
 }
 async function login(page: Page, next = '/vault', status = 200) {
-  await page.goto(`${target}/login?next=${encodeURIComponent(next)}`);
+  if (next === '/vault') {
+    await page.goto(target);
+    const entry = page.getByRole('link', { name: '내용 검토 - 관리자 전용', exact: true });
+    await expect(entry).toHaveAttribute('href', '/login?next=%2Fvault');
+    await entry.click();
+    await expect(page).toHaveURL(`${target}/login?next=%2Fvault`);
+  } else await page.goto(`${target}/login?next=${encodeURIComponent(next)}`);
   const options = page.waitForResponse(response => response.url().endsWith('/api/auth/authentication/options'));
   const verification = page.waitForResponse(response => response.url().endsWith('/api/auth/authentication/verify'));
   await page.getByRole('button', { name: '패스키로 계속하기', exact: true }).click();
@@ -123,6 +129,12 @@ try {
   await setup(a, users[0], '가상 HTTPS 사용자 A');
   const first = await register(a, 'HTTPS A 첫 패스키', true);
   await expect(a).toHaveURL(target + '/vault', { timeout: 20000 });
+  await expect(a.locator('.private-card')).toHaveCount(3);
+  await a.goto(target);
+  const signedInEntry = a.getByRole('link', { name: '내용 검토 - 관리자 전용', exact: true });
+  await expect(signedInEntry).toHaveAttribute('href', '/vault');
+  await signedInEntry.click();
+  await expect(a).toHaveURL(target + '/vault');
   await expect(a.locator('.private-card')).toHaveCount(3);
   let key1 = await credential(authA.cdp, aId);
   await a.getByRole('link', { name: '패스키 관리', exact: true }).click();
@@ -244,7 +256,7 @@ try {
 }
 const proof = { executedAt: new Date().toISOString(), timezone: 'Asia/Seoul', origin: target, sourceCommit, deploymentId: process.env.DEPLOYMENT_ID ?? null,
   passed: success, syntheticAccountsRemoved: cleaned, environment: 'actual public HTTPS deployment and Neon PostgreSQL; Chromium CDP virtual authenticator; no mocked signature verification',
-  physicalDeviceVerified: false, stage, storedPublicKeys: credentialProof, accountCounts: counts, storageMemo: storageMemoProof, cookiePolicy: success ? { secure: true, httpOnly: true, sameSite: 'Strict', prefix: '__Host-' } : null, records };
+  physicalDeviceVerified: false, stage, adminEntry: success ? { signedOutDestination: '/login?next=%2Fvault', afterLogin: '/vault', signedInDestination: '/vault', privateItemsShown: 3 } : null, storedPublicKeys: credentialProof, accountCounts: counts, storageMemo: storageMemoProof, cookiePolicy: success ? { secure: true, httpOnly: true, sameSite: 'Strict', prefix: '__Host-' } : null, records };
 const json = JSON.stringify(proof, null, 2);
 expect(json).not.toMatch(/"(?:privateKey|token|sessionHash|Cookie|Set-Cookie|Authorization)"\s*:/i);
 expect(json).not.toMatch(/#token=[A-Za-z0-9_-]{43}/);

@@ -1,8 +1,8 @@
 {
-  "executedAt": "2026-10-28T05:27:41.286Z",
+  "executedAt": "2026-10-28T05:56:06.477Z",
   "timezone": "Asia/Seoul",
   "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
-  "sourceDigest": "adfbbd693295dc22e09bd2b22557d3ddd917f5ace49491d4a9613e7b96b4cbfa",
+  "sourceDigest": "b00832cbf14e2367389345b5c7734963791709236b39014404ac0119b524eceb",
   "ownA": {
     "method": "GET",
     "path": "/api/private/items",
