@@ -173,10 +173,37 @@ test('실제 WebAuthn 등록·로그인·격리·재사용 거절·패스키 폐
     await a.getByRole('link', { name: '패스키 관리', exact: true }).click();
     await expect(a.getByText('예비 열쇠 하나, 더 든든하게.')).toBeVisible();
     await a.getByRole('button', { name: '예비 패스키 추가', exact: false }).click();
+    await expect(a.getByRole('heading', { name: '두 번째 패스키 등록 방법' })).toBeVisible();
+    await expect(a.getByText('실제 저장소는 다음에 열리는 브라우저·기기의 인증 창에서 선택해요.', { exact: false })).toBeVisible();
+    await expect(a.getByLabel('기록할 저장소 메모')).toBeHidden();
+    await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
+    const duplicateAttempts: unknown[] = [];
+    // Changing a user memo must not masquerade as choosing a real authenticator.
+    // Keep the original real CDP authenticator: excludeCredentials must reject it.
+    for (const memo of ['Google 비밀번호 관리자', 'iCloud 키체인']) {
+      await a.getByLabel('기록할 저장소 메모').selectOption(memo);
+      const optionsResponse = a.waitForResponse(response => response.url().endsWith('/api/auth/registration/options'));
+      await a.getByRole('button', { name: '예비 패스키 등록', exact: true }).click();
+      const response = await optionsResponse;
+      const options = (await response.json()).options;
+      await expect(a.getByRole('alert')).toContainText('선택한 인증기에 이미 등록된 패스키가 있어요');
+      await expect(a.getByRole('alert')).toContainText('저장소 메모를 바꿔도 실제 저장소는 바뀌지 않아요');
+      expect(response.request().postDataJSON()).toEqual({});
+      expect(options.authenticatorSelection).toEqual((first.options.response as any).options.authenticatorSelection);
+      expect(withStore(store => store.credentials('test-account-a').length)).toBe(1);
+      await expect(a.locator('.passkey-list li')).toHaveCount(1);
+      duplicateAttempts.push({ userMemo: memo, authenticatorSelection: options.authenticatorSelection, duplicateRejected: true, storedKeyCount: 1 });
+    }
+    await a.getByText('QR 코드나 중복 등록 안내가 나오나요?', { exact: true }).click();
+    await expect(a.getByText('QR 코드는 다른 기기를 연결하는 경로예요.', { exact: false })).toBeVisible();
+    await a.screenshot({ path: 'evidence/ux/storage-memo-desktop.png', fullPage: true });
+    await a.getByLabel('기록할 저장소 메모').selectOption('기타 / 확인하지 못함');
+    await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
     authAId = await replaceAuthenticator(authA.cdp, authAId);
     const second = await register(a, 'A 예비 패스키', false);
     const secondCredential = await savedCredential(authA.cdp, authAId);
     await expect(a.locator('.passkey-list li')).toHaveCount(2);
+    await expect(a.getByText('저장소 메모 없음 / 확인하지 못함', { exact: true })).toHaveCount(2);
     await expect(a.getByText('예비 열쇠 하나, 더 든든하게.')).toHaveCount(0);
     expect((first.options.response as any).options.challenge).not.toBe((second.options.response as any).options.challenge);
     expect(JSON.stringify(first.verify.request)).not.toContain('privateKey');
@@ -267,8 +294,18 @@ test('실제 WebAuthn 등록·로그인·격리·재사용 거절·패스키 폐
     await expect(a.locator('.passkey-list li')).toHaveCount(1);
     expect(await a.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await a.screenshot({ path: 'evidence/ux/passkeys-mobile.png', fullPage: true });
+    await a.getByRole('button', { name: '패스키 추가', exact: true }).click();
+    await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
+    await a.getByText('QR 코드나 중복 등록 안내가 나오나요?', { exact: true }).click();
+    for (const width of [320, 375]) {
+      await a.setViewportSize({ width, height: 812 });
+      expect(await a.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    }
+    expect((await new AxeBuilder({ page: a }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
+    await a.screenshot({ path: 'evidence/ux/storage-memo-mobile.png', fullPage: true });
 
     const common = { executedAt: new Date().toISOString(), timezone: 'Asia/Seoul', environment: 'Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider', sourceDigest: sourceDigest() };
+    evidenceFile('evidence/ux/verified-storage-memo.json', { ...common, memoControlInitiallyCollapsed: true, memoDoesNotChooseAuthenticator: true, duplicateAttempts, distinctAuthenticatorRegistrationSucceeded: true, unknownProviderShownAsUnconfirmed: true, expandedGuidanceWidths: [320, 375], axeViolations: 0 });
     evidenceFile('evidence/registration/verified-registration.json', { ...common, first, second, storedPublicKeys: stored, privateKeyTransmitted: false });
     evidenceFile('evidence/authentication/verified-authentication.json', { ...common, success: validLogin, wrongSignature, reusedChallenge: { request: restoredLogin.verify.request, status: replay.status(), response: await replay.json() }, logoutReuse: { method: 'GET', path: '/api/private/items', authenticationHeader: '[REDACTED]', status: oldSessionResponse.status, response: await oldSessionResponse.json() }, csrfStatus: csrf.status() });
     evidenceFile('evidence/authorization/verified-isolation.json', { ...common, ownA: { method: 'GET', path: '/api/private/items', status: ownA.status(), response: { items: itemsA } }, ownB: { method: 'GET', path: '/api/private/items', status: ownB.status(), response: { items: itemsB } }, anonymous: { method: 'GET', path: '/api/private/items', status: anonymousResponse.status(), response: await anonymousResponse.json() }, aToB: { method: 'GET', path: `/api/private/items/${itemsB[0].id}`, status: aToB.status(), response: await aToB.json() }, bToA: { method: 'GET', path: `/api/private/items/${itemsA[0].id}`, status: bToA.status(), response: await bToA.json() }, counts: { before, after }, tamperedAccount: { method: 'GET', path: '/api/private/items?userId=test-account-b', status: spoof.status(), returned: itemsA.map(item => item.id) }, unsignedHtmlContainsPrivateContent: false });

@@ -21,6 +21,7 @@ let success = false;
 let cleaned = true;
 let credentialProof: unknown;
 let counts: unknown;
+let storageMemoProof: unknown;
 const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL ?? 'chromium' });
 const contexts: BrowserContext[] = [];
 const sourceCommit = process.env.DEPLOYED_COMMIT ?? execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
@@ -127,6 +128,27 @@ try {
   await a.getByRole('link', { name: '패스키 관리', exact: true }).click();
   await expect(a.getByText('예비 열쇠 하나, 더 든든하게.')).toBeVisible();
   await a.getByRole('button', { name: '예비 패스키 추가', exact: false }).click();
+  await expect(a.getByRole('heading', { name: '두 번째 패스키 등록 방법' })).toBeVisible();
+  await expect(a.getByLabel('기록할 저장소 메모')).toBeHidden();
+  await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
+  const memoAttempts = [];
+  for (const memo of ['Google 비밀번호 관리자', 'iCloud 키체인']) {
+    await a.getByLabel('기록할 저장소 메모').selectOption(memo);
+    const optionsResponse = a.waitForResponse(response => response.url().endsWith('/api/auth/registration/options'));
+    await a.getByRole('button', { name: '예비 패스키 등록', exact: true }).click();
+    const response = await optionsResponse;
+    expect(response.status()).toBe(200);
+    expect(response.request().postDataJSON()).toEqual({});
+    await expect(a.getByRole('alert')).toContainText('저장소 메모를 바꿔도 실제 저장소는 바뀌지 않아요');
+    expect((await store.credentials(users[0])).length).toBe(1);
+    memoAttempts.push({ userMemo: memo, duplicateRejected: true, storedKeyCount: 1 });
+  }
+  await a.getByText('QR 코드나 중복 등록 안내가 나오나요?', { exact: true }).click();
+  await expect(a.getByText('QR 코드는 다른 기기를 연결하는 경로예요.', { exact: false })).toBeVisible();
+  await a.getByLabel('기록할 저장소 메모').selectOption('기타 / 확인하지 못함');
+  await a.screenshot({ path: 'evidence/deployment/storage-memo-https.png', fullPage: true });
+  await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
+  storageMemoProof = { memoControlInitiallyCollapsed: true, memoAttempts, secondPasskeyStepsVisible: true, qrAndDuplicateHelpVisible: true };
   aId = await replace(authA.cdp, aId);
   const second = await register(a, 'HTTPS A 예비 패스키', false);
   const key2 = await credential(authA.cdp, aId);
@@ -222,7 +244,7 @@ try {
 }
 const proof = { executedAt: new Date().toISOString(), timezone: 'Asia/Seoul', origin: target, sourceCommit, deploymentId: process.env.DEPLOYMENT_ID ?? null,
   passed: success, syntheticAccountsRemoved: cleaned, environment: 'actual public HTTPS deployment and Neon PostgreSQL; Chromium CDP virtual authenticator; no mocked signature verification',
-  physicalDeviceVerified: false, stage, storedPublicKeys: credentialProof, accountCounts: counts, cookiePolicy: success ? { secure: true, httpOnly: true, sameSite: 'Strict', prefix: '__Host-' } : null, records };
+  physicalDeviceVerified: false, stage, storedPublicKeys: credentialProof, accountCounts: counts, storageMemo: storageMemoProof, cookiePolicy: success ? { secure: true, httpOnly: true, sameSite: 'Strict', prefix: '__Host-' } : null, records };
 const json = JSON.stringify(proof, null, 2);
 expect(json).not.toMatch(/"(?:privateKey|token|sessionHash|Cookie|Set-Cookie|Authorization)"\s*:/i);
 expect(json).not.toMatch(/#token=[A-Za-z0-9_-]{43}/);

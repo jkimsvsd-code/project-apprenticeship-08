@@ -1,8 +1,8 @@
 {
-  "executedAt": "2026-10-28T04:46:21.594Z",
+  "executedAt": "2026-10-28T05:27:41.286Z",
   "timezone": "Asia/Seoul",
   "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
-  "sourceDigest": "0f63723ede5cee49221c6c1fac6cc61223b533a731f91caea08726803fa7b195",
+  "sourceDigest": "adfbbd693295dc22e09bd2b22557d3ddd917f5ace49491d4a9613e7b96b4cbfa",
   "success": {
     "options": {
       "method": "POST",
@@ -10,10 +10,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "feba634b-04d1-40de-9d0d-fdbde0275fca",
+        "challengeId": "588d8226-2935-4b3a-a4ff-42e94ebfb596",
         "options": {
           "rpId": "localhost",
-          "challenge": "WDGezB7iDyKdccQEQ7Ox-LTDPVds5q7NkFyTP6SluIk",
+          "challenge": "g6LA1BOZjNDqN7sp5_CMe3TY13ilBIviRXp-qytUgyE",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -23,15 +23,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "feba634b-04d1-40de-9d0d-fdbde0275fca",
+        "challengeId": "588d8226-2935-4b3a-a4ff-42e94ebfb596",
         "response": {
-          "id": "YLuSRyBDBFlW9ZW0MnzC0gXLeb3Fo6NU0Nn8OKQ1bhM",
-          "rawId": "YLuSRyBDBFlW9ZW0MnzC0gXLeb3Fo6NU0Nn8OKQ1bhM",
+          "id": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
+          "rawId": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAABA",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiV0RHZXpCN2lEeUtkY2NRRVE3T3gtTFREUFZkczVxN05rRnlUUDZTbHVJayIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-            "signature": "MEYCIQCwsdXV6poK9kr12KaZRe99MtB-x3-invW9klNzgGP1pgIhAMEwkUo2jOkZnb3SL9IfvYkXMhg7DIlZyvXy7RopwrtR",
-            "userHandle": "qwqnJCIwF21raLNXU7gGolemY9tFhVr_-pLUcXNZOug"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiZzZMQTFCT1pqTkRxTjdzcDVfQ01lM1RZMTNpbEJJdmlSWHAtcXl0VWd5RSIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "signature": "MEUCIQC1FlBnGWYmPH87v9O-v3NxbbJ1p-WuxqFkpZmbA-oHRgIgRYzYBKLNbR6pkf6v96RtVSj6vTIzaW3hdySyNISKNug",
+            "userHandle": "XSoBtEtiBeJAzLGY4ZdLcyFsA5Ah13fyhweMvqYxI10"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -51,10 +51,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "c2e3e10b-6ad8-4ca5-9f38-dcf3a00f51d3",
+        "challengeId": "4b0f8842-b973-4189-82d7-aec1a0b1ca2e",
         "options": {
           "rpId": "localhost",
-          "challenge": "67P2CuCl9sig00jqb8ojTaN8upntUuFCazLJL63o5Sc",
+          "challenge": "MrLieB7yVd5mi8sEScEBhla4inkNbzjiXr6xb5c8skg",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -64,15 +64,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "c2e3e10b-6ad8-4ca5-9f38-dcf3a00f51d3",
+        "challengeId": "4b0f8842-b973-4189-82d7-aec1a0b1ca2e",
         "response": {
-          "id": "YLuSRyBDBFlW9ZW0MnzC0gXLeb3Fo6NU0Nn8OKQ1bhM",
-          "rawId": "YLuSRyBDBFlW9ZW0MnzC0gXLeb3Fo6NU0Nn8OKQ1bhM",
+          "id": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
+          "rawId": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAw",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiNjdQMkN1Q2w5c2lnMDBqcWI4b2pUYU44dXBudFV1RkNhekxKTDYzbzVTYyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-            "signature": "MEYCIQD6zii-kq02g6GVyGNQLjoeZ4D2SoERFd7R5ijO_0QzMQIhAMdvlGRJ6rbBK-NnHYtNHVSCm6FM4-NumyOL808QaeAK",
-            "userHandle": "qwqnJCIwF21raLNXU7gGolemY9tFhVr_-pLUcXNZOug"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiTXJMaWVCN3lWZDVtaThzRVNjRUJobGE0aW5rTmJ6amlYcjZ4YjVjOHNrZyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
+            "signature": "MEQCIAQmJjcwSstOqcGfDv_emp2g8JnojagcvqdXfXyCXzjuAiBfsLMzvQfLmpgssS6DJGYfKxhD_BBZ4WumLgyCYW_bOg",
+            "userHandle": "XSoBtEtiBeJAzLGY4ZdLcyFsA5Ah13fyhweMvqYxI10"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -90,15 +90,15 @@
   },
   "reusedChallenge": {
     "request": {
-      "challengeId": "4d49dc4c-c7ca-42c6-b69f-79c982a85a5e",
+      "challengeId": "6feb57b2-fa19-484d-936f-c07d27c738ca",
       "response": {
-        "id": "YLuSRyBDBFlW9ZW0MnzC0gXLeb3Fo6NU0Nn8OKQ1bhM",
-        "rawId": "YLuSRyBDBFlW9ZW0MnzC0gXLeb3Fo6NU0Nn8OKQ1bhM",
+        "id": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
+        "rawId": "tRTT8GypdBSTfK3lXKmhQ7qc3Rnzft89mP7KFPLvXCE",
         "response": {
           "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAg",
-          "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiZnlDNV9JNXZJYm11MTJRY0wtYWhZUTVXY3UyNlNHNlAwVVpEWlE1NDlVWSIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-          "signature": "MEUCIBLj0U_krSG-CsHWaMxjYlSELS23CEomffaG3eRgjwO8AiEA6qk3YnH9D5GwlCwx-PC630rSS6_9FjkFswd9oyNK6a8",
-          "userHandle": "qwqnJCIwF21raLNXU7gGolemY9tFhVr_-pLUcXNZOug"
+          "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiSC1ISjhJdFkzODFwRTFKakdFdmI4M0w3S2NOc1NSZXNGTktveDlYUGFWdyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+          "signature": "MEYCIQC-E4Z7_46wg7xcD5nzAY41gq2NzSc9VmCvCZ5XDYzglwIhAJ8BN3Mwsxmbx1r3bw7utT7pgJgXsAQpOSimP3bcUPs3",
+          "userHandle": "XSoBtEtiBeJAzLGY4ZdLcyFsA5Ah13fyhweMvqYxI10"
         },
         "type": "public-key",
         "clientExtensionResults": {},

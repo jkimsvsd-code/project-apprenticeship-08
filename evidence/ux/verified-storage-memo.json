@@ -1,0 +1,37 @@
+{
+  "executedAt": "2026-10-28T05:27:41.286Z",
+  "timezone": "Asia/Seoul",
+  "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
+  "sourceDigest": "adfbbd693295dc22e09bd2b22557d3ddd917f5ace49491d4a9613e7b96b4cbfa",
+  "memoControlInitiallyCollapsed": true,
+  "memoDoesNotChooseAuthenticator": true,
+  "duplicateAttempts": [
+    {
+      "userMemo": "Google 비밀번호 관리자",
+      "authenticatorSelection": {
+        "residentKey": "required",
+        "userVerification": "required",
+        "requireResidentKey": true
+      },
+      "duplicateRejected": true,
+      "storedKeyCount": 1
+    },
+    {
+      "userMemo": "iCloud 키체인",
+      "authenticatorSelection": {
+        "residentKey": "required",
+        "userVerification": "required",
+        "requireResidentKey": true
+      },
+      "duplicateRejected": true,
+      "storedKeyCount": 1
+    }
+  ],
+  "distinctAuthenticatorRegistrationSucceeded": true,
+  "unknownProviderShownAsUnconfirmed": true,
+  "expandedGuidanceWidths": [
+    320,
+    375
+  ],
+  "axeViolations": 0
+}

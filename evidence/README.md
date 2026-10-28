@@ -41,6 +41,7 @@ Chromium 가상 인증기의 실제 WebAuthn 검증에서 생성한 공개용 JS
 - authorization/verified-isolation.json, anonymous-page.html: 본인 성공·미인증/타인 거절·건수·변조·미인증 HTML.
 - passkey-lifecycle/verified-revocation.json, two-passkeys.png: 두 키·삭제·잔여 키 검증.
 - ux/verified-ux.json 및 PNG: U1–U6 자동 확인과 화면.
+- ux/verified-storage-memo.json 및 storage-memo-*.png: 기록용 선택값을 바꿔도 실제 인증기가 바뀌지 않는 회귀 검증과 두 번째 키 등록 안내.
 
 E2E를 실행하면 같은 경로를 새 실행 기록으로 덮어씁니다. 실행에 실패한 경우 일부 이전 기록이 남을 수 있으므로 executedAt·sourceDigest와 최근 전체 테스트 결과를 함께 확인합니다.
 

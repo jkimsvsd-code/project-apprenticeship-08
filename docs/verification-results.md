@@ -54,3 +54,11 @@
 
 [요청·응답·공개키 JSON](../evidence/deployment/https-verification.json), [실제 PostgreSQL 동시성 검사](../evidence/deployment/postgres-check.json), [운영 화면](../evidence/deployment/public-https.png).
 쿠키·세션 원문·초기 링크·개인키는 증거에서 제외했습니다. 초기 배포의 JS/CSS 누락은 수정 후 전체 시나리오를 다시 통과했습니다.
+
+## 저장소 메모와 두 번째 등록 안내 수정
+
+저장 위치 선택처럼 보이던 드롭다운을 ‘저장소 메모 남기기 (선택)’ 안으로 옮기고 메모·실제 인증기 선택을 구분했습니다. 목록도 사용자 메모로 표시합니다.
+두 번째 등록의 3단계와 QR·동기화된 기존 키·지원 저장소가 없는 환경의 다음 행동을 안내합니다.
+
+기존 CDP 인증기를 유지하고 메모만 Google·iCloud로 바꿔도 실제 중복 등록은 거절되며 저장 키 수는 1개로 유지되는 것을 확인했습니다. 다른 CDP 인증기로 바꾸면 두 번째 등록이 성공합니다. [회귀 증거](../evidence/ux/verified-storage-memo.json).
+펼친 안내·메모 폼은 320/375px 넘침 및 axe WCAG 위반 0건을 확인했습니다. 이 테스트의 Google·iCloud 값은 사용자 메모일 뿐, 실제 제공자를 사용했다는 의미가 아닙니다.

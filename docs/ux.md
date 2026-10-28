@@ -41,6 +41,10 @@
 - [x] 패스키가 하나뿐이면 분실 대비 이유와 추가 등록 버튼을 제공한다.
 - [x] 두 번째 등록 후 목록·개수를 갱신한다.
 - [x] 같은 패스키의 동기화와 별도 credential 등록을 구분해 안내한다.
+- [x] 저장소 메모를 접힌 선택 항목으로 표시하고, 실제 저장소 선택은 브라우저·기기 인증 창에서 한다고 안내한다.
+- [x] 등록 목록의 저장소 정보는 사용자 메모임을 표시하며 확인되지 않은 값은 확인 불가로 표시한다.
+- [x] 두 번째 키 등록 3단계, QR 경로, 동기화된 기존 키의 중복, 원하는 저장소가 없을 때의 다음 행동을 안내한다.
+- [x] 메모를 바꿔도 기존 인증기의 중복 등록은 거절되고 별도 인증기로는 등록되는 것을 실제 CDP WebAuthn으로 검증한다.
 
 구현 위치: `src/client/passkeys/`.
 
@@ -64,3 +68,5 @@
 구현 위치: `src/client/shared/`, `src/client/` 전체. 검증 증거: `evidence/ux/`.
 
 자동 증거: evidence/ux/verified-ux.json. 작은 화면은 데스크톱 브라우저의 viewport 검사이며 모바일 실기기 검증을 대신하지 않습니다.
+
+저장소 메모 회귀 증거: [자동 결과](../evidence/ux/verified-storage-memo.json), [데스크톱](../evidence/ux/storage-memo-desktop.png), [모바일](../evidence/ux/storage-memo-mobile.png). 실제 제공자 저장 위치를 검증한 결과가 아닙니다.

@@ -54,6 +54,9 @@ project-apprenticeship-08/
 │   │   ├── private-desktop.png
 │   │   ├── public-desktop.png
 │   │   ├── public-mobile.png
+│   │   ├── storage-memo-desktop.png
+│   │   ├── storage-memo-mobile.png
+│   │   ├── verified-storage-memo.json
 │   │   └── verified-ux.json
 │   └── README.md
 ├── public/

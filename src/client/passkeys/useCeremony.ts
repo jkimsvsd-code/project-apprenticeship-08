@@ -57,7 +57,7 @@ export function useCeremony() {
       else {
         const name = error instanceof Error ? error.name : '';
         update(name === 'NotAllowedError' || name === 'AbortError' ? 'cancelled' : 'error',
-          name === 'InvalidStateError' ? '이미 등록한 패스키일 수 있어요. 다른 저장 위치나 보안 키를 선택해 주세요.'
+          name === 'InvalidStateError' ? '선택한 인증기에 이미 등록된 패스키가 있어요. 브라우저·기기 창의 ‘다른 옵션’에서 별도 저장소나 보안 키를 선택해 주세요. 저장소 메모를 바꿔도 실제 저장소는 바뀌지 않아요.'
           : name === 'NotAllowedError' ? '기기 확인이 취소되었거나 시간이 지났어요. 준비되면 다시 시도해 주세요.'
           : name === 'SecurityError' ? '이 주소에서 패스키를 사용할 수 없어요. 원래 등록한 주소인지 확인해 주세요.'
           : messages[name === 'AbortError' ? 'cancelled' : 'error']);
