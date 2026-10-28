@@ -46,3 +46,5 @@ Chromium 가상 인증기의 실제 WebAuthn 검증에서 생성한 공개용 JS
 E2E를 실행하면 같은 경로를 새 실행 기록으로 덮어씁니다. 실행에 실패한 경우 일부 이전 기록이 남을 수 있으므로 executedAt·sourceDigest와 최근 전체 테스트 결과를 함께 확인합니다.
 
 운영 증거 deployment/https-verification.json은 sourceCommit과 deploymentId를 명시합니다. 물리 인증기 대신 독립된 CDP 가상 인증기를 사용했으며 테스트 계정은 검증 후 삭제했습니다.
+
+최종 UX 점검은 deployment/ux-verification.json에 있습니다. U1–U2의 별도 완료 증거와 실행 시각은 ux-environment-checks.json에 기록합니다. 브라우저 시계·지원 플래그를 제어한 UI 검사와 실제 WebAuthn 등록 검사는 구분합니다. 전체 기준 대조는 docs/final-audit.md에 있습니다.

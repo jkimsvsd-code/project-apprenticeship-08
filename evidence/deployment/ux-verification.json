@@ -1,0 +1,54 @@
+{
+  "executedAt": "2026-10-28T06:35:51.167Z",
+  "origin": "https://project-apprenticeship-08.vercel.app",
+  "deployedSourceCommit": "15acf07168f73803044da11683d97b75f597e8f1",
+  "deploymentId": "dpl_2mAULuZkFqLuvWXEvZE8om7oJuAE",
+  "verificationScriptSha256": "ac609fa615529cba6532d274eb40c678d1930fa1579031218451ec988a4976c9",
+  "passed": true,
+  "syntheticAccountRemoved": true,
+  "physicalDeviceVerified": false,
+  "environment": "actual HTTPS and Neon; real CDP WebAuthn; unsupported flags and timeout clock intentionally simulated",
+  "checks": {
+    "U1": {
+      "realHttpsSupportGuidance": true,
+      "simulatedUnsupportedAndInsecureBranches": true
+    },
+    "U2": {
+      "cancelledAccountAndKeys": 0,
+      "timedOutAccountAndKeys": 0,
+      "pendingButtonDisabled": true,
+      "differentRetryChallenges": true,
+      "controlledBrowserClockFor60SecondTimeout": true
+    },
+    "environmentComponentExecutedAt": "2026-10-28T06:33:32.646Z",
+    "U3": {
+      "externalNextConstrainedToVault": true,
+      "administratorEntryAndLoginReturn": "see https-verification.json adminEntry"
+    },
+    "U4": {
+      "oneKeyReminder": true,
+      "twoKeysRegistered": true,
+      "reminderRemovedAfterBackup": true,
+      "storageMemoAndQrHelp": true
+    },
+    "U5": {
+      "remainingCount": 1,
+      "cancelInitiallyFocused": true,
+      "escapeCloses": true,
+      "focusRestored": true,
+      "cancelPreservesBothKeys": true,
+      "actualDeleteAndLogin": "see https-verification.json records"
+    },
+    "U6": {
+      "widths": [
+        320,
+        375
+      ],
+      "axeViolations": 0,
+      "loginAndDialogKeyboard": true,
+      "expandedMemoAndHelpChecked": true,
+      "publicLoginLockedAndPasskeyOverflow": false
+    }
+  },
+  "metadataNote": "Overflow field label clarified after execution: widths asserted for public/login/locked/passkeys; private content also passed axe. Script checksum refers to the executed version."
+}

@@ -1,63 +1,98 @@
 # 인증 구현 설명서
 
-로컬 및 실제 HTTPS 배포의 자동 검증 기록입니다. 물리 기기 검증과 과제 최종 제출은 별도입니다.
+결과물: https://project-apprenticeship-08.vercel.app\
+소스: https://github.com/jkimsvsd-code/project-apprenticeship-08\
+최종 운영 검증: 2026-10-28T06:26:33.371Z (UTC, 한국 시각은 +09:00). 배포 코드 `15acf07168f73803044da11683d97b75f597e8f1`, 배포 ID `dpl_2mAULuZkFqLuvWXEvZE8om7oJuAE`.
+
+실제 HTTPS와 영속 PostgreSQL에서 실행한 기록입니다. 자동 인증기는 Chromium CDP 소프트웨어 인증기이고, 물리 기기·Google/iCloud 저장 제공자 확인은 별도입니다. [최종 점검표](final-audit.md).
 
 ## ① 무엇으로 붙였나
 
-라이브러리 방식입니다. SimpleWebAuthn server 14.0.3 / browser 14.0.0으로 WebAuthn을 처리합니다.
-React·TypeScript·Vite 화면, Express 서버, 로컬 Node.js 24 SQLite와 배포 Neon PostgreSQL을 사용합니다. 배포 진입점은 server.mjs → src/server/vercel.ts, 영속 저장 구현은 src/server/storage/postgres.ts입니다. 전체 고정 버전은 package-lock.json에 있습니다.
-서비스 서버에는 credential ID, 공개키, 카운터, 소유자, 이름·등록일·사용자가 기록한 저장 위치를 저장합니다.
-개인키나 지문·얼굴 정보는 서비스에 전송하지 않습니다.
+**라이브러리 방식**으로 SimpleWebAuthn server 14.0.3 / browser 14.0.0을 사용했습니다. 서명 검증을 직접 만들거나 항상 통과하는 모의 검증기를 쓰지 않았습니다. React·TypeScript·Vite, Express·Node.js 24, 로컬 SQLite / 배포 Neon PostgreSQL을 사용합니다. Vercel은 호스팅이며 Neon은 저장소입니다. Supabase Auth·Neon Auth 같은 별도 인증 서비스는 사용하지 않습니다.
 
-자동 검증의 저장 위치는 Chromium 소프트웨어 가상 인증기입니다. 실제 Google 비밀번호 관리자·iCloud·기기·보안 키는 아직 확인하지 않았습니다.
-화면의 ‘저장소 메모 남기기’는 접힌 선택 항목이며 실제 저장소 선택 설정이 아닙니다. 사용자가 확인해 적는 메타데이터이고 서버가 확인한 제공자 증명이 아닙니다. 목록도 사용자 메모로 표시합니다. 실제 저장소는 브라우저·기기 창에서 선택하며 QR·동기화·중복 오류에 대한 안내를 제공합니다.
-[등록 요청·응답과 저장 공개키](../evidence/registration/verified-registration.json), [등록 취소 기록](../evidence/registration/cancellation.json)을 참고하세요.
+서버는 credential ID·COSE 공개키·서명 카운터·소유자·이름·등록일·사용자 메모를 저장합니다. 다음은 이번 HTTPS 검증에서 DB에 저장하고 읽은 가상 계정 공개키 한 개입니다.
+
+```text
+pQECAyYgASFYIFF3329w+1Y38GDNChpLBypNSQwudPoT2g5F6NbrPSmFIlggmQv36Xlc68g0vundKHy13h6Ll7lfuDk+u/rHu1JUXEI=
+```
+
+이 Base64 값은 **서명 확인에 쓰는 공개키를 인코딩한 값이며 비밀번호가 아닙니다.** 개인키와 지문·얼굴 정보는 서비스 서버에 전송·저장하지 않습니다. 등록 요청 본문의 전체 구조는 [운영 JSON](../evidence/deployment/https-verification.json)의 `records[2].request`, 저장 값은 `storedPublicKeys`에서 확인합니다. 개인키가 없다는 검사도 수행합니다.
+
+자동 검증의 저장 위치는 **A 계정의 독립된 Chrome CDP 소프트웨어 인증기 2개와 B 계정의 별도 인증기 1개**입니다. 검증 종료 시 브라우저와 테스트 계정을 정리했습니다. 사용자의 실제 저장 제공자는 서비스가 확인할 수 없으며, 현재 문서에서는 미확인입니다(C26). ‘저장소 메모’는 사용자가 적는 기록이고 실제 저장소 선택 설정이나 제공자 증명이 아닙니다.
 
 ## ② 왜 그걸 골랐나
 
-공개키 검증을 직접 작성하지 않으면서 일회성 질문·서버 세션·계정 격리·삭제를 소스와 DB에서 추적할 수 있기 때문입니다.
-추가 서비스 계정 없이 Node.js 24에서 재현하고, SQLite 트랜잭션으로 질문 소비와 마지막 패스키 삭제의 경합을 처리합니다.
-Vercel 운영에서는 영속 Neon PostgreSQL과 사용자별 트랜잭션 잠금을 적용해 여러 함수 인스턴스가 같은 질문·세션·공개키를 공유합니다. [선정 근거](stack.md)에 대안을 정리했습니다.
+검증된 WebAuthn 라이브러리로 질문·Origin·RP ID·서명·사용자 확인(UV)을 검사하면서 계정 격리·질문의 일회성·세션 폐기·삭제를 소스와 DB로 추적하기 위해 선택했습니다.
+로컬은 Node.js 내장 SQLite로 재현하고, Vercel 운영은 Neon PostgreSQL로 여러 함수가 같은 공개키·질문·세션을 공유합니다. DB 질의는 파라미터를 바인딩하고, TLS 인증서를 확인하는 pg Pool과 Vercel attachDatabasePool을 사용합니다.
+PostgreSQL의 원자적 DELETE RETURNING으로 질문을 한 번만 소비하고, 사용자별 트랜잭션 잠금과 재검사로 로그인 완료·키 삭제·마지막 키 동시 삭제를 처리합니다. [DB 동시성 증거](../evidence/deployment/postgres-check.json), [스택 근거](stack.md).
 
 ## ③ 어디를 어떻게 고쳤나
 
-| 흐름 | 클라이언트 → API → 서버 검증·저장 |
+| 흐름 | 화면 → API → 검증·저장 |
 | --- | --- |
-| 첫 등록 | SetupPage.tsx → POST /api/setup/exchange → Store.exchangeBootstrap → registration/options·verify → WebAuthnService.register → Store.registerCredential |
-| 추가 등록 | RegistrationForm.tsx·useCeremony.ts → POST /api/auth/registration/options·verify → 세션·Origin·RP ID·질문·UV 검증 → credential 저장 |
-| 로그인 | LoginPage.tsx·useCeremony.ts → POST /api/auth/authentication/options·verify → WebAuthnService.authenticate → Store.completeLogin → HttpOnly 쿠키 |
-| 로그아웃 | shared/session.tsx → POST /api/auth/logout → Store.logout → 쿠키·등록 질문·클라이언트 자료 정리 |
-| 비공개 조회 | VaultPage.tsx → GET /api/private/items[/:id] → private-data/service.ts → requireSession → Store.items/item의 소유권 제한 |
-| 삭제 | PasskeysPage.tsx → DELETE /api/passkeys/:id → Store.deleteCredential → 소유권·마지막 키 검사 → 해당 키의 세션 폐기 |
+| 공개 진입 | [ProfilePage](../src/client/public-profile/ProfilePage.tsx)의 관리자 버튼 → 미로그인 `/login?next=%2Fvault`, 로그인 상태 `/vault` |
+| 첫 등록 | [SetupPage](../src/client/passkeys/SetupPage.tsx) → POST `/api/setup/exchange` → `exchangeBootstrap` → 일회 등록 준비 쿠키 |
+| 등록·추가 | [RegistrationForm](../src/client/passkeys/RegistrationForm.tsx)·[useCeremony](../src/client/passkeys/useCeremony.ts) → POST `/api/auth/registration/options`, `/verify` → `WebAuthnService.register` → `registerCredential` |
+| 로그인 | [LoginPage](../src/client/passkeys/LoginPage.tsx) → POST `/api/auth/authentication/options`, `/verify` → `WebAuthnService.authenticate` → `completeLogin` → 서버 세션 → 허용된 목적지 |
+| 로그아웃 | [session](../src/client/shared/session.tsx) → POST `/api/auth/logout` → `logout` → 서버 세션·질문 폐기와 쿠키 제거·개인 UI 비우기 |
+| 비공개 조회 | [VaultPage](../src/client/private-space/VaultPage.tsx) → GET `/api/private/items[/:id]` → [private-data/service](../src/server/private-data/service.ts) → [requireSession](../src/server/authorization/access.ts) → `items/item`의 소유권 제한 |
+| 패스키 삭제 | [PasskeysPage](../src/client/passkeys/PasskeysPage.tsx) → DELETE `/api/passkeys/:id` → `deleteCredential` → 본인·마지막 키 검사 → 해당 키의 세션 연쇄 폐기 |
 
-실제 파일: [API](../src/server/app.ts), [WebAuthn 검증](../src/server/auth/webauthn.ts), [저장·질문·세션·소유권](../src/server/storage/store.ts), [접근 제한](../src/server/authorization/access.ts), [자료 조회](../src/server/private-data/service.ts).
-화면 파일은 `src/client/passkeys/`, `src/client/private-space/`, `src/client/shared/`에 있습니다.
-초기 링크는 [서버 관리 CLI](../src/server/auth/bootstrap-cli.ts)가 생성하며 공개 발급 API는 없습니다.
+실제 공통 [API](../src/server/app.ts), [WebAuthn 검증](../src/server/auth/webauthn.ts), 운영 [PostgresStore](../src/server/storage/postgres.ts), 로컬 [Store](../src/server/storage/store.ts)를 확인할 수 있습니다. 운영 진입점은 `server.mjs` → [src/server/vercel.ts](../src/server/vercel.ts)입니다.
+
+초기 소유자 링크는 [운영 관리 CLI](../scripts/bootstrap-postgres.ts) 또는 [로컬 CLI](../src/server/auth/bootstrap-cli.ts)에서만 발급합니다. 15분·일회 교환이며 등록 완료 전에는 계정·키·자료를 확정하지 않습니다. 취소한 임시 등록 준비의 해시는 만료 관리합니다. 공개 회원가입·초기 링크 발급 API는 없습니다.
+
+질문은 기본 300초, 세션은 3600초입니다. 운영은 Origin `https://project-apprenticeship-08.vercel.app`, RP ID `project-apprenticeship-08.vercel.app`로 고정하고 UV를 요구합니다. 세션·초기 링크·등록 준비 값은 해시만 DB에 저장합니다. 쿠키는 `__Host-`·Secure·HttpOnly·SameSite=Strict·Path=/입니다. 세션 토큰의 해시로 서버에서 사용자를 식별하며 요청의 userId를 권한 근거로 사용하지 않습니다.
 
 ## ④ 안 열리는 것을 확인한 기록
 
-| 확인 | 성공 요청 | 거절 요청 | 공개 증거 |
-| --- | --- | --- | --- |
-| 로그인 없이 열기 | 로그인한 본인 자료 200 | 미인증 자료 요청 401 | [계정 격리](../evidence/authorization/verified-isolation.json), [미인증 HTML](../evidence/authorization/anonymous-page.html) |
-| 남의 패스키로 열기 | A·B가 자기 자료 200 | A→B·B→A 모두 403, 자료 건수 동일 | [계정 격리](../evidence/authorization/verified-isolation.json) |
-| 이미 쓴 질문 재사용 | 새로운 질문·서명으로 200 | 이미 소비한 질문·응답으로 400 | [인증](../evidence/authentication/verified-authentication.json) |
-| 패스키 삭제 뒤 로그인 | 남은 패스키로 200 | 삭제된 패스키로 400 | [폐기](../evidence/passkey-lifecycle/verified-revocation.json) |
+아래 인덱스는 [이번 운영 JSON의 records](../evidence/deployment/https-verification.json)에 대응합니다. 각 기록에 실제 메서드·경로·공개 가능한 요청·응답 본문이 있습니다. 쿠키·세션·토큰·개인키 원문은 제외했습니다. A·B는 실제 운영 서버에 각각 패스키를 등록한 **가상 검증 계정**입니다.
 
-추가로 잘못된 서명 400, 외부 Origin 403, 로그아웃 이전 세션의 재사용 401, 요청의 계정값을 바꿔도 본인 자료만 반환하는 것을 확인합니다.
-세션은 암호학적 난수 토큰의 해시를 서버에 보관하며 쿠키 원문을 로그·제출물에 넣지 않습니다. 운영 쿠키는 Secure·HttpOnly·SameSite=Strict·Path=/와 __Host- 접두사를 사용합니다.
-[전체 검증 결과와 실제 기기 검증의 한계](verification-results.md)를 함께 읽어야 합니다.
+| 필수 확인 | 성공한 요청·응답 | 거절된 요청·응답 |
+| --- | --- | --- |
+| 로그인 없이 자료 열기 | A의 GET `/api/private/items` → 200, 본인 3개 (`records[7]`) | 같은 목록의 미인증 GET → 401 `AUTH_REQUIRED` (`records[0]`) |
+| 남의 패스키로 자료 열기 | A·B가 각자 본인 목록 GET → 200 (`records[7–8]`) | A→B 항목 GET·B→A 항목 GET → 각각 403 `FORBIDDEN` (`records[9–10]`) |
+| 사용한 질문 재사용 | 새 질문·유효 서명 POST `/api/auth/authentication/verify` → 200 (`records[14]`) | 같은 본문 재전송 → 400 `INVALID_CEREMONY` (`records[15]`) |
+| 패스키 삭제 뒤 로그인 | 남은 키의 POST `/api/auth/authentication/verify` → 200 (`records[28]`) | 삭제한 키의 같은 인증 API → 400 `INVALID_CEREMONY` (`records[26]`) |
+
+등록 질문의 서로 다른 실제 값(C20):
+
+```text
+첫 등록: BouSDuceDYxBIW48D3hy1htISg4qmfVm3Dcfpa1Eys8
+추가 등록: GIpH8RfJE8j_MkQiDSe6huo_J99Fjk-WlHPU-Y6Jv8g
+```
+
+로그인 질문의 서로 다른 실제 값(C28):
+
+```text
+첫 로그인: Ito-GBgZeyKMDSOS1Bq5HjvcGWvbRSs-rC4pa2C-X74
+다음 로그인: VHyOOaA56XZULnDG50osxlBysYfmep8DDvets3Gu-bk
+```
+
+추가 거절·변조 검사:
+
+- 유효 서명 200과 서명 마지막 바이트를 변조한 인증 400을 비교했습니다 (`records[14]`, `records[19]`).
+- 로그아웃한 이전 쿠키로 같은 자료 GET을 재요청하면 401입니다 (`records[12]` 등). 원본 쿠키는 검사 중 메모리에서만 사용하고 공개하지 않습니다.
+- GET `/api/private/items?userId=B`로 바꿔도 A의 세션 자료만 반환합니다 (`records[11]`). A↔B 거절 전후 각 자료 수는 3·3으로 같습니다 (`accountCounts`).
+- 외부 Origin의 로그아웃은 403 (`records[16]`), 마지막 키 삭제는 409 (`records[23]`)입니다.
+- 두 키 목록·예비 키 삭제·삭제 키 거절·잔여 키 성공을 검증했고, 실행 후 테스트 계정·키·자료만 삭제했습니다. 실제 소유자 키·자료는 수정하지 않았습니다.
+
+[로컬 취소·시간 초과](../evidence/registration/cancellation.json), [저장소 메모 회귀](../evidence/ux/verified-storage-memo.json), [운영 U1–U6](../evidence/deployment/ux-verification.json)도 함께 확인할 수 있습니다. 시간 초과와 미지원 환경의 UI 분기는 검증기에서 브라우저 시계·지원 플래그를 제어해 확인하며 실제 장치 고장을 재현했다고 주장하지 않습니다.
 
 ## ⑤ AI와 나
 
-- AI에게 맡긴 일: 스택 선정 근거 정리, 기존 소개 보존, 인증·자료 격리·U1–U6 구현, 테스트·증거·문서 작성.
-- 내가 직접 판단한 일: 사용자가 필수 요구사항과 U1–U6 및 기본 설계 정책을 승인하고 과제1 원본 저장소를 지정함. 그 외 판단은 사용자 최종 보완 필요.
-- AI 제안을 따르지 않은 일 또는 없었던 이유: 사용자 작성 필요. AI가 사용자의 판단을 만들어 넣지 않습니다.
+AI에게 맡긴 일: 스택 비교, 과제1 소개 보존, 패스키·세션·자료 격리·U1–U6 구현, 테스트·배포·공개 검증 기록과 문서 정리.\
+내가 직접 판단한 일: 필수 요구사항·U1–U6과 기본 정책 승인, 과제1 원본 지정, GitHub public·HTTPS 공개, 관리자 전용 버튼과 로그인 후 자료 진입 방식 결정.\
+AI 제안을 따르지 않은 일: 저장 위치가 실제 선택 설정처럼 보이던 초안을 기록용 메모로 바꾸도록 요청했고, 개인 공간 홍보·메뉴 대신 관리자 전용 버튼만 남기도록 수정 요청함.
+
+사용자의 실제 판단을 추정해 추가하지 않고 대화에서 확인한 승인·수정 지시를 기록했습니다.
 
 ## ⑥ 아직 못 막은 것
 
-1. 모든 패스키·제공자 계정에 접근할 수 없을 때 복구할 독립적인 수단이 없습니다. 마지막 키 삭제 차단으로 기기 분실까지 해결하지는 못합니다.
-2. SQLite·PostgreSQL의 공개키·자료는 애플리케이션 수준에서 암호화하지 않습니다. 호스트의 관리자·백업 접근까지 막는 설계가 아니므로 가상 자료만 사용합니다.
-3. 요청 횟수 제한은 단일 프로세스 메모리입니다. 다중 인스턴스·서버 재시작을 가로지르는 공격 제한에는 공유 저장소가 필요합니다.
-4. 소유자의 기기·브라우저 자체가 장악되거나 서버 관리 권한이 유출된 상황까지 방어하지는 못합니다.
+1. 모든 패스키나 저장 제공자 계정에 접근할 수 없으면 자동 복구할 수 없습니다. 마지막 키 삭제 차단은 기기 분실·제공자 계정 상실을 해결하지 않습니다.
+2. ‘저장소 메모’와 서버의 deviceType/backedUp 정보만으로 실제 Google·iCloud 저장 위치, 동기화 계정·백업 복구를 보증하지 않습니다. 실제 제공자 확인(C26)은 별도 필요합니다.
+3. 공개키·가상 자료를 애플리케이션 수준에서 암호화하지 않으며 서버/DB 관리자·백업 접근을 막지 못합니다. 운영 Neon의 실제 백업 복원 훈련도 하지 않았습니다.
+4. 요청 제한은 함수 프로세스 메모리의 15분·60회로, 다중 인스턴스를 가로지르는 전역 제한은 보장하지 않습니다. 자동 검증의 연속 실행도 제한될 수 있습니다.
+5. 사용자 기기·브라우저나 서버 관리 권한이 장악된 경우를 방어하지 못합니다. Safari·Firefox·모바일 실기기·스크린리더와 실제 기기 2개의 분실 대비 검증은 완료했다고 쓰지 않았습니다.
 
-실제 HTTPS 운영의 성공·거절 요청과 저장 공개키는 [운영 검증 기록](../evidence/deployment/https-verification.json)에 있습니다. 물리 기기·저장 제공자·백업 복원은 검증하지 않았습니다.
+필수 항목의 구현·자동 증거와 미확인 항목은 [최종 점검](final-audit.md)에 구분합니다. 과제 제출 시스템에 URL을 입력하는 최종 제출은 사용자가 진행합니다.

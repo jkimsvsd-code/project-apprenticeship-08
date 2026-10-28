@@ -1,5 +1,5 @@
 {
-  "executedAt": "2026-10-28T05:56:06.477Z",
+  "executedAt": "2026-10-28T06:26:17.759Z",
   "timezone": "Asia/Seoul",
   "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
   "sourceDigest": "b00832cbf14e2367389345b5c7734963791709236b39014404ac0119b524eceb",
@@ -15,10 +15,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "b4b8e0a9-99f6-4835-b4a2-b1da3bdf8b84",
+        "challengeId": "08a8557a-1dda-4f9f-96ec-6702a2cc5f24",
         "options": {
           "rpId": "localhost",
-          "challenge": "xt1pnYaUlkDKYe75S3iwWzFE1HIMUR5Ry8k3iv60kkw",
+          "challenge": "18a1HBlYhBexb-F676UwUbMtU8f9YIJ8vakR7yq5H2A",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -28,15 +28,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "b4b8e0a9-99f6-4835-b4a2-b1da3bdf8b84",
+        "challengeId": "08a8557a-1dda-4f9f-96ec-6702a2cc5f24",
         "response": {
-          "id": "U6AF1Ze-NMIFMHcaY2mqlqHV4syUvOVnOQ6oa025mEw",
-          "rawId": "U6AF1Ze-NMIFMHcaY2mqlqHV4syUvOVnOQ6oa025mEw",
+          "id": "oBxJvvtA1mj1IgSrtFRwVqM5nyzBgtHzmBBMqQap1qM",
+          "rawId": "oBxJvvtA1mj1IgSrtFRwVqM5nyzBgtHzmBBMqQap1qM",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoieHQxcG5ZYVVsa0RLWWU3NVMzaXdXekZFMUhJTVVSNVJ5OGszaXY2MGtrdyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-            "signature": "MEUCIQDGsbpemv8gPOAb2FyzhT1727_mFrO7iFEBtBoAny1AZwIgSy9vVCmAXrwg7M11EEAEFEMPA67ikFdOj3QnnLzYaT4",
-            "userHandle": "lKZK9fSvbOhduvMoQUJVM3nJC2BHPEkn0dcVPhsMV0I"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiMThhMUhCbFloQmV4Yi1GNjc2VXdVYk10VThmOVlJSjh2YWtSN3lxNUgyQSIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "signature": "MEQCID0ddJelZCVR3zOdQqHbuacJOax_F_mK871V-QNjLDZTAiBTnrkODlK9WmQTYTnAVcrDTJHyjX5RoynzgJ2G52lCbw",
+            "userHandle": "vKDDr-VysLB5S9cCVTQ7zLCzdhq11ZOX-0pV_Le8GCA"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -59,10 +59,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "6921a7ce-e897-4bfb-b6d9-d3e2f8be4276",
+        "challengeId": "cbd48bcd-f8e5-477f-95cc-029d03db8ff1",
         "options": {
           "rpId": "localhost",
-          "challenge": "NK2fcZhSEj3J_kRwdbXIK_1VINgHL1B6Tn4UK5xDZcI",
+          "challenge": "6lTZMsYRyHAq-dCpFMyq5oXFn0n-2sjfVlEEFaGn0K4",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -72,15 +72,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "6921a7ce-e897-4bfb-b6d9-d3e2f8be4276",
+        "challengeId": "cbd48bcd-f8e5-477f-95cc-029d03db8ff1",
         "response": {
-          "id": "eZBgwlBPg-8KJNPXGaoQ3E8WSIxvrHYHGUCamBHftrA",
-          "rawId": "eZBgwlBPg-8KJNPXGaoQ3E8WSIxvrHYHGUCamBHftrA",
+          "id": "MocrcglJ8P7jAv73n-Mj9mF6_tIxUNxrUds3aGorBI0",
+          "rawId": "MocrcglJ8P7jAv73n-Mj9mF6_tIxUNxrUds3aGorBI0",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAABg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiTksyZmNaaFNFajNKX2tSd2RiWElLXzFWSU5nSEwxQjZUbjRVSzV4RFpjSSIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-            "signature": "MEQCIByD_NWHi9nwpMWOv9QOk0SbQjlsm02K3vyrDcOtkovBAiA5_hy34lGJCi9vIJ8Pexwqx9t7hIzjDYfOVAWFthJUBg",
-            "userHandle": "lKZK9fSvbOhduvMoQUJVM3nJC2BHPEkn0dcVPhsMV0I"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiNmxUWk1zWVJ5SEFxLWRDcEZNeXE1b1hGbjBuLTJzamZWbEVFRmFHbjBLNCIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "signature": "MEYCIQD7u_N_vxV2asIASPQt78DY6hYpJtNhRuq4F1bvnl_lzAIhANS1Uzv5w85PKjDHbvcMd-YizmbFKxKY8A2-KqWFXBaX",
+            "userHandle": "vKDDr-VysLB5S9cCVTQ7zLCzdhq11ZOX-0pV_Le8GCA"
           },
           "type": "public-key",
           "clientExtensionResults": {},

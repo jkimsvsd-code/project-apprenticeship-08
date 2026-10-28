@@ -22,3 +22,5 @@
 - `npm run vercel-build`: CLI 업로드 전에 실행해 public/ 생성물을 준비합니다. Git에는 생성물을 올리지 않습니다.
 
 재배포 명령과 Origin·RP ID 정책은 [배포 안내](../docs/hosting.md)를 참고하세요.
+
+- `scripts/verify-deployment-ux.ts`: 실제 HTTPS에서 U1–U6을 점검합니다. 미지원 플래그·60초 시간 초과는 의도적으로 제어하고, 실제 등록·접근성 검사는 독립 브라우저로 분리합니다. `--continue-verified`는 같은 배포의 U1–U2 완료 JSON을 검증해 재사용하며, 재사용 시각을 결과에 명시합니다.

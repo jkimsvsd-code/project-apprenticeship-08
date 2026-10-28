@@ -71,3 +71,5 @@
 자동 증거: evidence/ux/verified-ux.json. 작은 화면은 데스크톱 브라우저의 viewport 검사이며 모바일 실기기 검증을 대신하지 않습니다.
 
 저장소 메모 회귀 증거: [자동 결과](../evidence/ux/verified-storage-memo.json), [데스크톱](../evidence/ux/storage-memo-desktop.png), [모바일](../evidence/ux/storage-memo-mobile.png). 실제 제공자 저장 위치를 검증한 결과가 아닙니다.
+
+최종 운영 재점검: [U1–U6 JSON](../evidence/deployment/ux-verification.json). U1의 미지원 플래그와 U2의 시간 초과 시계는 의도적으로 제어했으며, 실제 장치 고장·생체 인증 검증은 아닙니다. 취소·시간 제어와 일반 등록·접근성 검사는 독립 컨텍스트로 분리했습니다.

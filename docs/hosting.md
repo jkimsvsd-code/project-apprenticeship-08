@@ -48,6 +48,7 @@ npm run bootstrap:postgres -- --account owner --name "가상 사용자"
 
 ```sh
 PLAYWRIGHT_CHANNEL=chrome node --env-file=.env.production.local --import tsx scripts/verify-deployment.ts
+PLAYWRIGHT_CHANNEL=chrome node --env-file=.env.production.local --import tsx scripts/verify-deployment-ux.ts
 ```
 
 테스트 계정은 검증 실행별 고유 ID를 사용하고 끝난 뒤 해당 ID의 행만 정리합니다. 실제 소유자 계정과 전체 DB를 초기화하지 않습니다.

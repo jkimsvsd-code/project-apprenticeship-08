@@ -22,6 +22,7 @@ project-apprenticeship-08/
 │   │       └── styles.css
 │   ├── architecture.md
 │   ├── authentication-report.md
+│   ├── final-audit.md
 │   ├── hosting.md
 │   ├── public-release.md
 │   ├── requirements.md
@@ -43,6 +44,9 @@ project-apprenticeship-08/
 │   │   ├── private-https.png
 │   │   ├── public-https.png
 │   │   ├── storage-memo-https.png
+│   │   ├── ux-environment-checks.json
+│   │   ├── ux-mobile-https.png
+│   │   ├── ux-verification.json
 │   │   └── two-passkeys-https.png
 │   ├── passkey-lifecycle/
 │   │   ├── two-passkeys.png
@@ -72,6 +76,7 @@ project-apprenticeship-08/
 │   ├── production.mjs
 │   ├── smoke-production.mjs
 │   ├── test-server.ts
+│   ├── verify-deployment-ux.ts
 │   └── verify-deployment.ts
 ├── src/
 │   ├── client/

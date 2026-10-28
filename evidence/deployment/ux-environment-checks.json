@@ -1,0 +1,22 @@
+{
+  "executedAt": "2026-10-28T06:33:32.646Z",
+  "origin": "https://project-apprenticeship-08.vercel.app",
+  "deployedSourceCommit": "15acf07168f73803044da11683d97b75f597e8f1",
+  "verificationScriptSha256": "535390b78c085925c6468999d8714c23df1fa92cfd77be48d4756bb8c19e3d76",
+  "scope": "Only U1 and U2 completed before the later interactive audit timed out; no claim for that later stage",
+  "passed": true,
+  "syntheticAccountRemoved": true,
+  "checks": {
+    "U1": {
+      "realHttpsSupportGuidance": true,
+      "simulatedUnsupportedAndInsecureBranches": true
+    },
+    "U2": {
+      "cancelledAccountAndKeys": 0,
+      "timedOutAccountAndKeys": 0,
+      "pendingButtonDisabled": true,
+      "differentRetryChallenges": true,
+      "controlledBrowserClockFor60SecondTimeout": true
+    }
+  }
+}
