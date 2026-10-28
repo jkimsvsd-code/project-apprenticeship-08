@@ -1,0 +1,77 @@
+import { useEffect, useRef, useState } from 'react';
+import {
+  startAuthentication, startRegistration, WebAuthnAbortService,
+  type PublicKeyCredentialCreationOptionsJSON, type PublicKeyCredentialRequestOptionsJSON,
+} from '@simplewebauthn/browser';
+import type { Provider } from '../../shared/contracts.js';
+import { ApiError, post } from '../shared/api.js';
+
+type Phase = 'ready' | 'preparing' | 'device' | 'verifying' | 'success' | 'cancelled' | 'timeout' | 'error';
+const messages: Record<Phase, string> = {
+  ready: '', preparing: '안전한 인증 요청을 준비하고 있어요.', device: '기기의 안내에서 지문·얼굴·기기 잠금 해제를 확인해 주세요.',
+  verifying: '서버에서 인증을 확인하고 있어요.', success: '확인했어요. 잠시만 기다려 주세요.',
+  cancelled: '인증이 취소되었어요. 준비되면 다시 시도해 주세요.', timeout: '응답 시간이 지났어요. 다시 시도하면 새 요청으로 시작해요.',
+  error: '인증을 완료하지 못했어요. 다시 시도해 주세요.',
+};
+
+export function useCeremony() {
+  const [phase, setPhase] = useState<Phase>('ready');
+  const [message, setMessage] = useState('');
+  const active = useRef(false);
+  const mounted = useRef(true);
+  const abort = useRef<AbortController | null>(null);
+  const reason = useRef<'cancelled' | 'timeout' | null>(null);
+  useEffect(() => () => {
+    mounted.current = false;
+    if (active.current) { reason.current = 'cancelled'; abort.current?.abort(); WebAuthnAbortService.cancelCeremony(); }
+  }, []);
+  function update(next: Phase, text = messages[next]) { if (mounted.current) { setPhase(next); setMessage(text); } }
+  async function run(kind: 'registration' | 'authentication', fields: { name: string; provider: Provider } | null, onSuccess: () => Promise<void>) {
+    if (active.current) return;
+    if (!window.isSecureContext || typeof window.PublicKeyCredential !== 'function') { update('error', '현재 환경에서는 패스키를 사용할 수 없어요. 아래 환경 안내를 확인해 주세요.'); return; }
+    active.current = true; reason.current = null; abort.current = new AbortController();
+    let challengeId: string | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      update('preparing');
+      const result = await post<{ challengeId: string; options: PublicKeyCredentialCreationOptionsJSON | PublicKeyCredentialRequestOptionsJSON }>(
+        `/api/auth/${kind}/options`, {}, { signal: abort.current.signal },
+      );
+      challengeId = result.challengeId;
+      if (!mounted.current || reason.current) throw new DOMException('Cancelled', 'AbortError');
+      update('device');
+      timer = setTimeout(() => { reason.current = 'timeout'; WebAuthnAbortService.cancelCeremony(); }, 60_000);
+      const response = kind === 'registration'
+        ? await startRegistration({ optionsJSON: result.options as PublicKeyCredentialCreationOptionsJSON })
+        : await startAuthentication({ optionsJSON: result.options as PublicKeyCredentialRequestOptionsJSON });
+      clearTimeout(timer);
+      if (reason.current || !mounted.current) throw new DOMException('Cancelled', 'AbortError');
+      update('verifying');
+      await post(`/api/auth/${kind}/verify`, { challengeId, response, ...fields }, { signal: abort.current.signal });
+      challengeId = undefined;
+      update('success');
+      await onSuccess();
+    } catch (error) {
+      if (reason.current) update(reason.current);
+      else if (error instanceof ApiError) update('error', error.message);
+      else {
+        const name = error instanceof Error ? error.name : '';
+        update(name === 'NotAllowedError' || name === 'AbortError' ? 'cancelled' : 'error',
+          name === 'InvalidStateError' ? '이미 등록한 패스키일 수 있어요. 다른 저장 위치나 보안 키를 선택해 주세요.'
+          : name === 'NotAllowedError' ? '기기 확인이 취소되었거나 시간이 지났어요. 준비되면 다시 시도해 주세요.'
+          : name === 'SecurityError' ? '이 주소에서 패스키를 사용할 수 없어요. 원래 등록한 주소인지 확인해 주세요.'
+          : messages[name === 'AbortError' ? 'cancelled' : 'error']);
+      }
+    } finally {
+      clearTimeout(timer);
+      if (challengeId) await post('/api/auth/cancel', { challengeId }, { keepalive: true }).catch(() => {});
+      active.current = false;
+    }
+  }
+  return {
+    phase, message, busy: ['preparing', 'device', 'verifying'].includes(phase),
+    register: (fields: { name: string; provider: Provider }, success: () => Promise<void>) => run('registration', fields, success),
+    login: (success: () => Promise<void>) => run('authentication', null, success),
+    cancel: () => { reason.current = 'cancelled'; abort.current?.abort(); WebAuthnAbortService.cancelCeremony(); },
+  };
+}

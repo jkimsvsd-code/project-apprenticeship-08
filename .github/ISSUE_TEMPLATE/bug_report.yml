@@ -1,0 +1,20 @@
+name: 버그 신고
+description: 동작 문제와 재현 방법을 기록합니다. 보안 문제는 SECURITY.md를 확인하세요.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "실제 개인정보, 쿠키, 세션, 토큰, 패스키 원본 인증 기록을 첨부하지 마세요."
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 재현 방법
+      description: 페이지, 수행 단계, 브라우저·기기 환경을 기록하세요.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 기대 동작과 실제 동작
+    validations:
+      required: true

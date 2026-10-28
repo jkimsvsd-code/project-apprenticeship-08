@@ -1,0 +1,48 @@
+# 로컬 환경변수와 비밀값
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# 의존성·빌드·캐시 (확정한 스택에 맞춰 보완)
+node_modules/
+.next/
+.nuxt/
+.svelte-kit/
+.vercel/
+dist/
+build/
+coverage/
+.cache/
+.venv/
+__pycache__/
+*.py[cod]
+*.tsbuildinfo
+
+# 실제 저장소·실행 중 데이터
+/runtime/
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.log
+
+# 원본 인증 증거·브라우저 세션·자동 캡처
+/evidence/raw/
+/playwright/.auth/
+/test-results/
+/playwright-report/
+*.har
+
+# 개발자 PC 전용 파일
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

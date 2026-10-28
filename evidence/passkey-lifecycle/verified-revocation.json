@@ -1,0 +1,98 @@
+{
+  "executedAt": "2026-10-28T03:37:53.029Z",
+  "timezone": "Asia/Seoul",
+  "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
+  "sourceDigest": "0e71531a15e9a5e99ef896d8657c9ae17b64c4fecba9abe0e5ed1f56fc73ad45",
+  "registeredCount": 2,
+  "deleted": {
+    "name": "A 예비 패스키",
+    "status": 200
+  },
+  "deletedLogin": {
+    "options": {
+      "method": "POST",
+      "path": "/api/auth/authentication/options",
+      "request": {},
+      "status": 200,
+      "response": {
+        "challengeId": "a9d12cf5-7cf5-4a33-8bcd-a9cbdf760d29",
+        "options": {
+          "rpId": "localhost",
+          "challenge": "qskG4HMwSjx5GA1ePhWkQ1K5_ysq9LEaEizUEyh6ev8",
+          "timeout": 60000,
+          "userVerification": "required"
+        }
+      }
+    },
+    "verify": {
+      "method": "POST",
+      "path": "/api/auth/authentication/verify",
+      "request": {
+        "challengeId": "a9d12cf5-7cf5-4a33-8bcd-a9cbdf760d29",
+        "response": {
+          "id": "QThGdd1jrW2S5hsy30kf2ktf2IfXeWcpXfv6MRK1Nu0",
+          "rawId": "QThGdd1jrW2S5hsy30kf2ktf2IfXeWcpXfv6MRK1Nu0",
+          "response": {
+            "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAg",
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoicXNrRzRITXdTang1R0ExZVBoV2tRMUs1X3lzcTlMRWFFaXpVRXloNmV2OCIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "signature": "MEUCIFEYBUqK-H4mA6heXl0GE2JXOjZi2sp_hNtT0SQ-kMdNAiEArWYMEOPKFbT7RB9KHmweeAR9_43GXKz6NOgff34np44",
+            "userHandle": "IQLaZbY7gr5hhQLOzc0ZHzymwvcPf2m6v2qDh-tjxQw"
+          },
+          "type": "public-key",
+          "clientExtensionResults": {},
+          "authenticatorAttachment": "platform"
+        }
+      },
+      "status": 400,
+      "response": {
+        "error": {
+          "code": "INVALID_CEREMONY",
+          "message": "인증을 확인할 수 없습니다. 새로 시작해 주세요."
+        }
+      }
+    }
+  },
+  "remainingLogin": {
+    "options": {
+      "method": "POST",
+      "path": "/api/auth/authentication/options",
+      "request": {},
+      "status": 200,
+      "response": {
+        "challengeId": "85b354d2-3b74-47ba-8a05-415149eae53f",
+        "options": {
+          "rpId": "localhost",
+          "challenge": "Vihq5M_N3iJyvtN9_IbJ11s0G26mVZ__Fjt887HvvHk",
+          "timeout": 60000,
+          "userVerification": "required"
+        }
+      }
+    },
+    "verify": {
+      "method": "POST",
+      "path": "/api/auth/authentication/verify",
+      "request": {
+        "challengeId": "85b354d2-3b74-47ba-8a05-415149eae53f",
+        "response": {
+          "id": "CWZ6vomrunSoZ6jxt6PvpZ4xO6Wa6r4so73E1ifNpCw",
+          "rawId": "CWZ6vomrunSoZ6jxt6PvpZ4xO6Wa6r4so73E1ifNpCw",
+          "response": {
+            "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAABg",
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiVmlocTVNX04zaUp5dnROOV9JYkoxMXMwRzI2bVZaX19GanQ4ODdIdnZIayIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
+            "signature": "MEYCIQDfqhimxufttwN-qUGQdkEmpb1UgVHl28QoH6AtIXxxWAIhAPmNjZPBt3BJqTxCtd5CREOCrEP5LvjknXZJMfD0LfIO",
+            "userHandle": "IQLaZbY7gr5hhQLOzc0ZHzymwvcPf2m6v2qDh-tjxQw"
+          },
+          "type": "public-key",
+          "clientExtensionResults": {},
+          "authenticatorAttachment": "platform"
+        }
+      },
+      "status": 200,
+      "response": {
+        "verified": true
+      }
+    }
+  },
+  "remainingCount": 1,
+  "lastKeyDeleteDisabled": true
+}

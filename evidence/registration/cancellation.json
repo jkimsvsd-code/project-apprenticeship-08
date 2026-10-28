@@ -1,0 +1,14 @@
+{
+  "executedAt": "2026-10-28T03:37:48.122Z",
+  "timezone": "Asia/Seoul",
+  "sourceDigest": "0e71531a15e9a5e99ef896d8657c9ae17b64c4fecba9abe0e5ed1f56fc73ad45",
+  "environment": "Chromium virtual authenticator; no real provider",
+  "questions": [
+    "ApKfdV6UBeR6MiEO_vS8Se1KF16h8-h2NQLCBX3MRAo",
+    "ingoPn1kXLeC6IPZ9kuqgUa-IokiETUVNIfnAk_Xzmg"
+  ],
+  "cancelledAccountExists": false,
+  "cancelledCredentialCount": 0,
+  "duplicateRequestDisabled": true,
+  "timedOutAccountExists": false
+}

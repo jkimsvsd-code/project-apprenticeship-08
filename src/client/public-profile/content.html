@@ -1,0 +1,70 @@
+<section class="intro" id="intro" aria-labelledby="intro-title">
+      <div class="intro-copy">
+        <p class="eyebrow"><span aria-hidden="true" class="status-dot"></span> J · INFRASTRUCTURE & AI SECURITY</p>
+        <h1 id="intro-title">질문으로 이해하고,<br>신중한 시도로<br><span>기준을 만듭니다.</span></h1>
+        <p class="intro-text">인프라와 AI 보안에 관심을 두고 있는 J입니다.<br class="desktop-break"> 질문으로 원리와 맥락을 연결해 큰 그림과 비전을 파악합니다.<br class="desktop-break"> 나아갈 방향을 찾고, 충분한 질의 후엔 열정이 실행이 됩니다.</p>
+        <a class="text-link" href="#experiences">질문이 실행으로 이어진 경험 <span aria-hidden="true">↘</span></a>
+      </div>
+      <aside class="field-note" aria-label="소개하는 대상과 관심">
+        <p class="eyebrow">A NOTE ABOUT ME</p>
+        <p class="note-quote">“이 선택은 왜 필요할까?”</p>
+        <p>답을 서두르기보다 이해를 다듬는 질문.<br>제가 문제에 다가가는 시작점입니다.</p>
+        <div class="note-rule"></div>
+        <p class="note-label">관심을 두는 곳</p>
+        <p class="note-topic">인프라 <span aria-hidden="true">/</span> AI 보안</p>
+        <p class="note-audience">이 분야의 채용 담당자와 동료에게,<br>문제를 이해하고 구현하며 돌아본 경험을 전합니다.</p>
+      </aside>
+    </section>
+
+    <section id="experiences" class="experiences" aria-labelledby="experience-title">
+      <div class="section-heading"><h2 id="experience-title">이해를 행동으로 옮긴 경험</h2><p>질문 → 구체화 → 실행 → 회고</p></div>
+      <div class="experience-grid">
+        <article class="experience-card" id="kiosk-case">
+          <p class="card-index">01 <span>원인 파악 → 개선 주도</span></p>
+          <h3>지연의 원인을 찾아 구조를 바꾸다</h3>
+          <p class="project-name">AI 음성 키오스크 · 해커톤</p>
+          <p class="card-summary">메뉴 인식의 지연에서 전체 처리 구조로 시야를 넓혔습니다. RAG·JSON 캐싱과 모듈화를 제안하며 개선 방향을 주도했습니다.</p>
+          <details><summary aria-label="지연의 원인을 찾아 구조를 바꾸다 — 상황과 행동 살펴보기">상황과 행동 살펴보기 <span aria-hidden="true">＋</span></summary>
+            <dl><dt>상황과 발견</dt><dd>머신 러닝 및 AI 응용 개발 프로젝트의 일환으로 단기 해커톤에서 패스트푸드점의 음성 키오스크를 개발을 시도했습니다. 팀의 초기 개발 방향은 프롬프트와 전처리에 초점이 맞춰진 것이었습니다. 다양한 사용자의 서로 다른 메뉴 표현을 입력으로 받고, 전처리를 통해 키워드를 추출해 LLM 기반으로 정확한 메뉴를 파악하기 위해, 제공되는 모든 메뉴를 매 번 프롬프트로 읽어 처리하는 매커니즘이었습니다. 실시간 서비스임에도 불구하고 주문에 필요한 응답이 지연됐습니다.</dd><dt>내가 주도한 변화</dt><dd>RAG·JSON 캐싱을 적용하고 처리 목적별로 모듈화를 제안했습니다. 더 효율적인 설계 방향을 주도하며 개선 구조를 적용했습니다.</dd><dt>함께 구현한 부분</dt><dd>기성 TTS의 응용 허가 여부와 특징을 비교하고 파인튜닝에 참여했습니다. Figma와 Flutter로 키오스크 인터페이스를 구현했습니다.</dd><dt>결과와 한계</dt><dd>데이터 처리 구조가 효율적으로 개선되었으나, TTS 자체의 지연이 숙제로 남았습니다. 수치 개선은 확인하지 못했습니다.<br>로컬 모델이 아닌 기성 LLM의 API를 활용한 구조로 상용성이 적었습니다. 직접 로컬 모델을 파인튜닝하여 개발해볼 수 있었다면 더 완성도가 높았을 것으로 예상, 추후 과제로 남아 있습니다.</dd><dt>프로젝트 사용 기술</dt><dd>Python · SQL · JSON · TTS · RAG · LLM · Firebase · Figma · Flutter</dd></dl>
+          </details>
+        </article>
+        <article class="experience-card">
+          <p class="card-index">02 <span>맥락 → 구체화</span></p>
+          <h3>서비스 의도 구현을 데이터 활용에서 찾다</h3>
+          <p class="project-name">감성 분석 일기 서비스 데이터 증강 기획</p>
+          <p class="card-summary">일기의 감정을 색으로 표현하는 서비스를 기획, 데이터의 제약에 맞는 전처리와 증강 방향을 제시하고 UI를 개발해 소개했습니다.</p>
+          <details><summary aria-label="서비스 의도 구현을 데이터 활용에서 찾다 — 상황과 행동 살펴보기">상황과 행동 살펴보기 <span aria-hidden="true">＋</span></summary>
+            <dl><dt>상황</dt><dd>사용자의 언어 입력을 통해 분석된 기분이 UI에 색으로 반영되는 서비스를 기획했으나, 기획하는 과정에서 감정 분류 파인튜닝에 활용할 데이터가 한정적이었습니다.</dd><dt>내가 한 일</dt><dd>공공 감정 분석 데이터의 전처리를 통해 이미 존재하는 데이터 활용도를 높였고, 전처리 된 데이터를 LLM을 활용하여 증강하는 방안을 제안했습니다.</dd><dt>결과와 남은 확인</dt><dd>서비스의 의도를 UI로 구체화하고 데이터 마련 방향을 효과적으로 전달했습니다. 모델 파인튜닝 완료나 정확도 개선을 뜻하지는 않습니다.</dd></dl>
+          </details>
+        </article>
+        <article class="experience-card">
+          <p class="card-index">03 <span>시도 → 회고</span></p>
+          <h3>시도를 나만의 기준으로</h3>
+          <p class="project-name">앱 보안 · 구현 과정 되짚기</p>
+          <p class="card-summary">AI와 만든 과정을 되짚으며, 비밀값·토큰 점검과 규약 적용을 구체적인 보안 검사 기준으로 이해하고 활용했습니다.</p>
+          <details><summary aria-label="시도를 나만의 기준으로 — 상황과 행동 살펴보기">상황과 행동 살펴보기 <span aria-hidden="true">＋</span></summary>
+            <dl>
+              <dt>어떤 상황에서</dt>
+              <dd>가이드라인과 바이브코딩을 통해 앱 보안 프로젝트를 수행하며, 기능이 정상적으로 동작하는 것과 보안 요구사항을 충족하는 것은 별도로 확인해야 한다는 점을 인식했습니다. 이에 구현 과정에서 적용한 보안 지침과 검증 내용을 회고하며, 보안 요구사항을 구체적인 검사 기준으로 이해하고 활용하고자 했습니다.</dd>
+              <dt>내가 한 행동</dt>
+              <dd>회고를 통해 “무엇을 근거로 믿었는가?”, “어디에서 실제로 막는가?”, “정상 사용자는 계속 이용할 수 있는가?”라는 기준을 도출했습니다. 이를 기반으로 비밀값과 토큰이 코드·로그·Git·제출물에 포함되지 않았는지 확인하는 기준, 요청·응답 규약의 적용 여부, 정상 요청의 허용과 비정상 요청의 거부를 함께 확인하는 방법을 정리했습니다. 또한 세션과 화면의 정보 잔류 방지 방안으로서 권한 만료를 확인하는 방법, 이상 행위 탐지를 위한 조건으로서 시간 구간과 횟수 경계의 활용 등을 이해하고, 가상 요청을 통한 자체 테스트와 실제 운영 환경의 검증을 구분하여 결과를 해석했습니다.</dd>
+              <dt>나타난 결과</dt>
+              <dd>보안 지침을 단순히 적용하는 데서 나아가, 각 요구사항이 어떤 위험을 방지하고 무엇을 근거로 충족 여부를 판단하는지 이해했습니다. AI가 생성한 코드와 테스트 결과를 그대로 수용하기보다, 실제 차단 지점과 정상 사용자의 이용 가능성을 함께 검토하는 관점을 강화했습니다. 이를 통해 확인된 결과와 추가 검증이 필요한 사항을 구분하는 보안 역량을 기르고, 추후 보안 분야 학습의 기반을 마련했습니다.</dd>
+            </dl>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section id="evidence" class="evidence" aria-labelledby="evidence-title">
+      <div><p class="eyebrow">EVIDENCE & NOTES</p><h2 id="evidence-title">경험을 뒷받침하는 기록</h2></div>
+      <div class="evidence-body"><p>위 경험은 직접 수행한 일을 바탕으로 정리했습니다.<br>공개 가능한 화면과 프로젝트 자료는 확인 후 이곳에 연결합니다.</p><span class="availability">별도 자료 준비 중</span></div>
+      <!-- 공개 자료 추가 방법: docs/evidence-guide.md 참고. 확인한 자료만 아래 목록에 추가합니다. -->
+      <ul class="evidence-links" aria-label="공개 근거 자료" hidden></ul>
+    </section>
+
+    <section id="approach" class="approach" aria-labelledby="approach-title">
+      <p class="eyebrow">HOW I LEARN</p>
+      <div class="approach-heading"><h2 id="approach-title">깊은 질문으로 방향을 찾고,<br>열정으로 밀고 나갑니다.</h2><p class="quiet-note">깊이 물어 큰 그림을,<br>방향이 보이면<br>힘 있게 실행합니다.</p></div>
+      <div class="approach-copy"><p>깊이 묻는 과정에서 개별 문제와 전체 목적을 연결하고,<br>우리가 어디로 나아가야 하는지 큰 그림과 비전을 파악합니다.<br>방향과 방법이 분명해지면, 고민을 실행으로 옮깁니다.<br>실행한 뒤에는 결과와 제 반응을 돌아보며 다음 시도를 다듬습니다.</p><dl class="habits"><dt>큰 그림 파악하기</dt><dd>왜 필요한지, 무엇과 연결되는지 깊이 묻습니다. 답을 연결해 전체 구조와 앞으로 나아갈 방향을 이해합니다.</dd><dt>돌아보고 정리하기</dt><dd>일과 관계에서 느낀 감정과 반응도 되짚어, 그 의미를 말로 정리하려 합니다.</dd><dt>연결하고 적용하기</dt><dd>배운 개념을 연결하고 실제 문제에 적용하며 제 것으로 만듭니다.</dd></dl></div>
+    </section>

@@ -1,0 +1,8 @@
+[
+  { "id": "test-item-a-1", "ownerId": "test-account-a", "title": "가상 프로젝트 메모", "body": "A의 연습용 프로젝트 구상입니다." },
+  { "id": "test-item-a-2", "ownerId": "test-account-a", "title": "가상 지원 계획", "body": "A의 가상 지원처와 준비 일정입니다." },
+  { "id": "test-item-a-3", "ownerId": "test-account-a", "title": "가상 회고", "body": "A의 학습 회고 예시입니다." },
+  { "id": "test-item-b-1", "ownerId": "test-account-b", "title": "가상 실험 기록", "body": "B의 연습용 실험 계획입니다." },
+  { "id": "test-item-b-2", "ownerId": "test-account-b", "title": "가상 독서 계획", "body": "B의 가상 독서 목록입니다." },
+  { "id": "test-item-b-3", "ownerId": "test-account-b", "title": "가상 주간 목표", "body": "B의 주간 학습 목표 예시입니다." }
+]

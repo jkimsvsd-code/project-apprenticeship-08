@@ -1,0 +1,4 @@
+[
+  { "id": "test-account-a", "displayName": "가상 사용자 A" },
+  { "id": "test-account-b", "displayName": "가상 사용자 B" }
+]
