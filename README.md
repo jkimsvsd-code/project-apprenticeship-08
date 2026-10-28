@@ -1,11 +1,10 @@
 # 과제8 · 소개 페이지에 패스키 달기
 
-**[인터랙티브 구현 설계도 바로가기 ↗](https://passkey-architecture-08-m2021.happybay512.chatgpt.site)** · [설계도 소스·스냅샷·재생성 안내](https://github.com/jkimsvsd-code/project-architecture-diagram_src/tree/main/projects/project-apprenticeship-08) (전용 저장소는 기존 비공개 유지). 설계도는 로그인 없이 공개 열람할 수 있으며, 생성 파일은 전용 저장소에서 관리합니다. 분석 기준은 `main`의 `eb60d108af94dac4b9fe3d8ae314d3098e5d4628`입니다.
-
 과제1의 공개 소개를 유지하고, 소유자의 비공개 자료를 패스키로 보호하는 프로젝트입니다. 서비스 비밀번호 입력·공개 회원가입은 없습니다.
 
 - **결과물:** https://project-apprenticeship-08.vercel.app
 - **public 소스:** https://github.com/jkimsvsd-code/project-apprenticeship-08
+- **[인터랙티브 구현 설계도](https://passkey-architecture-08-m2021.happybay512.chatgpt.site)** 
 - **인증 구현 설명서:** [요구된 6항목](docs/authentication-report.md)
 - **최종 점검:** [필수 47개·U1–U6](docs/final-audit.md) / [실제 HTTPS 요청·응답·공개키](evidence/deployment/https-verification.json)
 
