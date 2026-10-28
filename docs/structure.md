@@ -42,6 +42,7 @@ project-apprenticeship-08/
 │   │   ├── postgres-check.json
 │   │   ├── private-https.png
 │   │   ├── public-https.png
+│   │   ├── storage-memo-https.png
 │   │   └── two-passkeys-https.png
 │   ├── passkey-lifecycle/
 │   │   ├── two-passkeys.png

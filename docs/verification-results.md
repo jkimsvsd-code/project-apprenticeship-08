@@ -5,7 +5,7 @@
 
 ## 사용자 흐름
 
-공개 소개 → 초기 등록/패스키 로그인 → 서버 질문·서명·세션 확인 → SQLite의 본인 자료만 반환 → 개인 공간 표시 → 로그아웃·패스키 삭제 후 재요청 거절.
+공개 소개 → 초기 등록/패스키 로그인 → 서버 질문·서명·세션 확인 → 로컬 SQLite / 운영 PostgreSQL의 본인 자료만 반환 → 개인 공간 표시 → 로그아웃·패스키 삭제 후 재요청 거절.
 
 | 경계 | 확인한 내용 | 증거 |
 | --- | --- | --- |
@@ -18,14 +18,14 @@
 | UX | U1–U6, 320·375px 넘침 없음, 대화상자 포커스·Escape·복귀, 자동 WCAG 검사 | evidence/ux/ |
 
 최종 실행: 아래 명령이 모두 통과했습니다. JSON 증거에는 실행 시각과 소스·테스트·lockfile의 SHA-256 요약을 포함합니다.
-운영 검증은 소스 커밋 `fa44a4cc6d98e82ae2ac3cf57fa470a20991ba80`와 Vercel 배포 `dpl_4rc6u9BvcqkGzNt6StwuHpgPQPZ3`를 기록합니다. 이후 문서·증거 커밋은 운영 코드 변경을 포함하지 않습니다.
+운영 검증은 소스 커밋 `f2eaffc12d3e8b7ef583cf99430e9f5e89a7dea0`와 Vercel 배포 `dpl_EFQg8TahVdHdmWb4UjTmqSH7P8hB`를 기록합니다. 이후 문서·증거 커밋은 운영 코드 변경을 포함하지 않습니다.
 
 ## 명령과 현재 결과
 
 - `npm run check`: 단위·HTTP 통합 테스트 10개 통과, TypeScript 형 검사 및 Vite·서버 빌드 성공.
 - `PLAYWRIGHT_CHANNEL=chrome npm run test:e2e`: 브라우저 시나리오 3개 모두 통과. 주요 화면 axe WCAG A/AA 위반 0건. 실기기 수동 검사 결과는 아님.
 - `npm run test:production`: npm start와 같은 운영 진입점, 운영 HTML·immutable 자산·API·CSP·컴파일된 초기 등록 CLI·해시 저장·Secure/HttpOnly/SameSite 쿠키 검사 통과. 내부 HTTP 스모크 검사이며, 외부 TLS는 아래 운영 검증으로 별도 확인.
-- GitHub Actions: 원격 실행 통과. [실행 기록](https://github.com/jkimsvsd-code/project-apprenticeship-08/actions/runs/40634160981).
+- GitHub Actions: 원격 실행 통과. [실행 기록](https://github.com/jkimsvsd-code/project-apprenticeship-08/actions/runs/40638245213).
 - Docker 이미지: 정의했으나 Docker 빌드는 실행하지 않음.
 
 ## 남은 실제 환경 검증
@@ -62,3 +62,5 @@
 
 기존 CDP 인증기를 유지하고 메모만 Google·iCloud로 바꿔도 실제 중복 등록은 거절되며 저장 키 수는 1개로 유지되는 것을 확인했습니다. 다른 CDP 인증기로 바꾸면 두 번째 등록이 성공합니다. [회귀 증거](../evidence/ux/verified-storage-memo.json).
 펼친 안내·메모 폼은 320/375px 넘침 및 axe WCAG 위반 0건을 확인했습니다. 이 테스트의 Google·iCloud 값은 사용자 메모일 뿐, 실제 제공자를 사용했다는 의미가 아닙니다.
+
+동일한 메모 변경·실제 중복 거절·별도 키 등록을 운영 HTTPS에서도 통과했습니다. [운영 화면](../evidence/deployment/storage-memo-https.png)과 [운영 JSON의 storageMemo 항목](../evidence/deployment/https-verification.json)을 확인하세요.
