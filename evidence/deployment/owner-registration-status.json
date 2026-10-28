@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-28T06:53:05.651Z",
+  "checkedAtSeoul": "2026-10-28 15:53:05 KST",
+  "origin": "https://project-apprenticeship-08.vercel.app",
+  "scope": "actual site-owner registration; not a synthetic verification account",
+  "inspectionMode": "read-only PostgreSQL registration metadata snapshot",
+  "registeredPasskeys": 1,
+  "distinctCredentialIds": 1,
+  "distinctPublicKeys": 1,
+  "allRegisteredKeysHavePublicKey": true,
+  "privateItemCount": 3,
+  "secondPasskeyRegistrationConfirmed": false,
+  "providerIdentityVerified": false,
+  "secondPhysicalKeyLoginVerifiedByThisCheck": false,
+  "physicalDeletionAndRemainingKeyLoginVerifiedByThisCheck": false,
+  "notes": [
+    "Only server registration state is checked; local Google/iCloud creation cannot be inferred.",
+    "Provider labels are user-entered notes, not verified storage-provider identity.",
+    "No owner credentials, sessions, items, or bootstrap links were created, changed, or deleted.",
+    "Credential IDs, public-key values, session values, user key names and DB secrets are omitted."
+  ]
+}

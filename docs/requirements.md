@@ -108,3 +108,5 @@ U1–U6은 [UX 체크리스트](ux.md)에 정의합니다. U7–U9는 이번 범
 | C47–C53 | docs/authentication-report.md, docs/submission.md |
 
 운영 저장소는 src/server/storage/postgres.ts이며 로컬 store.ts와 같은 DataStore 계약을 구현합니다. 최종 점검은 운영 HTTPS의 성공·거절 기록과 [운영 UX](../evidence/deployment/ux-verification.json)를 포함합니다. 체크 표시는 자동 검증의 범위를 넘는 물리 기기 확인이나 제출 완료를 뜻하지 않습니다.
+
+소유자 상태 재확인(2026-10-28 15:53:05 KST): 현재 키 1개이며 C42–C45의 실제 소유자 검증은 완료로 변경하지 않았습니다. 자동 검증 계정의 두 키 증거와 [실제 소유자 등록 집계](../evidence/deployment/owner-registration-status.json)를 구분합니다.

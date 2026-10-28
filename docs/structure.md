@@ -40,6 +40,7 @@ project-apprenticeship-08/
 │   │   └── verified-isolation.json
 │   ├── deployment/
 │   │   ├── https-verification.json
+│   │   ├── owner-registration-status.json
 │   │   ├── postgres-check.json
 │   │   ├── private-https.png
 │   │   ├── public-https.png

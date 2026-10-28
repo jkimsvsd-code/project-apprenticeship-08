@@ -48,3 +48,5 @@ E2E를 실행하면 같은 경로를 새 실행 기록으로 덮어씁니다. �
 운영 증거 deployment/https-verification.json은 sourceCommit과 deploymentId를 명시합니다. 물리 인증기 대신 독립된 CDP 가상 인증기를 사용했으며 테스트 계정은 검증 후 삭제했습니다.
 
 최종 UX 점검은 deployment/ux-verification.json에 있습니다. U1–U2의 별도 완료 증거와 실행 시각은 ux-environment-checks.json에 기록합니다. 브라우저 시계·지원 플래그를 제어한 UI 검사와 실제 WebAuthn 등록 검사는 구분합니다. 전체 기준 대조는 docs/final-audit.md에 있습니다.
+
+owner-registration-status.json은 실제 소유자 등록 상태의 읽기 전용 집계입니다. 키 식별자·키 이름·공개키 원문·세션 값을 포함하지 않습니다. 두 키가 확인되지 않은 경우 완료로 기록하지 않으며, 가상 검증 계정의 인증 증거와 구분합니다.
