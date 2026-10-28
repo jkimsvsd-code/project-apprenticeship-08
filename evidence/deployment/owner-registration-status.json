@@ -1,22 +1,40 @@
 {
-  "checkedAt": "2026-10-28T06:53:05.651Z",
-  "checkedAtSeoul": "2026-10-28 15:53:05 KST",
+  "checkedAt": "2026-10-28T07:07:13.636Z",
+  "checkedAtSeoul": "2026-10-28 16:07:13 KST",
   "origin": "https://project-apprenticeship-08.vercel.app",
   "scope": "actual site-owner registration; not a synthetic verification account",
   "inspectionMode": "read-only PostgreSQL registration metadata snapshot",
-  "registeredPasskeys": 1,
-  "distinctCredentialIds": 1,
-  "distinctPublicKeys": 1,
+  "registeredPasskeys": 2,
+  "distinctCredentialIds": 2,
+  "distinctPublicKeys": 2,
   "allRegisteredKeysHavePublicKey": true,
   "privateItemCount": 3,
-  "secondPasskeyRegistrationConfirmed": false,
+  "secondPasskeyRegistrationConfirmed": true,
   "providerIdentityVerified": false,
   "secondPhysicalKeyLoginVerifiedByThisCheck": false,
   "physicalDeletionAndRemainingKeyLoginVerifiedByThisCheck": false,
   "notes": [
-    "Only server registration state is checked; local Google/iCloud creation cannot be inferred.",
-    "Provider labels are user-entered notes, not verified storage-provider identity.",
-    "No owner credentials, sessions, items, or bootstrap links were created, changed, or deleted.",
+    "Current two distinct credential IDs and two distinct stored public keys were confirmed by read-only database inspection.",
+    "Registration/deletion/login/re-registration history is the user report; this database snapshot does not reconstruct deleted credentials or replay device authentication.",
+    "Physical lifecycle flags marked false for this check mean not performed by the assistant; the reported steps are recorded separately in userReportedLifecycle.",
+    "Provider identity and independent recovery domains cannot be inferred from user memo labels or key count.",
+    "No owner credentials, sessions, items, or bootstrap links were created, changed, or deleted by this check.",
     "Credential IDs, public-key values, session values, user key names and DB secrets are omitted."
-  ]
+  ],
+  "userReportedLifecycle": {
+    "source": "direct user report in this conversation",
+    "completedSteps": [
+      "registered second passkey",
+      "deleted first passkey",
+      "logged in with second passkey",
+      "added another passkey to restore two registered keys"
+    ],
+    "deletedFirstKeyLoginRejectionReported": false,
+    "specificGoogleOrIcloudProvidersConfirmed": false
+  },
+  "previousServerObservation": {
+    "checkedAt": "2026-10-28T06:53:05.651Z",
+    "registeredPasskeys": 1,
+    "secondPasskeyRegistrationConfirmed": false
+  }
 }

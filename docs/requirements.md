@@ -1,6 +1,6 @@
 # 요구사항 추적표
 
-상태: 로컬 구현, public 소스 게시, HTTPS 운영 배포와 자동 검증을 완료했습니다. 실제 저장 제공자 확인·소유자의 예비 키 준비와 과제 최종 제출은 남아 있습니다. [최종 점검](final-audit.md)을 기준으로 상태를 구분합니다. [운영 증거](../evidence/deployment/https-verification.json)를 포함해 구현·증거 위치를 연결합니다.
+상태: 로컬 구현, public 소스 게시, HTTPS 운영 배포와 자동 검증을 완료했습니다. 소유자의 등록·삭제·잔여 키 로그인·재등록은 사용자 보고로, 현재 두 키 등록은 DB로 확인했습니다. 실제 저장 제공자·복구 가능성 확인과 과제 최종 제출은 남아 있습니다. [최종 점검](final-audit.md)을 기준으로 상태를 구분합니다. [운영 증거](../evidence/deployment/https-verification.json)를 포함해 구현·증거 위치를 연결합니다.
 기준: 첨부된 과제8 PDF의 통과 기준. 원본 PDF는 저장소에 복사하지 않았습니다.
 문서에 없는 C04–C09는 임의로 만들지 않습니다. 명시된 기준은 총 47개입니다.
 
@@ -68,10 +68,10 @@
 
 | 기준 | 점검 상태 | 완료 조건 | 관련 위치 |
 | --- | --- | --- | --- |
-| T08-C42 | 독립 가상 키 검증 / 실제 예비 키 대기 | 한 계정에 서로 다른 패스키 2개 등록 | src/server/storage/store.ts, evidence/passkey-lifecycle/ |
-| T08-C43 | 독립 가상 키 검증 / 실제 예비 키 대기 | 목록에 이름과 등록일 표시 | src/client/passkeys/ |
-| T08-C44 | 독립 가상 키 검증 / 실제 예비 키 대기 | 하나를 삭제한 후 남은 것으로 로그인 | evidence/passkey-lifecycle/ |
-| T08-C45 | 독립 가상 키 검증 / 실제 예비 키 대기 | 삭제한 패스키의 로그인 거절 기록 | evidence/passkey-lifecycle/ |
+| T08-C42 | 운영 소유자 DB 2개 확인 | 한 계정에 서로 다른 패스키 2개 등록 | src/server/storage/store.ts, evidence/passkey-lifecycle/ |
+| T08-C43 | 목록 UI 자동 검증 / 소유자 DB 2개 | 목록에 이름과 등록일 표시 | src/client/passkeys/ |
+| T08-C44 | 자동 검증 + 사용자 완료 보고 | 하나를 삭제한 후 남은 것으로 로그인 | evidence/passkey-lifecycle/ |
+| T08-C45 | 자동 거절 검증 / 실기기 시도 미보고 | 삭제한 패스키의 로그인 거절 기록 | evidence/passkey-lifecycle/ |
 | T08-C46 | 구현·증거 확인 | 패스키가 0개이거나 모두 접근 불가할 때의 동작 설명 | docs/architecture.md, src/client/passkeys/ |
 
 ## 카드5 · 설명서와 확인 방법
@@ -95,7 +95,7 @@ U1–U6은 [UX 체크리스트](ux.md)에 정의합니다. U7–U9는 이번 범
 
 - C01–C03: 두 URL 게시와 인증 없는 접속을 확인했습니다. 실제 과제 제출은 사용자가 진행합니다.
 - C26: 자동 저장 위치는 CDP 가상 인증기, 사용자 보고는 ‘iPhone 자체’로 기록했습니다. iCloud·Google 중 실제 제공자는 확인하지 않았습니다.
-- C42–C45: 별도 가상 credential 2개로 자동 검증함. 실제 기기·제공자로도 직접 확인 필요.
+- C42–C44: 실제 소유자가 등록·삭제·잔여 키 로그인·재등록 완료를 보고했고 현재 DB의 두 키를 확인했습니다. C45의 실제 삭제 키 재로그인 거절은 미보고이며 자동 거절 증거를 유지합니다.
 - C53: 승인·원본 지정·공개 방식·관리자 버튼·저장소 메모 수정 등 대화에서 확인된 사용자 판단과 AI 초안 변경 요청을 기록했습니다.
 
 | 범위 | 실제 소스·자동 검증 |
@@ -109,4 +109,4 @@ U1–U6은 [UX 체크리스트](ux.md)에 정의합니다. U7–U9는 이번 범
 
 운영 저장소는 src/server/storage/postgres.ts이며 로컬 store.ts와 같은 DataStore 계약을 구현합니다. 최종 점검은 운영 HTTPS의 성공·거절 기록과 [운영 UX](../evidence/deployment/ux-verification.json)를 포함합니다. 체크 표시는 자동 검증의 범위를 넘는 물리 기기 확인이나 제출 완료를 뜻하지 않습니다.
 
-소유자 상태 재확인(2026-10-28 15:53:05 KST): 현재 키 1개이며 C42–C45의 실제 소유자 검증은 완료로 변경하지 않았습니다. 자동 검증 계정의 두 키 증거와 [실제 소유자 등록 집계](../evidence/deployment/owner-registration-status.json)를 구분합니다.
+소유자 상태 재확인(2026-10-28 16:07:13 KST): 서로 다른 키·공개키가 각각 2개입니다. 삭제·잔여 키 로그인·재등록은 사용자 완료 보고로 기록하고 자동 검증과 구분합니다. [집계](../evidence/deployment/owner-registration-status.json).
