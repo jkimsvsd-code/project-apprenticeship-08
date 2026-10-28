@@ -2,7 +2,7 @@
 
 결과물: https://project-apprenticeship-08.vercel.app\
 소스: https://github.com/jkimsvsd-code/project-apprenticeship-08\
-최종 운영 검증: 2026-10-28T06:26:33.371Z (UTC, 한국 시각은 +09:00). 배포 코드 `15acf07168f73803044da11683d97b75f597e8f1`, 배포 ID `dpl_2mAULuZkFqLuvWXEvZE8om7oJuAE`.
+최종 운영 검증: 2026-10-28T06:45:50.952Z (UTC, 한국 시각은 +09:00). 배포 코드 `2deaa632decc68309bd5d4d656f97da50db49de3`, 배포 ID `dpl_5p6KvxEoYQjW6kns8tMWf7Bdf5Sh`.
 
 실제 HTTPS와 영속 PostgreSQL에서 실행한 기록입니다. 자동 인증기는 Chromium CDP 소프트웨어 인증기이고, 물리 기기·Google/iCloud 저장 제공자 확인은 별도입니다. [최종 점검표](final-audit.md).
 
@@ -13,12 +13,12 @@
 서버는 credential ID·COSE 공개키·서명 카운터·소유자·이름·등록일·사용자 메모를 저장합니다. 다음은 이번 HTTPS 검증에서 DB에 저장하고 읽은 가상 계정 공개키 한 개입니다.
 
 ```text
-pQECAyYgASFYIFF3329w+1Y38GDNChpLBypNSQwudPoT2g5F6NbrPSmFIlggmQv36Xlc68g0vundKHy13h6Ll7lfuDk+u/rHu1JUXEI=
+pQECAyYgASFYIAhn9nRi3moA6eqJwSLDtZm4/iEUcWZ4JGTJ+k5QblSUIlggtn8DMuTzVljkmaq7HMivw4TgkY2LV4HjPE+0rl3cejA=
 ```
 
 이 Base64 값은 **서명 확인에 쓰는 공개키를 인코딩한 값이며 비밀번호가 아닙니다.** 개인키와 지문·얼굴 정보는 서비스 서버에 전송·저장하지 않습니다. 등록 요청 본문의 전체 구조는 [운영 JSON](../evidence/deployment/https-verification.json)의 `records[2].request`, 저장 값은 `storedPublicKeys`에서 확인합니다. 개인키가 없다는 검사도 수행합니다.
 
-자동 검증의 저장 위치는 **A 계정의 독립된 Chrome CDP 소프트웨어 인증기 2개와 B 계정의 별도 인증기 1개**입니다. 검증 종료 시 브라우저와 테스트 계정을 정리했습니다. 사용자는 첫 키를 ‘iPhone 자체’에 저장했다고 보고했습니다. 실제 저장 제공자가 iCloud·Google 중 무엇인지는 서비스가 확인할 수 없으며 미확인입니다(C26). ‘저장소 메모’는 사용자가 적는 기록이고 실제 저장소 선택 설정이나 제공자 증명이 아닙니다.
+자동 검증의 저장 위치는 **A 계정의 기기 내(internal)·USB 등록 경로를 모사한 독립된 Chrome CDP 소프트웨어 인증기 2개와 B 계정의 별도 인증기 1개**입니다. 검증 종료 시 브라우저와 테스트 계정을 정리했습니다. 사용자는 첫 키를 ‘iPhone 자체’에 저장했다고 보고했습니다. 실제 저장 제공자가 iCloud·Google 중 무엇인지는 서비스가 확인할 수 없으며 미확인입니다(C26). ‘저장소 메모’는 사용자가 적는 기록이고 실제 저장소 선택 설정이나 제공자 증명이 아닙니다.
 
 
 ### 실제 등록 방식 선택
@@ -76,15 +76,15 @@ PostgreSQL의 원자적 DELETE RETURNING으로 질문을 한 번만 소비하고
 등록 질문의 서로 다른 실제 값(C20):
 
 ```text
-첫 등록: BouSDuceDYxBIW48D3hy1htISg4qmfVm3Dcfpa1Eys8
-추가 등록: GIpH8RfJE8j_MkQiDSe6huo_J99Fjk-WlHPU-Y6Jv8g
+첫 등록: rQWY4r-hZCYWmG1r1vI9jVL7UONjOJStCMmNHonp7X8
+추가 등록: Q1I76e7e8a-rzYA5cgGxNCnAlvWsOfEbWjCsyRA9B0Q
 ```
 
 로그인 질문의 서로 다른 실제 값(C28):
 
 ```text
-첫 로그인: Ito-GBgZeyKMDSOS1Bq5HjvcGWvbRSs-rC4pa2C-X74
-다음 로그인: VHyOOaA56XZULnDG50osxlBysYfmep8DDvets3Gu-bk
+첫 로그인: bXbYndjJu66QvJFVCpB6sbGynFA2DYUtbQEIy_OlKyU
+다음 로그인: GucaGZ0KZKI0FMyqLDOwGCD1vCH2NhWrIk56_LR4itY
 ```
 
 추가 거절·변조 검사:
@@ -108,7 +108,7 @@ AI 제안을 따르지 않은 일: 저장 위치가 실제 선택 설정처럼 �
 ## ⑥ 아직 못 막은 것
 
 1. 모든 패스키나 저장 제공자 계정에 접근할 수 없으면 자동 복구할 수 없습니다. 마지막 키 삭제 차단은 기기 분실·제공자 계정 상실을 해결하지 않습니다.
-2. ‘저장소 메모’와 서버의 deviceType/backedUp 정보만으로 실제 Google·iCloud 저장 위치, 동기화 계정·백업 복구를 보증하지 않습니다. 실제 제공자 확인(C26)은 별도 필요합니다.
+2. ‘저장소 메모’와 서버의 deviceType/backedUp 정보만으로 실제 Google·iCloud 저장 위치, 동기화 계정·백업 복구를 보증하지 않습니다. C26에는 사용자 보고 ‘iPhone 자체’를 기록했으며, 구체적인 iCloud·Google 제공자 확인은 별도 필요합니다.
 3. 공개키·가상 자료를 애플리케이션 수준에서 암호화하지 않으며 서버/DB 관리자·백업 접근을 막지 못합니다. 운영 Neon의 실제 백업 복원 훈련도 하지 않았습니다.
 4. 요청 제한은 함수 프로세스 메모리의 15분·60회로, 다중 인스턴스를 가로지르는 전역 제한은 보장하지 않습니다. 자동 검증의 연속 실행도 제한될 수 있습니다.
 5. 사용자 기기·브라우저나 서버 관리 권한이 장악된 경우를 방어하지 못합니다. Safari·Firefox·모바일 실기기·스크린리더와 실제 기기 2개의 분실 대비 검증은 완료했다고 쓰지 않았습니다.

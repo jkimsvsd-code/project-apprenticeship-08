@@ -129,6 +129,7 @@ try {
   await a.getByRole('button', { name: '패스키 추가', exact: true }).click();
   await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
   await a.getByText('QR 코드나 중복 등록 안내가 나오나요?', { exact: true }).click();
+  await a.getByText('iPhone에서 Google·iCloud에 각각 등록하려면', { exact: true }).click();
   await axe(a);
   for (const width of [320, 375]) {
     await a.setViewportSize({ width, height: 812 });

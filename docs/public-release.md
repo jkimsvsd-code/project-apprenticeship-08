@@ -4,7 +4,7 @@ GitHub public 게시·Vercel HTTPS 배포·Neon 영속 DB 연결과 운영 WebAu
 
 - 결과물: https://project-apprenticeship-08.vercel.app
 - 소스: https://github.com/jkimsvsd-code/project-apprenticeship-08
-- 운영 코드: 15acf07168f73803044da11683d97b75f597e8f1
+- 운영 코드: 2deaa632decc68309bd5d4d656f97da50db49de3
 - 운영 증거: [HTTPS 요청·응답](../evidence/deployment/https-verification.json), [검증 결과](verification-results.md).
 
 ## 완료한 점검

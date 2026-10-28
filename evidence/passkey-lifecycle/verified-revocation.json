@@ -1,8 +1,8 @@
 {
-  "executedAt": "2026-10-28T06:42:56.172Z",
+  "executedAt": "2026-10-28T06:46:24.737Z",
   "timezone": "Asia/Seoul",
   "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
-  "sourceDigest": "c8e8b00b5e189f280e2604c8a7fe67ef5a03e614478c230ed4989631d599b927",
+  "sourceDigest": "db78ae7400f3e194f976735ec24b0b28d992c28fd2b383fcc9e371b977d391dc",
   "registeredCount": 2,
   "deleted": {
     "name": "A 예비 패스키",
@@ -15,10 +15,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "4784582a-a69d-4d3f-acd5-d76d75df4c85",
+        "challengeId": "10f6d4b0-afab-4c4d-9c86-7e6ffce3019e",
         "options": {
           "rpId": "localhost",
-          "challenge": "5nwOyV2B2e99wA5zcyUEhaZbeqkmz50VbogI18EX0I8",
+          "challenge": "hwqCR8-7JSI3qPSW8pHdvvAPWZoF_08hR7UvPCf_VqA",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -28,15 +28,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "4784582a-a69d-4d3f-acd5-d76d75df4c85",
+        "challengeId": "10f6d4b0-afab-4c4d-9c86-7e6ffce3019e",
         "response": {
-          "id": "taUgz25cJvZcQOstvT1HWu8oNFBmpV9jGHetkCNvSD4",
-          "rawId": "taUgz25cJvZcQOstvT1HWu8oNFBmpV9jGHetkCNvSD4",
+          "id": "81UrRjanDMAqUcSYMZ8ogjMZAlhxt0aNbi7EYW0xQRg",
+          "rawId": "81UrRjanDMAqUcSYMZ8ogjMZAlhxt0aNbi7EYW0xQRg",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiNW53T3lWMkIyZTk5d0E1emN5VUVoYVpiZXFrbXo1MFZib2dJMThFWDBJOCIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
-            "signature": "MEUCIF0t5qQogytckbuMxN5F0BAfvrEpGjwKUs3GFPr42OgXAiEAskjcsDkRRlTJOri6zGA8h5h00Zgsy4H1BKvdpN6iJa0",
-            "userHandle": "FQ9-qSta3WQlBcJMrNeyf80XN4gANo5q-u3xJr3dR_k"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiaHdxQ1I4LTdKU0kzcVBTVzhwSGR2dkFQV1pvRl8wOGhSN1V2UENmX1ZxQSIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
+            "signature": "MEUCIQDELtngBD36BF7ofAjEU24XjUB38cmaOYiVdf3Whr32HAIgFIy9yac4Djn_k0ZeNZY10oxgcgf-ERx0cn58BAqVLpE",
+            "userHandle": "fi_BZyqh1zXxFkRcA5mkjb6gBs9apt-nLVNoKg20yeY"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -59,10 +59,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "50a39ae2-8c5c-40f3-b6ab-f5ae9e9bae8e",
+        "challengeId": "09fe0b85-51a0-420c-913a-39346e4d72b2",
         "options": {
           "rpId": "localhost",
-          "challenge": "tMFN-y-6aXyBUTIclFOBw-ifEW-otFZrtKVC2pGiK1k",
+          "challenge": "bAMFmJXAZK6b7sw1xR-E7SqEPfU4rwX-cscg08qPFvc",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -72,15 +72,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "50a39ae2-8c5c-40f3-b6ab-f5ae9e9bae8e",
+        "challengeId": "09fe0b85-51a0-420c-913a-39346e4d72b2",
         "response": {
-          "id": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
-          "rawId": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
+          "id": "UEpjztV7hY100lvZvlPofUO0bfHWMsh4bAmFvuidA40",
+          "rawId": "UEpjztV7hY100lvZvlPofUO0bfHWMsh4bAmFvuidA40",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAABg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoidE1GTi15LTZhWHlCVVRJY2xGT0J3LWlmRVctb3RGWnJ0S1ZDMnBHaUsxayIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-            "signature": "MEYCIQCTCRwqgFAFhk7-xYWpKU0BIX913JeeTUDpX5ePvrSQWQIhAOCWJyDeCFmCEFx-DKahV24mlxTmJfw8n2Y2eYXVB6-H",
-            "userHandle": "FQ9-qSta3WQlBcJMrNeyf80XN4gANo5q-u3xJr3dR_k"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiYkFNRm1KWEFaSzZiN3N3MXhSLUU3U3FFUGZVNHJ3WC1jc2NnMDhxUEZ2YyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "signature": "MEYCIQDigrAzYv6MQsn-fi6cDT-f9mlpkUI7tf0gD6-8xRF4QQIhAL4csBu8HcwDfVeW9OmYZvvh7_xBYfS2o2aJ4kErr146",
+            "userHandle": "fi_BZyqh1zXxFkRcA5mkjb6gBs9apt-nLVNoKg20yeY"
           },
           "type": "public-key",
           "clientExtensionResults": {},

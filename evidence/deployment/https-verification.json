@@ -1,9 +1,9 @@
 {
-  "executedAt": "2026-10-28T06:26:33.371Z",
+  "executedAt": "2026-10-28T06:45:50.952Z",
   "timezone": "Asia/Seoul",
   "origin": "https://project-apprenticeship-08.vercel.app",
-  "sourceCommit": "15acf07168f73803044da11683d97b75f597e8f1",
-  "deploymentId": "dpl_2mAULuZkFqLuvWXEvZE8om7oJuAE",
+  "sourceCommit": "2deaa632decc68309bd5d4d656f97da50db49de3",
+  "deploymentId": "dpl_5p6KvxEoYQjW6kns8tMWf7Bdf5Sh",
   "passed": true,
   "syntheticAccountsRemoved": true,
   "environment": "actual public HTTPS deployment and Neon PostgreSQL; Chromium CDP virtual authenticator; no mocked signature verification",
@@ -17,13 +17,13 @@
   },
   "storedPublicKeys": [
     {
-      "credentialId": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
-      "publicKeyBase64": "pQECAyYgASFYIFF3329w+1Y38GDNChpLBypNSQwudPoT2g5F6NbrPSmFIlggmQv36Xlc68g0vundKHy13h6Ll7lfuDk+u/rHu1JUXEI=",
+      "credentialId": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
+      "publicKeyBase64": "pQECAyYgASFYIAhn9nRi3moA6eqJwSLDtZm4/iEUcWZ4JGTJ+k5QblSUIlggtn8DMuTzVljkmaq7HMivw4TgkY2LV4HjPE+0rl3cejA=",
       "deviceType": "singleDevice"
     },
     {
-      "credentialId": "nUemETFYk7gR3kFf_v5xHAjLUde0jHXNUWNjGlSQllI",
-      "publicKeyBase64": "pQECAyYgASFYIH+hEiYDA4noCSFkzqtGCQhdM/oSxJa6qHNuhw0GDt1yIlggZtppzYXczzghqz5gdIG+xEu+5UHxZkTbyoKk9FhJ1SA=",
+      "credentialId": "r7afHWvKysiOz8z-4VM1R6D3TJS1eNBT3cRXR0H4mxk",
+      "publicKeyBase64": "pQECAyYgASFYIEzkKWsNGfMLKmP+ZjzHfviKWetwBmhtGD9NPYNse1/GIlggiahiW+FvdBsrPC3QhJ/i4Ah6HFbkzmHhx5EdBrOZODg=",
       "deviceType": "singleDevice"
     }
   ],
@@ -54,6 +54,49 @@
     "secondPasskeyStepsVisible": true,
     "qrAndDuplicateHelpVisible": true
   },
+  "registrationMethods": {
+    "options": [
+      {
+        "method": "device",
+        "attachment": "platform",
+        "hints": [
+          "client-device"
+        ],
+        "userVerification": "required",
+        "excludedExistingKeys": 1
+      },
+      {
+        "method": "phone",
+        "attachment": "cross-platform",
+        "hints": [
+          "hybrid"
+        ],
+        "userVerification": "required",
+        "excludedExistingKeys": 1
+      },
+      {
+        "method": "security-key",
+        "attachment": "cross-platform",
+        "hints": [
+          "security-key"
+        ],
+        "userVerification": "required",
+        "excludedExistingKeys": 1
+      },
+      {
+        "method": "auto",
+        "attachment": null,
+        "hints": [],
+        "userVerification": "required",
+        "excludedExistingKeys": 1
+      }
+    ],
+    "realVirtualAuthenticatorTransports": [
+      "internal",
+      "usb"
+    ],
+    "actualGoogleOrIcloudProviderVerified": false
+  },
   "cookiePolicy": {
     "secure": true,
     "httpOnly": true,
@@ -78,17 +121,19 @@
       "method": "POST",
       "path": "/api/auth/registration/options",
       "status": 200,
-      "request": {},
+      "request": {
+        "method": "device"
+      },
       "response": {
-        "challengeId": "1f8cec52-d7b3-4cce-a401-76a4516f4c26",
+        "challengeId": "e32c9ed6-e4cc-4632-9846-d0943764059a",
         "options": {
-          "challenge": "BouSDuceDYxBIW48D3hy1htISg4qmfVm3Dcfpa1Eys8",
+          "challenge": "rQWY4r-hZCYWmG1r1vI9jVL7UONjOJStCMmNHonp7X8",
           "rp": {
             "name": "J · 나만의 공간",
             "id": "project-apprenticeship-08.vercel.app"
           },
           "user": {
-            "id": "JqIj0Tvgrua-SueIeEdhnPxLlVHkkjVHVXWMDg8i2V4",
+            "id": "39SJmLpVdK1F9KoD5VJpMSvy2NzlpO0jKcNHNAV6bKQ",
             "name": "가상 HTTPS 사용자 A",
             "displayName": "가상 HTTPS 사용자 A"
           },
@@ -108,12 +153,15 @@
           "authenticatorSelection": {
             "residentKey": "required",
             "userVerification": "required",
-            "requireResidentKey": true
+            "requireResidentKey": true,
+            "authenticatorAttachment": "platform"
           },
           "extensions": {
             "credProps": true
           },
-          "hints": []
+          "hints": [
+            "client-device"
+          ]
         }
       }
     },
@@ -123,19 +171,19 @@
       "path": "/api/auth/registration/verify",
       "status": 201,
       "request": {
-        "challengeId": "1f8cec52-d7b3-4cce-a401-76a4516f4c26",
+        "challengeId": "e32c9ed6-e4cc-4632-9846-d0943764059a",
         "response": {
-          "id": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
-          "rawId": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
+          "id": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
+          "rawId": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
           "response": {
-            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikqDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIAteQFw-7spreMt6uarSqjxIoTKAENo2UQwBWm3dum_fpQECAyYgASFYIFF3329w-1Y38GDNChpLBypNSQwudPoT2g5F6NbrPSmFIlggmQv36Xlc68g0vundKHy13h6Ll7lfuDk-u_rHu1JUXEI",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiQm91U0R1Y2VEWXhCSVc0OEQzaHkxaHRJU2c0cW1mVm0zRGNmcGExRXlzOCIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
+            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikqDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIJ8DNGPlN4PvhBNTUtHhEFe7xVcMyEHP96oZX966pMPqpQECAyYgASFYIAhn9nRi3moA6eqJwSLDtZm4_iEUcWZ4JGTJ-k5QblSUIlggtn8DMuTzVljkmaq7HMivw4TgkY2LV4HjPE-0rl3cejA",
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiclFXWTRyLWhaQ1lXbUcxcjF2STlqVkw3VU9Oak9KU3RDTW1OSG9ucDdYOCIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
             "transports": [
               "internal"
             ],
             "publicKeyAlgorithm": -7,
-            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUXffb3D7VjfwYM0KGksHKk1JDC50-hPaDkXo1us9KYWZC_fpeVzryDS-6d0ofLXeHouXuV-4OT67-se7UlRcQg",
-            "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIAteQFw-7spreMt6uarSqjxIoTKAENo2UQwBWm3dum_fpQECAyYgASFYIFF3329w-1Y38GDNChpLBypNSQwudPoT2g5F6NbrPSmFIlggmQv36Xlc68g0vundKHy13h6Ll7lfuDk-u_rHu1JUXEI"
+            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAECGf2dGLeagDp6onBIsO1mbj-IRRxZngkZMn6TlBuVJS2fwMy5PNWWOSZqrscyK_DhOCRjYtXgeM8T7SuXdx6MA",
+            "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIJ8DNGPlN4PvhBNTUtHhEFe7xVcMyEHP96oZX966pMPqpQECAyYgASFYIAhn9nRi3moA6eqJwSLDtZm4_iEUcWZ4JGTJ-k5QblSUIlggtn8DMuTzVljkmaq7HMivw4TgkY2LV4HjPE-0rl3cejA"
           },
           "type": "public-key",
           "clientExtensionResults": {
@@ -157,17 +205,19 @@
       "method": "POST",
       "path": "/api/auth/registration/options",
       "status": 200,
-      "request": {},
+      "request": {
+        "method": "security-key"
+      },
       "response": {
-        "challengeId": "4fa8b024-c53e-490f-93f5-32273b47ce7d",
+        "challengeId": "de640798-4328-4b82-9bd7-028c9ef268da",
         "options": {
-          "challenge": "GIpH8RfJE8j_MkQiDSe6huo_J99Fjk-WlHPU-Y6Jv8g",
+          "challenge": "Q1I76e7e8a-rzYA5cgGxNCnAlvWsOfEbWjCsyRA9B0Q",
           "rp": {
             "name": "J · 나만의 공간",
             "id": "project-apprenticeship-08.vercel.app"
           },
           "user": {
-            "id": "JqIj0Tvgrua-SueIeEdhnPxLlVHkkjVHVXWMDg8i2V4",
+            "id": "39SJmLpVdK1F9KoD5VJpMSvy2NzlpO0jKcNHNAV6bKQ",
             "name": "가상 HTTPS 사용자 A",
             "displayName": "가상 HTTPS 사용자 A"
           },
@@ -185,7 +235,7 @@
           "attestation": "none",
           "excludeCredentials": [
             {
-              "id": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
+              "id": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
               "transports": [
                 "internal"
               ],
@@ -195,12 +245,15 @@
           "authenticatorSelection": {
             "residentKey": "required",
             "userVerification": "required",
-            "requireResidentKey": true
+            "requireResidentKey": true,
+            "authenticatorAttachment": "cross-platform"
           },
           "extensions": {
             "credProps": true
           },
-          "hints": []
+          "hints": [
+            "security-key"
+          ]
         }
       }
     },
@@ -210,19 +263,19 @@
       "path": "/api/auth/registration/verify",
       "status": 201,
       "request": {
-        "challengeId": "4fa8b024-c53e-490f-93f5-32273b47ce7d",
+        "challengeId": "de640798-4328-4b82-9bd7-028c9ef268da",
         "response": {
-          "id": "nUemETFYk7gR3kFf_v5xHAjLUde0jHXNUWNjGlSQllI",
-          "rawId": "nUemETFYk7gR3kFf_v5xHAjLUde0jHXNUWNjGlSQllI",
+          "id": "r7afHWvKysiOz8z-4VM1R6D3TJS1eNBT3cRXR0H4mxk",
+          "rawId": "r7afHWvKysiOz8z-4VM1R6D3TJS1eNBT3cRXR0H4mxk",
           "response": {
-            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikqDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIJ1HphExWJO4Ed5BX_7-cRwIy1HXtIx1zVFjYxpUkJZSpQECAyYgASFYIH-hEiYDA4noCSFkzqtGCQhdM_oSxJa6qHNuhw0GDt1yIlggZtppzYXczzghqz5gdIG-xEu-5UHxZkTbyoKk9FhJ1SA",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiR0lwSDhSZkpFOGpfTWtRaURTZTZodW9fSjk5RmprLVdsSFBVLVk2SnY4ZyIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
+            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikqDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQAAAAAAAAAAAAAAAAAAAAAAIK-2nx1rysrIjs_M_uFTNUeg90yUtXjQU93EV0dB-JsZpQECAyYgASFYIEzkKWsNGfMLKmP-ZjzHfviKWetwBmhtGD9NPYNse1_GIlggiahiW-FvdBsrPC3QhJ_i4Ah6HFbkzmHhx5EdBrOZODg",
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiUTFJNzZlN2U4YS1yellBNWNnR3hOQ25BbHZXc09mRWJXakNzeVJBOUIwUSIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
             "transports": [
-              "internal"
+              "usb"
             ],
             "publicKeyAlgorithm": -7,
-            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEf6ESJgMDiegJIWTOq0YJCF0z-hLElrqoc26HDQYO3XJm2mnNhdzPOCGrPmB0gb7ES77lQfFmRNvKgqT0WEnVIA",
-            "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIJ1HphExWJO4Ed5BX_7-cRwIy1HXtIx1zVFjYxpUkJZSpQECAyYgASFYIH-hEiYDA4noCSFkzqtGCQhdM_oSxJa6qHNuhw0GDt1yIlggZtppzYXczzghqz5gdIG-xEu-5UHxZkTbyoKk9FhJ1SA"
+            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAETOQpaw0Z8wsqY_5mPMd--IpZ63AGaG0YP009g2x7X8aJqGJb4W90Gys8LdCEn-LgCHocVuTOYeHHkR0Gs5k4OA",
+            "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQAAAAAAAAAAAAAAAAAAAAAAIK-2nx1rysrIjs_M_uFTNUeg90yUtXjQU93EV0dB-JsZpQECAyYgASFYIEzkKWsNGfMLKmP-ZjzHfviKWetwBmhtGD9NPYNse1_GIlggiahiW-FvdBsrPC3QhJ_i4Ah6HFbkzmHhx5EdBrOZODg"
           },
           "type": "public-key",
           "clientExtensionResults": {
@@ -230,7 +283,7 @@
               "rk": true
             }
           },
-          "authenticatorAttachment": "platform"
+          "authenticatorAttachment": "cross-platform"
         },
         "name": "HTTPS A 예비 패스키",
         "provider": "기타 / 확인하지 못함"
@@ -244,17 +297,19 @@
       "method": "POST",
       "path": "/api/auth/registration/options",
       "status": 200,
-      "request": {},
+      "request": {
+        "method": "device"
+      },
       "response": {
-        "challengeId": "aabed30b-8c9c-4124-958e-68d87b371ce6",
+        "challengeId": "1cb5eecd-4834-4ea5-9ba2-9c98821401f9",
         "options": {
-          "challenge": "F55OJIzmEvSOz0RN2eHii8g5weK17a1ehF51okrRT_A",
+          "challenge": "36UR6FXIFSw5QYRWV4tr_PtHgrokuEkeMi6s9yH2z3w",
           "rp": {
             "name": "J · 나만의 공간",
             "id": "project-apprenticeship-08.vercel.app"
           },
           "user": {
-            "id": "qenlDSj46XFIAPik2MsHE9ik3ZnIRDGRtAh7cL_Ewb8",
+            "id": "sLsou0latRTPBk-ymrZwmhExA1DC7Gf9cH3m_at7318",
             "name": "가상 HTTPS 사용자 B",
             "displayName": "가상 HTTPS 사용자 B"
           },
@@ -274,12 +329,15 @@
           "authenticatorSelection": {
             "residentKey": "required",
             "userVerification": "required",
-            "requireResidentKey": true
+            "requireResidentKey": true,
+            "authenticatorAttachment": "platform"
           },
           "extensions": {
             "credProps": true
           },
-          "hints": []
+          "hints": [
+            "client-device"
+          ]
         }
       }
     },
@@ -289,19 +347,19 @@
       "path": "/api/auth/registration/verify",
       "status": 201,
       "request": {
-        "challengeId": "aabed30b-8c9c-4124-958e-68d87b371ce6",
+        "challengeId": "1cb5eecd-4834-4ea5-9ba2-9c98821401f9",
         "response": {
-          "id": "o36KYMC5dEx0GCwRHWWxPHo3ZRY_j00MtikKMkRLjCM",
-          "rawId": "o36KYMC5dEx0GCwRHWWxPHo3ZRY_j00MtikKMkRLjCM",
+          "id": "w6KV6fAHdJ8Mty8Ul_001uAHB6QiGgvW8sYLCTEfqLQ",
+          "rawId": "w6KV6fAHdJ8Mty8Ul_001uAHB6QiGgvW8sYLCTEfqLQ",
           "response": {
-            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikqDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIKN-imDAuXRMdBgsER1lsTx6N2UWP49NDLYpCjJES4wjpQECAyYgASFYIIR5rprWpu9cuTzrJKj_0XgGpYy7-ZU1F3jNoqSlfQIBIlggHIDbgzlkw_v81gsFLs3hgVce7EoccJjqq5IK8JcvZ3g",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiRjU1T0pJem1FdlNPejBSTjJlSGlpOGc1d2VLMTdhMWVoRjUxb2tyUlRfQSIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
+            "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVikqDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIMOilenwB3SfDLcvFJf9NNbgBwekIhoL1vLGCwkxH6i0pQECAyYgASFYIFkjYK9cQ9dlmds8Tt4MMv8PLz8JScmyrHcsIGYm95uwIlggvCFHaclmpDqF_HCHbt7XyjdLrSYXBW2S8ypxec-vpKI",
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiMzZVUjZGWElGU3c1UVlSV1Y0dHJfUHRIZ3Jva3VFa2VNaTZzOXlIMnozdyIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
             "transports": [
               "internal"
             ],
             "publicKeyAlgorithm": -7,
-            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEhHmumtam71y5POskqP_ReAaljLv5lTUXeM2ipKV9AgEcgNuDOWTD-_zWCwUuzeGBVx7sShxwmOqrkgrwly9neA",
-            "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIKN-imDAuXRMdBgsER1lsTx6N2UWP49NDLYpCjJES4wjpQECAyYgASFYIIR5rprWpu9cuTzrJKj_0XgGpYy7-ZU1F3jNoqSlfQIBIlggHIDbgzlkw_v81gsFLs3hgVce7EoccJjqq5IK8JcvZ3g"
+            "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWSNgr1xD12WZ2zxO3gwy_w8vPwlJybKsdywgZib3m7C8IUdpyWakOoX8cIdu3tfKN0utJhcFbZLzKnF5z6-kog",
+            "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LBFAAAAAQECAwQFBgcIAQIDBAUGBwgAIMOilenwB3SfDLcvFJf9NNbgBwekIhoL1vLGCwkxH6i0pQECAyYgASFYIFkjYK9cQ9dlmds8Tt4MMv8PLz8JScmyrHcsIGYm95uwIlggvCFHaclmpDqF_HCHbt7XyjdLrSYXBW2S8ypxec-vpKI"
           },
           "type": "public-key",
           "clientExtensionResults": {
@@ -326,19 +384,19 @@
       "response": {
         "items": [
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-a-item-1",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-a-item-1",
             "title": "프로젝트 메모",
             "body": "가상 HTTPS 사용자 A의 가상 프로젝트 메모입니다. 실제 개인정보 없이 만든 연습용 자료 1입니다.",
             "category": "프로젝트 메모"
           },
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-a-item-2",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-a-item-2",
             "title": "지원 계획",
             "body": "가상 HTTPS 사용자 A의 가상 지원 계획입니다. 실제 개인정보 없이 만든 연습용 자료 2입니다.",
             "category": "지원 계획"
           },
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-a-item-3",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-a-item-3",
             "title": "학습 회고",
             "body": "가상 HTTPS 사용자 A의 가상 학습 회고입니다. 실제 개인정보 없이 만든 연습용 자료 3입니다.",
             "category": "학습 회고"
@@ -354,19 +412,19 @@
       "response": {
         "items": [
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-b-item-1",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-b-item-1",
             "title": "프로젝트 메모",
             "body": "가상 HTTPS 사용자 B의 가상 프로젝트 메모입니다. 실제 개인정보 없이 만든 연습용 자료 1입니다.",
             "category": "프로젝트 메모"
           },
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-b-item-2",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-b-item-2",
             "title": "지원 계획",
             "body": "가상 HTTPS 사용자 B의 가상 지원 계획입니다. 실제 개인정보 없이 만든 연습용 자료 2입니다.",
             "category": "지원 계획"
           },
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-b-item-3",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-b-item-3",
             "title": "학습 회고",
             "body": "가상 HTTPS 사용자 B의 가상 학습 회고입니다. 실제 개인정보 없이 만든 연습용 자료 3입니다.",
             "category": "학습 회고"
@@ -377,7 +435,7 @@
     {
       "label": "A to B",
       "method": "GET",
-      "path": "/api/private/items/https-b9929597-0982-4bf2-9700-665421f8fac2-b-item-1",
+      "path": "/api/private/items/https-ed6e8574-abdb-49d7-93ab-704af9a62296-b-item-1",
       "status": 403,
       "response": {
         "error": {
@@ -389,7 +447,7 @@
     {
       "label": "B to A",
       "method": "GET",
-      "path": "/api/private/items/https-b9929597-0982-4bf2-9700-665421f8fac2-a-item-1",
+      "path": "/api/private/items/https-ed6e8574-abdb-49d7-93ab-704af9a62296-a-item-1",
       "status": 403,
       "response": {
         "error": {
@@ -401,24 +459,24 @@
     {
       "label": "tampered account query",
       "method": "GET",
-      "path": "/api/private/items?userId=https-b9929597-0982-4bf2-9700-665421f8fac2-b",
+      "path": "/api/private/items?userId=https-ed6e8574-abdb-49d7-93ab-704af9a62296-b",
       "status": 200,
       "response": {
         "items": [
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-a-item-1",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-a-item-1",
             "title": "프로젝트 메모",
             "body": "가상 HTTPS 사용자 A의 가상 프로젝트 메모입니다. 실제 개인정보 없이 만든 연습용 자료 1입니다.",
             "category": "프로젝트 메모"
           },
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-a-item-2",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-a-item-2",
             "title": "지원 계획",
             "body": "가상 HTTPS 사용자 A의 가상 지원 계획입니다. 실제 개인정보 없이 만든 연습용 자료 2입니다.",
             "category": "지원 계획"
           },
           {
-            "id": "https-b9929597-0982-4bf2-9700-665421f8fac2-a-item-3",
+            "id": "https-ed6e8574-abdb-49d7-93ab-704af9a62296-a-item-3",
             "title": "학습 회고",
             "body": "가상 HTTPS 사용자 A의 가상 학습 회고입니다. 실제 개인정보 없이 만든 연습용 자료 3입니다.",
             "category": "학습 회고"
@@ -445,10 +503,10 @@
       "status": 200,
       "request": {},
       "response": {
-        "challengeId": "9deca67d-e73f-4df5-9804-0614517e80ef",
+        "challengeId": "0f9717d5-3580-4d51-9ca0-73307fd34edd",
         "options": {
           "rpId": "project-apprenticeship-08.vercel.app",
-          "challenge": "Ito-GBgZeyKMDSOS1Bq5HjvcGWvbRSs-rC4pa2C-X74",
+          "challenge": "bXbYndjJu66QvJFVCpB6sbGynFA2DYUtbQEIy_OlKyU",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -460,15 +518,15 @@
       "path": "/api/auth/authentication/verify",
       "status": 200,
       "request": {
-        "challengeId": "9deca67d-e73f-4df5-9804-0614517e80ef",
+        "challengeId": "0f9717d5-3580-4d51-9ca0-73307fd34edd",
         "response": {
-          "id": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
-          "rawId": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
+          "id": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
+          "rawId": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
           "response": {
             "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LAFAAAAAg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiSXRvLUdCZ1pleUtNRFNPUzFCcTVIanZjR1d2YlJTcy1yQzRwYTJDLVg3NCIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
-            "signature": "MEUCIELv2JWWBFK4c0okx34TR7BlkpgU50o7LOxato5rT9EyAiEAoSF7E8_7jALkY-eOWmzDQ6bxahfqvmi9e1NH6WGoyI0",
-            "userHandle": "JqIj0Tvgrua-SueIeEdhnPxLlVHkkjVHVXWMDg8i2V4"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiYlhiWW5kakp1NjZRdkpGVkNwQjZzYkd5bkZBMkRZVXRiUUVJeV9PbEt5VSIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlLCJvdGhlcl9rZXlzX2Nhbl9iZV9hZGRlZF9oZXJlIjoiZG8gbm90IGNvbXBhcmUgY2xpZW50RGF0YUpTT04gYWdhaW5zdCBhIHRlbXBsYXRlLiBTZWUgaHR0cHM6Ly9nb28uZ2wveWFiUGV4In0",
+            "signature": "MEQCIAvK7x4ichlr8YOW2adLbXI_La64OIfOyKot_eYrEYheAiAEjscAmoWTGeCo4jnIf3h8SILje5JFBZFvpW5rPcMnpA",
+            "userHandle": "39SJmLpVdK1F9KoD5VJpMSvy2NzlpO0jKcNHNAV6bKQ"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -484,15 +542,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "9deca67d-e73f-4df5-9804-0614517e80ef",
+        "challengeId": "0f9717d5-3580-4d51-9ca0-73307fd34edd",
         "response": {
-          "id": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
-          "rawId": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
+          "id": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
+          "rawId": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
           "response": {
             "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LAFAAAAAg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiSXRvLUdCZ1pleUtNRFNPUzFCcTVIanZjR1d2YlJTcy1yQzRwYTJDLVg3NCIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
-            "signature": "MEUCIELv2JWWBFK4c0okx34TR7BlkpgU50o7LOxato5rT9EyAiEAoSF7E8_7jALkY-eOWmzDQ6bxahfqvmi9e1NH6WGoyI0",
-            "userHandle": "JqIj0Tvgrua-SueIeEdhnPxLlVHkkjVHVXWMDg8i2V4"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiYlhiWW5kakp1NjZRdkpGVkNwQjZzYkd5bkZBMkRZVXRiUUVJeV9PbEt5VSIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlLCJvdGhlcl9rZXlzX2Nhbl9iZV9hZGRlZF9oZXJlIjoiZG8gbm90IGNvbXBhcmUgY2xpZW50RGF0YUpTT04gYWdhaW5zdCBhIHRlbXBsYXRlLiBTZWUgaHR0cHM6Ly9nb28uZ2wveWFiUGV4In0",
+            "signature": "MEQCIAvK7x4ichlr8YOW2adLbXI_La64OIfOyKot_eYrEYheAiAEjscAmoWTGeCo4jnIf3h8SILje5JFBZFvpW5rPcMnpA",
+            "userHandle": "39SJmLpVdK1F9KoD5VJpMSvy2NzlpO0jKcNHNAV6bKQ"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -538,10 +596,10 @@
       "status": 200,
       "request": {},
       "response": {
-        "challengeId": "fa6048ed-db74-4d87-9eb9-52d510598e1f",
+        "challengeId": "8086c65f-9a8b-4018-b399-8cdc4fb2d866",
         "options": {
           "rpId": "project-apprenticeship-08.vercel.app",
-          "challenge": "VHyOOaA56XZULnDG50osxlBysYfmep8DDvets3Gu-bk",
+          "challenge": "GucaGZ0KZKI0FMyqLDOwGCD1vCH2NhWrIk56_LR4itY",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -553,15 +611,15 @@
       "path": "/api/auth/authentication/verify",
       "status": 400,
       "request": {
-        "challengeId": "fa6048ed-db74-4d87-9eb9-52d510598e1f",
+        "challengeId": "8086c65f-9a8b-4018-b399-8cdc4fb2d866",
         "response": {
-          "id": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
-          "rawId": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
+          "id": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
+          "rawId": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
           "response": {
             "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LAFAAAAAw",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiVkh5T09hQTU2WFpVTG5ERzUwb3N4bEJ5c1lmbWVwOEREdmV0czNHdS1iayIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
-            "signature": "MEUCICYSI1Lh_biftikZvkBHLkU-90LtW0a2YLyz1qB6aso3AiEAzB-rGJ5G4MTVHR0oIwZxSyjCm8YRmq0aSm7fGDs2lgo",
-            "userHandle": "JqIj0Tvgrua-SueIeEdhnPxLlVHkkjVHVXWMDg8i2V4"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiR3VjYUdaMEtaS0kwRk15cUxET3dHQ0QxdkNIMk5oV3JJazU2X0xSNGl0WSIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
+            "signature": "MEUCIQD8GJMN0xQQLXHOk-LkKFpxtxpDgZwIhnVfrQHRzdJ6iAIgbDB0SVhgEXw_r_2iF7tJp7_66csoDPI3nLItpONLSGo",
+            "userHandle": "39SJmLpVdK1F9KoD5VJpMSvy2NzlpO0jKcNHNAV6bKQ"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -582,10 +640,10 @@
       "status": 200,
       "request": {},
       "response": {
-        "challengeId": "368aedce-5dc3-435b-b859-32c4d0e1cf33",
+        "challengeId": "ed99f5da-9346-499d-bcaa-d6931f607e11",
         "options": {
           "rpId": "project-apprenticeship-08.vercel.app",
-          "challenge": "ZZMruGQ-3JjWnKfloFzkn4pw99_PCEigTy07GJXQLEI",
+          "challenge": "iPTm5YGDv6PMomopcuHt0lSiB4bdkAJPcYdYIM6357Q",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -597,15 +655,15 @@
       "path": "/api/auth/authentication/verify",
       "status": 200,
       "request": {
-        "challengeId": "368aedce-5dc3-435b-b859-32c4d0e1cf33",
+        "challengeId": "ed99f5da-9346-499d-bcaa-d6931f607e11",
         "response": {
-          "id": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
-          "rawId": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
+          "id": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
+          "rawId": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
           "response": {
             "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LAFAAAABA",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiWlpNcnVHUS0zSmpXbktmbG9GemtuNHB3OTlfUENFaWdUeTA3R0pYUUxFSSIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlLCJvdGhlcl9rZXlzX2Nhbl9iZV9hZGRlZF9oZXJlIjoiZG8gbm90IGNvbXBhcmUgY2xpZW50RGF0YUpTT04gYWdhaW5zdCBhIHRlbXBsYXRlLiBTZWUgaHR0cHM6Ly9nb28uZ2wveWFiUGV4In0",
-            "signature": "MEQCIE0O2ueOHBajNhKNiRZ_fh5BPV9OjvjAFxHMRy0t-1JUAiAyJBt_BSG3TzO6j_Y6gIcJVmn2sWt4mNIlukrAClH8XA",
-            "userHandle": "JqIj0Tvgrua-SueIeEdhnPxLlVHkkjVHVXWMDg8i2V4"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiaVBUbTVZR0R2NlBNb21vcGN1SHQwbFNpQjRiZGtBSlBjWWRZSU02MzU3USIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
+            "signature": "MEYCIQDlWCW_UoGSkFejc1RX_2EdlTFNh77SHyeUb_w6W6nDpwIhALGOaDlzQmImzUokRhm0hBVlVAlSb64Q_0mOEdITW5Oz",
+            "userHandle": "39SJmLpVdK1F9KoD5VJpMSvy2NzlpO0jKcNHNAV6bKQ"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -619,7 +677,7 @@
     {
       "label": "delete backup passkey",
       "method": "DELETE",
-      "path": "/api/passkeys/nUemETFYk7gR3kFf_v5xHAjLUde0jHXNUWNjGlSQllI",
+      "path": "/api/passkeys/r7afHWvKysiOz8z-4VM1R6D3TJS1eNBT3cRXR0H4mxk",
       "status": 200,
       "request": {},
       "response": {
@@ -630,7 +688,7 @@
     {
       "label": "last passkey delete rejected",
       "method": "DELETE",
-      "path": "/api/passkeys/C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
+      "path": "/api/passkeys/nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
       "status": 409,
       "response": {
         "error": {
@@ -658,10 +716,10 @@
       "status": 200,
       "request": {},
       "response": {
-        "challengeId": "038a6cab-d247-4f78-aede-f330b541b096",
+        "challengeId": "bcedfb4c-c639-4394-99a1-d0ccb2e53119",
         "options": {
           "rpId": "project-apprenticeship-08.vercel.app",
-          "challenge": "KF0RBxKUOEwDPX_TR0n8HRZLBB5wUTQIFb7TxsuiXtU",
+          "challenge": "LkdHZud7LiF07zrHyNzWtIL80qi4zpWnk1udvv_Pg6o",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -673,15 +731,15 @@
       "path": "/api/auth/authentication/verify",
       "status": 400,
       "request": {
-        "challengeId": "038a6cab-d247-4f78-aede-f330b541b096",
+        "challengeId": "bcedfb4c-c639-4394-99a1-d0ccb2e53119",
         "response": {
-          "id": "nUemETFYk7gR3kFf_v5xHAjLUde0jHXNUWNjGlSQllI",
-          "rawId": "nUemETFYk7gR3kFf_v5xHAjLUde0jHXNUWNjGlSQllI",
+          "id": "r7afHWvKysiOz8z-4VM1R6D3TJS1eNBT3cRXR0H4mxk",
+          "rawId": "r7afHWvKysiOz8z-4VM1R6D3TJS1eNBT3cRXR0H4mxk",
           "response": {
             "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LAFAAAAAg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiS0YwUkJ4S1VPRXdEUFhfVFIwbjhIUlpMQkI1d1VUUUlGYjdUeHN1aVh0VSIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
-            "signature": "MEUCIQCoQovaM0R_4gE6bxeD3Gzo2fCAwdiPMmhAwAfXaKyN3gIgG9kgWolhi-CeD2XC6jwptnLu3I2fd7aCJ8mEaTpbCZo",
-            "userHandle": "JqIj0Tvgrua-SueIeEdhnPxLlVHkkjVHVXWMDg8i2V4"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiTGtkSFp1ZDdMaUYwN3pySHlOeld0SUw4MHFpNHpwV25rMXVkdnZfUGc2byIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
+            "signature": "MEYCIQDmab6TZx8AiGVqsYAMxvwfYcCbr_aN4scjoqfl1pVefwIhAMREYwWrMZ8XtR_DsGF8wWgw5pYwJ2gwODbHS6tRc2B3",
+            "userHandle": "39SJmLpVdK1F9KoD5VJpMSvy2NzlpO0jKcNHNAV6bKQ"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -702,10 +760,10 @@
       "status": 200,
       "request": {},
       "response": {
-        "challengeId": "6b764929-7fc6-43be-87e0-12c9e7e83ab7",
+        "challengeId": "07506cec-b43b-4510-bbcc-f6ed5029e9ec",
         "options": {
           "rpId": "project-apprenticeship-08.vercel.app",
-          "challenge": "SDzMzuY8pBul54F9iyXP_8pmDSbHpQ56zcJdX238fBs",
+          "challenge": "kE-TAUNuSUtyUOTQsQl9NXTxzKlepR9nWeovPGsJv_0",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -717,15 +775,15 @@
       "path": "/api/auth/authentication/verify",
       "status": 200,
       "request": {
-        "challengeId": "6b764929-7fc6-43be-87e0-12c9e7e83ab7",
+        "challengeId": "07506cec-b43b-4510-bbcc-f6ed5029e9ec",
         "response": {
-          "id": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
-          "rawId": "C15AXD7uymt4y3q5qtKqPEihMoAQ2jZRDAFabd26b98",
+          "id": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
+          "rawId": "nwM0Y-U3g--EE1NS0eEQV7vFVwzIQc_3qhlf3rqkw-o",
           "response": {
             "authenticatorData": "qDfWAGCZK1e0c6SNj2QZDq_BWR_FwEMXC9vxnDYP-LAFAAAABQ",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiU0R6TXp1WThwQnVsNTRGOWl5WFBfOHBtRFNiSHBRNTZ6Y0pkWDIzOGZCcyIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
-            "signature": "MEYCIQCWMn9lSwdLEKu8I-SxGuHo33LBaZeuDu2J5h1_-7r27QIhAPlwUTqLHEpifkEWo4a9olaLDV-gBAX_PRLyuw1Gry9z",
-            "userHandle": "JqIj0Tvgrua-SueIeEdhnPxLlVHkkjVHVXWMDg8i2V4"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoia0UtVEFVTnVTVXR5VU9UUXNRbDlOWFR4ektsZXBSOW5XZW92UEdzSnZfMCIsIm9yaWdpbiI6Imh0dHBzOi8vcHJvamVjdC1hcHByZW50aWNlc2hpcC0wOC52ZXJjZWwuYXBwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ",
+            "signature": "MEUCIQDmD_6PYOihXrmvZNQCsJvyiwX2FTT0Kr2j-l7yeHaWUgIgG-bJHqc456OvCYl2tdRB_K5EwAEAlfGedTWDs4CZlok",
+            "userHandle": "39SJmLpVdK1F9KoD5VJpMSvy2NzlpO0jKcNHNAV6bKQ"
           },
           "type": "public-key",
           "clientExtensionResults": {},

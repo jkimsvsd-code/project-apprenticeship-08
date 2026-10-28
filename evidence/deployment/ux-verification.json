@@ -1,9 +1,9 @@
 {
-  "executedAt": "2026-10-28T06:35:51.167Z",
+  "executedAt": "2026-10-28T06:46:20.914Z",
   "origin": "https://project-apprenticeship-08.vercel.app",
-  "deployedSourceCommit": "15acf07168f73803044da11683d97b75f597e8f1",
-  "deploymentId": "dpl_2mAULuZkFqLuvWXEvZE8om7oJuAE",
-  "verificationScriptSha256": "ac609fa615529cba6532d274eb40c678d1930fa1579031218451ec988a4976c9",
+  "deployedSourceCommit": "2deaa632decc68309bd5d4d656f97da50db49de3",
+  "deploymentId": "dpl_5p6KvxEoYQjW6kns8tMWf7Bdf5Sh",
+  "verificationScriptSha256": "c7c758e8d8682165cdbb31ca8baa9837a31013ce092579dcc7bcd3b6c329146e",
   "passed": true,
   "syntheticAccountRemoved": true,
   "physicalDeviceVerified": false,
@@ -20,7 +20,6 @@
       "differentRetryChallenges": true,
       "controlledBrowserClockFor60SecondTimeout": true
     },
-    "environmentComponentExecutedAt": "2026-10-28T06:33:32.646Z",
     "U3": {
       "externalNextConstrainedToVault": true,
       "administratorEntryAndLoginReturn": "see https-verification.json adminEntry"
@@ -44,11 +43,10 @@
         320,
         375
       ],
+      "publicLoginLockedAndPasskeyOverflow": false,
       "axeViolations": 0,
       "loginAndDialogKeyboard": true,
-      "expandedMemoAndHelpChecked": true,
-      "publicLoginLockedAndPasskeyOverflow": false
+      "expandedMemoAndHelpChecked": true
     }
-  },
-  "metadataNote": "Overflow field label clarified after execution: widths asserted for public/login/locked/passkeys; private content also passed axe. Script checksum refers to the executed version."
+  }
 }

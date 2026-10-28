@@ -1,9 +1,9 @@
 {
-  "executedAt": "2026-10-28T06:33:32.646Z",
+  "executedAt": "2026-10-28T06:46:20.914Z",
   "origin": "https://project-apprenticeship-08.vercel.app",
-  "deployedSourceCommit": "15acf07168f73803044da11683d97b75f597e8f1",
-  "verificationScriptSha256": "535390b78c085925c6468999d8714c23df1fa92cfd77be48d4756bb8c19e3d76",
-  "scope": "Only U1 and U2 completed before the later interactive audit timed out; no claim for that later stage",
+  "deployedSourceCommit": "2deaa632decc68309bd5d4d656f97da50db49de3",
+  "verificationScriptSha256": "c7c758e8d8682165cdbb31ca8baa9837a31013ce092579dcc7bcd3b6c329146e",
+  "scope": "U1 and U2 components of the successful full UX audit; timestamp is full-audit completion",
   "passed": true,
   "syntheticAccountRemoved": true,
   "checks": {

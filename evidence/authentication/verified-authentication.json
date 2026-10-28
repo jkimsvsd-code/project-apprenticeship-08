@@ -1,8 +1,8 @@
 {
-  "executedAt": "2026-10-28T06:42:56.172Z",
+  "executedAt": "2026-10-28T06:46:24.737Z",
   "timezone": "Asia/Seoul",
   "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
-  "sourceDigest": "c8e8b00b5e189f280e2604c8a7fe67ef5a03e614478c230ed4989631d599b927",
+  "sourceDigest": "db78ae7400f3e194f976735ec24b0b28d992c28fd2b383fcc9e371b977d391dc",
   "success": {
     "options": {
       "method": "POST",
@@ -10,10 +10,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "d1c3bfe8-d312-4243-b9e3-8cb28dd2287c",
+        "challengeId": "918d21ee-c794-418a-bafb-835d4ab88bef",
         "options": {
           "rpId": "localhost",
-          "challenge": "GEnv64eGoz2tMrV4kCYDvwHk4-Ki2IUMe9yKahzlm6M",
+          "challenge": "2hq3UNzUUMqLWRBFA9Fm9gcFydL3D5rsmH6xEnzcuXs",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -23,15 +23,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "d1c3bfe8-d312-4243-b9e3-8cb28dd2287c",
+        "challengeId": "918d21ee-c794-418a-bafb-835d4ab88bef",
         "response": {
-          "id": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
-          "rawId": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
+          "id": "UEpjztV7hY100lvZvlPofUO0bfHWMsh4bAmFvuidA40",
+          "rawId": "UEpjztV7hY100lvZvlPofUO0bfHWMsh4bAmFvuidA40",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAABA",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiR0VudjY0ZUdvejJ0TXJWNGtDWUR2d0hrNC1LaTJJVU1lOXlLYWh6bG02TSIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-            "signature": "MEYCIQDrOjASWmwrVpdKfaP1ZSXbjEeLbGPstjG4zVBXJUKDXAIhAIBiSjFQpNfT-NR0zUdLYJBYpdFdzMmGcSomT3t7ggHU",
-            "userHandle": "FQ9-qSta3WQlBcJMrNeyf80XN4gANo5q-u3xJr3dR_k"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiMmhxM1VOelVVTXFMV1JCRkE5Rm05Z2NGeWRMM0Q1cnNtSDZ4RW56Y3VYcyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "signature": "MEUCIQCydxQCFkIqCc1fZSD1Y4b6rLg06yM34AqeuMvvZuMW6QIgN3b-rm4kXaZjG1e9kfyqe26O8iTOHlBAW6Vvi_O1e3Y",
+            "userHandle": "fi_BZyqh1zXxFkRcA5mkjb6gBs9apt-nLVNoKg20yeY"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -51,10 +51,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "94f3438f-7551-4183-b443-8532c47cdfdc",
+        "challengeId": "736d8bc5-3d1e-4078-ad92-c958feeaea2b",
         "options": {
           "rpId": "localhost",
-          "challenge": "EkbTAZfraVkH6TefCCtzdYlPLt6tsYAl4wa6YEzhj4k",
+          "challenge": "Z6vhRbxr0tFINKIAgDn45HrqvXSQTbbv_EQiyXaKx18",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -64,15 +64,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "94f3438f-7551-4183-b443-8532c47cdfdc",
+        "challengeId": "736d8bc5-3d1e-4078-ad92-c958feeaea2b",
         "response": {
-          "id": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
-          "rawId": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
+          "id": "UEpjztV7hY100lvZvlPofUO0bfHWMsh4bAmFvuidA40",
+          "rawId": "UEpjztV7hY100lvZvlPofUO0bfHWMsh4bAmFvuidA40",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAw",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiRWtiVEFaZnJhVmtINlRlZkNDdHpkWWxQTHQ2dHNZQWw0d2E2WUV6aGo0ayIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
-            "signature": "MEYCIQDLgS7RXHPWuBmLD1VKiO74FrCPaRdxrddeVcSYH-FOGAIhALsUhZiIKeXVwoEDJLEtdo7fJV1xLR6K9KZX8gsEw0_L",
-            "userHandle": "FQ9-qSta3WQlBcJMrNeyf80XN4gANo5q-u3xJr3dR_k"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiWjZ2aFJieHIwdEZJTktJQWdEbjQ1SHJxdlhTUVRiYnZfRVFpeVhhS3gxOCIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "signature": "MEUCIEyDPxNI7_QDHnosGvBIEBssfGRzmaOD4v_FLmHnUU5jAiEAhLRcVtp3vx4sOUHzUGkEeC29yN5H_pLXix5TqSwMlxo",
+            "userHandle": "fi_BZyqh1zXxFkRcA5mkjb6gBs9apt-nLVNoKg20yeY"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -90,15 +90,15 @@
   },
   "reusedChallenge": {
     "request": {
-      "challengeId": "d61b0ed4-9da6-42e0-9ee5-ab8fedcbac54",
+      "challengeId": "1af33acf-1bc6-435d-adac-8431c93687cc",
       "response": {
-        "id": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
-        "rawId": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
+        "id": "UEpjztV7hY100lvZvlPofUO0bfHWMsh4bAmFvuidA40",
+        "rawId": "UEpjztV7hY100lvZvlPofUO0bfHWMsh4bAmFvuidA40",
         "response": {
           "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAg",
-          "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiTWdaX3NKNmg0SUhnMGpmQUcxTTFRWVpyclZRX2ZvUHEzaHFLdHpNVmlBOCIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
-          "signature": "MEUCIBeDwsEGcuyaN9IdYnrQSe-FIleLC7DoHiUffPvhOi66AiEAu-Ni6KwMJkcS_duxFB8eAd9nA98hKRzUlW8M1j3yjDY",
-          "userHandle": "FQ9-qSta3WQlBcJMrNeyf80XN4gANo5q-u3xJr3dR_k"
+          "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiTXZ6UkdIU0s3RmFVVzU1MnZNUkJRN3JBVUFTYWI1bjhtT3BxNjgyaEozbyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+          "signature": "MEUCIB-wNLBr_73fsZ-2L8WOkAm8nMWJbrz1Qy_WwenxBp0vAiEAsEyPHlucla_6Pza8clYekjsDZAVIuCN3-rbMa2BeppM",
+          "userHandle": "fi_BZyqh1zXxFkRcA5mkjb6gBs9apt-nLVNoKg20yeY"
         },
         "type": "public-key",
         "clientExtensionResults": {},
