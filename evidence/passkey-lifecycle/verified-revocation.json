@@ -1,8 +1,8 @@
 {
-  "executedAt": "2026-10-28T06:26:17.759Z",
+  "executedAt": "2026-10-28T06:42:56.172Z",
   "timezone": "Asia/Seoul",
   "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
-  "sourceDigest": "b00832cbf14e2367389345b5c7734963791709236b39014404ac0119b524eceb",
+  "sourceDigest": "c8e8b00b5e189f280e2604c8a7fe67ef5a03e614478c230ed4989631d599b927",
   "registeredCount": 2,
   "deleted": {
     "name": "A 예비 패스키",
@@ -15,10 +15,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "08a8557a-1dda-4f9f-96ec-6702a2cc5f24",
+        "challengeId": "4784582a-a69d-4d3f-acd5-d76d75df4c85",
         "options": {
           "rpId": "localhost",
-          "challenge": "18a1HBlYhBexb-F676UwUbMtU8f9YIJ8vakR7yq5H2A",
+          "challenge": "5nwOyV2B2e99wA5zcyUEhaZbeqkmz50VbogI18EX0I8",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -28,15 +28,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "08a8557a-1dda-4f9f-96ec-6702a2cc5f24",
+        "challengeId": "4784582a-a69d-4d3f-acd5-d76d75df4c85",
         "response": {
-          "id": "oBxJvvtA1mj1IgSrtFRwVqM5nyzBgtHzmBBMqQap1qM",
-          "rawId": "oBxJvvtA1mj1IgSrtFRwVqM5nyzBgtHzmBBMqQap1qM",
+          "id": "taUgz25cJvZcQOstvT1HWu8oNFBmpV9jGHetkCNvSD4",
+          "rawId": "taUgz25cJvZcQOstvT1HWu8oNFBmpV9jGHetkCNvSD4",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiMThhMUhCbFloQmV4Yi1GNjc2VXdVYk10VThmOVlJSjh2YWtSN3lxNUgyQSIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-            "signature": "MEQCID0ddJelZCVR3zOdQqHbuacJOax_F_mK871V-QNjLDZTAiBTnrkODlK9WmQTYTnAVcrDTJHyjX5RoynzgJ2G52lCbw",
-            "userHandle": "vKDDr-VysLB5S9cCVTQ7zLCzdhq11ZOX-0pV_Le8GCA"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiNW53T3lWMkIyZTk5d0E1emN5VUVoYVpiZXFrbXo1MFZib2dJMThFWDBJOCIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
+            "signature": "MEUCIF0t5qQogytckbuMxN5F0BAfvrEpGjwKUs3GFPr42OgXAiEAskjcsDkRRlTJOri6zGA8h5h00Zgsy4H1BKvdpN6iJa0",
+            "userHandle": "FQ9-qSta3WQlBcJMrNeyf80XN4gANo5q-u3xJr3dR_k"
           },
           "type": "public-key",
           "clientExtensionResults": {},
@@ -59,10 +59,10 @@
       "request": {},
       "status": 200,
       "response": {
-        "challengeId": "cbd48bcd-f8e5-477f-95cc-029d03db8ff1",
+        "challengeId": "50a39ae2-8c5c-40f3-b6ab-f5ae9e9bae8e",
         "options": {
           "rpId": "localhost",
-          "challenge": "6lTZMsYRyHAq-dCpFMyq5oXFn0n-2sjfVlEEFaGn0K4",
+          "challenge": "tMFN-y-6aXyBUTIclFOBw-ifEW-otFZrtKVC2pGiK1k",
           "timeout": 60000,
           "userVerification": "required"
         }
@@ -72,15 +72,15 @@
       "method": "POST",
       "path": "/api/auth/authentication/verify",
       "request": {
-        "challengeId": "cbd48bcd-f8e5-477f-95cc-029d03db8ff1",
+        "challengeId": "50a39ae2-8c5c-40f3-b6ab-f5ae9e9bae8e",
         "response": {
-          "id": "MocrcglJ8P7jAv73n-Mj9mF6_tIxUNxrUds3aGorBI0",
-          "rawId": "MocrcglJ8P7jAv73n-Mj9mF6_tIxUNxrUds3aGorBI0",
+          "id": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
+          "rawId": "-KCqP3ri34QNE2dwhDC401YsECDjL0qYBsO7sjxd_wo",
           "response": {
             "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAABg",
-            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiNmxUWk1zWVJ5SEFxLWRDcEZNeXE1b1hGbjBuLTJzamZWbEVFRmFHbjBLNCIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-            "signature": "MEYCIQD7u_N_vxV2asIASPQt78DY6hYpJtNhRuq4F1bvnl_lzAIhANS1Uzv5w85PKjDHbvcMd-YizmbFKxKY8A2-KqWFXBaX",
-            "userHandle": "vKDDr-VysLB5S9cCVTQ7zLCzdhq11ZOX-0pV_Le8GCA"
+            "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoidE1GTi15LTZhWHlCVVRJY2xGT0J3LWlmRVctb3RGWnJ0S1ZDMnBHaUsxayIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDMxOCIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+            "signature": "MEYCIQCTCRwqgFAFhk7-xYWpKU0BIX913JeeTUDpX5ePvrSQWQIhAOCWJyDeCFmCEFx-DKahV24mlxTmJfw8n2Y2eYXVB6-H",
+            "userHandle": "FQ9-qSta3WQlBcJMrNeyf80XN4gANo5q-u3xJr3dR_k"
           },
           "type": "public-key",
           "clientExtensionResults": {},

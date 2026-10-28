@@ -6,13 +6,13 @@ import {
 import type { Config } from '../config/env.js';
 import type { Session, Enrollment, Credential } from '../storage/store.js';
 import type { DataStore } from '../storage/contracts.js';
-import type { Provider } from '../../shared/contracts.js';
+import type { Provider, RegistrationMethod } from '../../shared/contracts.js';
 import { invalidCeremony, unauthorized } from './errors.js';
 
 export class WebAuthnService {
   constructor(private store: DataStore, private config: Config) {}
 
-  async registrationOptions(flowHash: string, session: Session | null, enrollment: Enrollment | null) {
+  async registrationOptions(flowHash: string, session: Session | null, enrollment: Enrollment | null, method: RegistrationMethod = 'auto') {
     if (!session && !enrollment) throw unauthorized();
     const user = session?.user ?? { id: enrollment!.userId, displayName: enrollment!.displayName, handle: enrollment!.handle };
     const options = await generateRegistrationOptions({
@@ -20,6 +20,7 @@ export class WebAuthnService {
       userID: new Uint8Array(Buffer.from(user.handle, 'base64url')), userName: user.displayName, userDisplayName: user.displayName,
       attestationType: 'none', timeout: 60_000,
       authenticatorSelection: { residentKey: 'required', userVerification: 'required' },
+      preferredAuthenticatorType: ({ device: 'localDevice', phone: 'remoteDevice', 'security-key': 'securityKey', auto: undefined } as const)[method],
       supportedAlgorithmIDs: [-7, -257],
       excludeCredentials: (await this.store.credentials(user.id)).map(credential => ({ id: credential.id, transports: credential.transports })),
     });

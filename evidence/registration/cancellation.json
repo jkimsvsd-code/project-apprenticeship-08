@@ -1,11 +1,11 @@
 {
-  "executedAt": "2026-10-28T06:26:11.479Z",
+  "executedAt": "2026-10-28T06:42:50.916Z",
   "timezone": "Asia/Seoul",
-  "sourceDigest": "b00832cbf14e2367389345b5c7734963791709236b39014404ac0119b524eceb",
+  "sourceDigest": "c8e8b00b5e189f280e2604c8a7fe67ef5a03e614478c230ed4989631d599b927",
   "environment": "Chromium virtual authenticator; no real provider",
   "questions": [
-    "Zb52DQxP4awf24VotEZ5SYsSW5Lz4a3OWuXZmgtb0nI",
-    "z6_Rncpr6R570oi98YamJKWiYQGCdAAszeBuVZjGguc"
+    "wjnHlGKPECBbDb1Zxn_jMGbIDiNUnrcAnjPUQrjT0DE",
+    "dOOIdvf2Ew0pKie4iT4MfMrz7vdGv9nfmtUDIi4ZyiU"
   ],
   "cancelledAccountExists": false,
   "cancelledCredentialCount": 0,

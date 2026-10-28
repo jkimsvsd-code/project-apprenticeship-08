@@ -3,7 +3,7 @@ import {
   startAuthentication, startRegistration, WebAuthnAbortService,
   type PublicKeyCredentialCreationOptionsJSON, type PublicKeyCredentialRequestOptionsJSON,
 } from '@simplewebauthn/browser';
-import type { Provider } from '../../shared/contracts.js';
+import type { Provider, RegistrationMethod } from '../../shared/contracts.js';
 import { ApiError, post } from '../shared/api.js';
 
 type Phase = 'ready' | 'preparing' | 'device' | 'verifying' | 'success' | 'cancelled' | 'timeout' | 'error';
@@ -26,7 +26,7 @@ export function useCeremony() {
     if (active.current) { reason.current = 'cancelled'; abort.current?.abort(); WebAuthnAbortService.cancelCeremony(); }
   }, []);
   function update(next: Phase, text = messages[next]) { if (mounted.current) { setPhase(next); setMessage(text); } }
-  async function run(kind: 'registration' | 'authentication', fields: { name: string; provider: Provider } | null, onSuccess: () => Promise<void>) {
+  async function run(kind: 'registration' | 'authentication', fields: { name: string; provider: Provider; method: RegistrationMethod } | null, onSuccess: () => Promise<void>) {
     if (active.current) return;
     if (!window.isSecureContext || typeof window.PublicKeyCredential !== 'function') { update('error', '현재 환경에서는 패스키를 사용할 수 없어요. 아래 환경 안내를 확인해 주세요.'); return; }
     active.current = true; reason.current = null; abort.current = new AbortController();
@@ -35,7 +35,7 @@ export function useCeremony() {
     try {
       update('preparing');
       const result = await post<{ challengeId: string; options: PublicKeyCredentialCreationOptionsJSON | PublicKeyCredentialRequestOptionsJSON }>(
-        `/api/auth/${kind}/options`, {}, { signal: abort.current.signal },
+        `/api/auth/${kind}/options`, fields ? { method: fields.method } : {}, { signal: abort.current.signal },
       );
       challengeId = result.challengeId;
       if (!mounted.current || reason.current) throw new DOMException('Cancelled', 'AbortError');
@@ -47,7 +47,7 @@ export function useCeremony() {
       clearTimeout(timer);
       if (reason.current || !mounted.current) throw new DOMException('Cancelled', 'AbortError');
       update('verifying');
-      await post(`/api/auth/${kind}/verify`, { challengeId, response, ...fields }, { signal: abort.current.signal });
+      await post(`/api/auth/${kind}/verify`, { challengeId, response, ...(fields ? { name: fields.name, provider: fields.provider } : {}) }, { signal: abort.current.signal });
       challengeId = undefined;
       update('success');
       await onSuccess();
@@ -59,6 +59,7 @@ export function useCeremony() {
         update(name === 'NotAllowedError' || name === 'AbortError' ? 'cancelled' : 'error',
           name === 'InvalidStateError' ? '선택한 인증기에 이미 등록된 패스키가 있어요. 브라우저·기기 창의 ‘다른 옵션’에서 별도 저장소나 보안 키를 선택해 주세요. 저장소 메모를 바꿔도 실제 저장소는 바뀌지 않아요.'
           : name === 'NotAllowedError' ? '기기 확인이 취소되었거나 시간이 지났어요. 준비되면 다시 시도해 주세요.'
+          : name === 'ConstraintError' || name === 'NotSupportedError' ? '이 브라우저에서 선택한 등록 방식을 사용할 수 없어요. ‘브라우저에서 선택’을 시도하거나, 원하는 저장소가 설정된 Chrome·Safari에서 열어 주세요.'
           : name === 'SecurityError' ? '이 주소에서 패스키를 사용할 수 없어요. 원래 등록한 주소인지 확인해 주세요.'
           : messages[name === 'AbortError' ? 'cancelled' : 'error']);
       }
@@ -70,7 +71,7 @@ export function useCeremony() {
   }
   return {
     phase, message, busy: ['preparing', 'device', 'verifying'].includes(phase),
-    register: (fields: { name: string; provider: Provider }, success: () => Promise<void>) => run('registration', fields, success),
+    register: (fields: { name: string; provider: Provider; method: RegistrationMethod }, success: () => Promise<void>) => run('registration', fields, success),
     login: (success: () => Promise<void>) => run('authentication', null, success),
     cancel: () => { reason.current = 'cancelled'; abort.current?.abort(); WebAuthnAbortService.cancelCeremony(); },
   };

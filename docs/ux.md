@@ -73,3 +73,5 @@
 저장소 메모 회귀 증거: [자동 결과](../evidence/ux/verified-storage-memo.json), [데스크톱](../evidence/ux/storage-memo-desktop.png), [모바일](../evidence/ux/storage-memo-mobile.png). 실제 제공자 저장 위치를 검증한 결과가 아닙니다.
 
 최종 운영 재점검: [U1–U6 JSON](../evidence/deployment/ux-verification.json). U1의 미지원 플래그와 U2의 시간 초과 시계는 의도적으로 제어했으며, 실제 장치 고장·생체 인증 검증은 아닙니다. 취소·시간 제어와 일반 등록·접근성 검사는 독립 컨텍스트로 분리했습니다.
+
+후속 보강: 등록 방식 선택은 서버 options의 platform/cross-platform 및 client-device/hybrid/security-key에 실제 반영됩니다. 저장소 메모와 구분하며, iPhone의 Chrome/Google 자동완성 준비 및 회사별 제공자 선택의 지원 조건을 안내합니다.

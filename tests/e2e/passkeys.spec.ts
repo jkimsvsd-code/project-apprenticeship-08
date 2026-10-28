@@ -20,10 +20,10 @@ async function authenticator(context: BrowserContext, page: Page, auto = true) {
   } });
   return { cdp, id: authenticatorId as string };
 }
-async function replaceAuthenticator(cdp: CDPSession, previous: string, credential?: VirtualCredential) {
+async function replaceAuthenticator(cdp: CDPSession, previous: string, credential?: VirtualCredential, transport: 'internal' | 'usb' = 'internal') {
   await cdp.send('WebAuthn.removeVirtualAuthenticator', { authenticatorId: previous });
   const { authenticatorId } = await cdp.send('WebAuthn.addVirtualAuthenticator', { options: {
-    protocol: 'ctap2', transport: 'internal', hasResidentKey: true, hasUserVerification: true,
+    protocol: 'ctap2', transport, hasResidentKey: true, hasUserVerification: true,
     isUserVerified: true, automaticPresenceSimulation: true,
   } });
   if (credential) await cdp.send('WebAuthn.addCredential', { authenticatorId, credential });
@@ -174,7 +174,7 @@ test('실제 WebAuthn 등록·로그인·격리·재사용 거절·패스키 폐
     await expect(a.getByText('예비 열쇠 하나, 더 든든하게.')).toBeVisible();
     await a.getByRole('button', { name: '예비 패스키 추가', exact: false }).click();
     await expect(a.getByRole('heading', { name: '두 번째 패스키 등록 방법' })).toBeVisible();
-    await expect(a.getByText('실제 저장소는 다음에 열리는 브라우저·기기의 인증 창에서 선택해요.', { exact: false })).toBeVisible();
+    await expect(a.getByLabel('패스키 등록 방식')).toHaveValue('device');
     await expect(a.getByLabel('기록할 저장소 메모')).toBeHidden();
     await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
     const duplicateAttempts: unknown[] = [];
@@ -188,7 +188,7 @@ test('실제 WebAuthn 등록·로그인·격리·재사용 거절·패스키 폐
       const options = (await response.json()).options;
       await expect(a.getByRole('alert')).toContainText('선택한 인증기에 이미 등록된 패스키가 있어요');
       await expect(a.getByRole('alert')).toContainText('저장소 메모를 바꿔도 실제 저장소는 바뀌지 않아요');
-      expect(response.request().postDataJSON()).toEqual({});
+      expect(response.request().postDataJSON()).toEqual({ method: 'device' });
       expect(options.authenticatorSelection).toEqual((first.options.response as any).options.authenticatorSelection);
       expect(withStore(store => store.credentials('test-account-a').length)).toBe(1);
       await expect(a.locator('.passkey-list li')).toHaveCount(1);
@@ -199,8 +199,11 @@ test('실제 WebAuthn 등록·로그인·격리·재사용 거절·패스키 폐
     await a.screenshot({ path: 'evidence/ux/storage-memo-desktop.png', fullPage: true });
     await a.getByLabel('기록할 저장소 메모').selectOption('기타 / 확인하지 못함');
     await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
-    authAId = await replaceAuthenticator(authA.cdp, authAId);
+    authAId = await replaceAuthenticator(authA.cdp, authAId, undefined, 'usb');
+    await a.getByLabel('패스키 등록 방식').selectOption('security-key');
     const second = await register(a, 'A 예비 패스키', false);
+    expect((second.options.response as any).options.hints).toEqual(['security-key']);
+    expect((second.options.response as any).options.authenticatorSelection.authenticatorAttachment).toBe('cross-platform');
     const secondCredential = await savedCredential(authA.cdp, authAId);
     await expect(a.locator('.passkey-list li')).toHaveCount(2);
     await expect(a.getByText('저장소 메모 없음 / 확인하지 못함', { exact: true })).toHaveCount(2);

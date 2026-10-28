@@ -49,6 +49,24 @@ QR은 다른 기기를 연결하는 경로입니다. 다른 기기라도 같은 
 
 ‘저장소 메모 남기기’는 선택적인 사용자 기록입니다. 값을 바꿔도 실제 저장소가 바뀌지 않으며, 서비스가 제공자를 확인했다는 뜻도 아닙니다. 실제 저장처는 기기나 비밀번호 관리자의 패스키 목록에서 사이트 주소로 확인합니다. 자동 검증의 저장 위치는 Chrome CDP 소프트웨어 인증기이며 실제 소유자의 제공자 확인과 별개입니다.
 
+
+## 실제 등록 방식 선택
+
+‘패스키 등록 방식’은 저장소 메모와 다릅니다. 선택값은 서버가 발급하는 실제 WebAuthn 옵션에 적용됩니다.
+
+| 방식 | 브라우저 요청 |
+| --- | --- |
+| 이 기기의 저장소 | platform + client-device |
+| 다른 기기(QR) | cross-platform + hybrid |
+| USB·NFC 보안 키 | cross-platform + security-key |
+| 브라우저에서 선택 | 제공자/기기 선택을 브라우저 기본 동작에 맡김 |
+
+Google·iCloud 같은 회사별 저장소를 지정하는 WebAuthn API는 없습니다. 최종 제공자는 지원 브라우저·OS의 인증 창에서 사용자가 선택하며, hints는 경로를 제안하는 값입니다. 기존 키 제외·사용자 확인(UV)·실제 서명 검증은 유지합니다.
+
+사용자는 첫 키를 ‘iPhone 자체’에 저장했다고 알려주었습니다. 실제 제공자가 iCloud인지 다른 관리자인지 확인된 것은 아닙니다. iPhone에서 Google에 별도 키를 추가하려면 iOS 17 이상과 Chrome의 Google 계정/자동완성 제공자 설정을 준비하고, 그 브라우저에서 기존 키로 로그인한 뒤 ‘이 기기의 저장소’로 추가합니다. 인증 창에 Google 제공자가 보이는지와 최종 저장된 사이트 항목을 직접 확인해야 합니다. 기존 키는 삭제하지 않습니다.
+
+근거: [Google의 iOS·macOS 지원 환경](https://developers.google.com/identity/passkeys/supported-environments), [WebAuthn hints](https://www.w3.org/TR/webauthn-3/#enum-hints), [SimpleWebAuthn 등록 옵션](https://simplewebauthn.dev/docs/packages/server).
+
 ## 기술 스택과 운영
 
 React · TypeScript · Vite · Express · SimpleWebAuthn · Node.js 24 · 로컬 SQLite / 운영 Neon PostgreSQL · Vercel(sin1) · Playwright · axe-core.

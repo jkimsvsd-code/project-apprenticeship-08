@@ -66,3 +66,7 @@
 - 공개 증거에서 초기 링크·쿠키·토큰·개인키·실제 DB 연결값을 제외합니다. 환경변수와 실제 DB는 Git/배포 입력에서 제외합니다.
 
 과제의 상세 47개 항목은 [추적표](requirements.md), 제출 문구는 [README](../README.md)와 [제출 안내](submission.md), 기술 한계는 [인증 설명서 ⑥](authentication-report.md)에 있습니다.
+
+## 후속 등록 방식 보강
+
+사용자의 iPhone 저장 보고를 반영해 실제 WebAuthn 등록 방식 선택을 추가했습니다. 기기 내·다른 기기(QR)·보안 키·브라우저 선택이 각각 options의 attachment/hints에 반영됩니다. 회사별 제공자를 지정하거나 iCloud·Google 실물 저장을 자동으로 증명하지는 않습니다. 최종 운영 증거의 registrationMethods 항목을 확인하세요.

@@ -59,9 +59,16 @@ function PasskeysContent() {
     </div><aside className="add-key-card"><div className="auth-icon"><ShieldCheck size={24} aria-hidden="true" /></div><h2>두 번째 패스키 등록 방법</h2>
       <ol className="backup-steps">
         <li>현재 패스키를 유지한 채 ‘패스키 추가’를 누르고 새 이름을 입력해요.</li>
-        <li>‘예비 패스키 등록’을 누른 뒤, 브라우저·기기 창의 ‘다른 옵션’ 또는 ‘다른 방법’에서 기존과 다른 저장소나 패스키 지원 보안 키를 선택해요. 항목 이름은 환경마다 달라요.</li>
+        <li>‘패스키 등록 방식’을 고르고 ‘예비 패스키 등록’을 눌러요. 이 기기의 Google·iCloud 등은 ‘이 기기의 저장소’, 다른 휴대폰은 ‘다른 기기’, 보안 키는 ‘USB·NFC 보안 키’를 선택해요. 최종 제공자는 기기 인증 창에서 선택해요.</li>
         <li>목록에 2개가 보이면 등록 완료예요. 로그아웃 후 새 패스키를 선택해 로그인도 확인해 주세요.</li>
       </ol>
+      <details className="backup-help provider-setup"><summary>iPhone에서 Google·iCloud에 각각 등록하려면</summary>
+        <p>iPhone에 첫 패스키가 있다면, 기존 키는 유지한 채 다른 제공자에 두 번째 키를 새로 만들어요. 사이트는 기기마다 키를 하나로 제한하지 않아요.</p>
+        <p>iOS 17 이상에서 Chrome에 Google 계정으로 로그인하고, iPhone 설정의 자동완성 제공자에 Chrome을 활성화해 Google 비밀번호 관리자를 준비해 주세요. 설정 이름은 iOS 버전에 따라 달라요.</p>
+        <p>그다음 해당 iPhone의 Chrome에서 이 사이트를 열고 기존 키로 로그인해요. 추가 등록에서 ‘이 기기의 저장소’를 선택하고, 인증 창에서 첫 키와 다른 제공자를 선택해 주세요. iCloud·암호 앱과 Google에 각각 새 키가 있어야 독립된 예비 키예요.</p>
+        <p>제공자가 보이지 않으면 기기의 자동완성 설정·지원 브라우저를 확인하세요. Mac의 Chrome에서도 지원 환경이라면 Google·iCloud 중 저장소를 선택할 수 있어요. 사이트가 특정 회사의 저장소를 강제로 열거나 설정을 대신 바꾸지는 못해요.</p>
+        <a href="https://developers.google.com/identity/passkeys/supported-environments" target="_blank" rel="noreferrer">Google 공식 지원 환경 안내</a>
+      </details>
       <details className="backup-help"><summary>QR 코드나 중복 등록 안내가 나오나요?</summary>
         <p>QR 코드는 다른 기기를 연결하는 경로예요. 이 사이트의 저장소 메모로 경로가 바뀌지는 않아요.</p>
         <p>다른 기기여도 같은 Google·iCloud 계정으로 동기화된 기존 패스키가 있으면 중복으로 인식될 수 있어요. 별도 저장소나 보안 키를 선택해 주세요.</p>

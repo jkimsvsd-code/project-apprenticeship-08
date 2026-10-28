@@ -10,7 +10,7 @@ import { WebAuthnService } from './auth/webauthn.js';
 import { AppError } from './auth/errors.js';
 import { hashToken, randomToken } from './auth/tokens.js';
 import { requireSession } from './authorization/access.js';
-import { providers } from '../shared/contracts.js';
+import { providers, registrationMethods } from '../shared/contracts.js';
 import { getPrivateItem, listPrivateItems } from './private-data/service.js';
 
 const idSchema = z.string().uuid();
@@ -106,7 +106,8 @@ export function createApp(config: Config, store: DataStore) {
   });
 
   app.post('/api/auth/registration/options', async (req, res) => {
-    res.json(await auth.registrationOptions(flow(req, res), await session(req), await enrollment(req)));
+    const input = z.object({ method: z.enum(registrationMethods).default('auto') }).strict().parse(req.body);
+    res.json(await auth.registrationOptions(flow(req, res), await session(req), await enrollment(req), input.method));
   });
   app.post('/api/auth/registration/verify', async (req, res) => {
     const input = z.object({

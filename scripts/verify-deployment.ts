@@ -22,6 +22,7 @@ let cleaned = true;
 let credentialProof: unknown;
 let counts: unknown;
 let storageMemoProof: unknown;
+let registrationMethodProof: unknown;
 const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL ?? 'chromium' });
 const contexts: BrowserContext[] = [];
 const sourceCommit = process.env.DEPLOYED_COMMIT ?? execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
@@ -36,9 +37,9 @@ async function addAuthenticator(context: BrowserContext, page: Page) {
   const { authenticatorId } = await cdp.send('WebAuthn.addVirtualAuthenticator', { options: { protocol: 'ctap2', transport: 'internal', hasResidentKey: true, hasUserVerification: true, isUserVerified: true, automaticPresenceSimulation: true } });
   return { cdp, id: authenticatorId as string };
 }
-async function replace(cdp: CDPSession, id: string, credential?: VirtualCredential) {
+async function replace(cdp: CDPSession, id: string, credential?: VirtualCredential, transport: 'internal' | 'usb' = 'internal') {
   await cdp.send('WebAuthn.removeVirtualAuthenticator', { authenticatorId: id });
-  const { authenticatorId } = await cdp.send('WebAuthn.addVirtualAuthenticator', { options: { protocol: 'ctap2', transport: 'internal', hasResidentKey: true, hasUserVerification: true, isUserVerified: true, automaticPresenceSimulation: true } });
+  const { authenticatorId } = await cdp.send('WebAuthn.addVirtualAuthenticator', { options: { protocol: 'ctap2', transport, hasResidentKey: true, hasUserVerification: true, isUserVerified: true, automaticPresenceSimulation: true } });
   if (credential) await cdp.send('WebAuthn.addCredential', { authenticatorId, credential });
   return authenticatorId as string;
 }
@@ -69,7 +70,7 @@ async function register(page: Page, name: string, initial: boolean) {
   const body = second.request as { response: { response: { clientDataJSON: string } } };
   const client = JSON.parse(Buffer.from(body.response.response.clientDataJSON, 'base64url').toString());
   expect(client.origin).toBe(target);
-  return { options: first.response as { options: { challenge: string; rp: { id: string } } }, verify: second };
+  return { options: first.response as { options: { challenge: string; rp: { id: string }; hints: string[]; authenticatorSelection: { authenticatorAttachment?: string; userVerification: string; residentKey: string } } }, verify: second };
 }
 async function signOut(page: Page, context: BrowserContext) {
   const old = (await context.cookies()).filter(cookie => cookie.name === '__Host-a08_session').map(cookie => `${cookie.name}=${cookie.value}`).join('; ');
@@ -128,6 +129,8 @@ try {
   stage = 'A registration and independent backup passkey';
   await setup(a, users[0], '가상 HTTPS 사용자 A');
   const first = await register(a, 'HTTPS A 첫 패스키', true);
+  expect(first.options.options.hints).toEqual(['client-device']);
+  expect(first.options.options.authenticatorSelection.authenticatorAttachment).toBe('platform');
   await expect(a).toHaveURL(target + '/vault', { timeout: 20000 });
   await expect(a.locator('.private-card')).toHaveCount(3);
   await a.goto(target);
@@ -138,6 +141,22 @@ try {
   await expect(a.locator('.private-card')).toHaveCount(3);
   let key1 = await credential(authA.cdp, aId);
   await a.getByRole('link', { name: '패스키 관리', exact: true }).click();
+  const methodProof = [];
+  for (const [method, attachment, hint] of [
+    ['device', 'platform', 'client-device'], ['phone', 'cross-platform', 'hybrid'],
+    ['security-key', 'cross-platform', 'security-key'], ['auto', undefined, undefined],
+  ] as const) {
+    const response = await aContext.request.post('/api/auth/registration/options', { data: { method }, headers: { Origin: target } });
+    expect(response.status()).toBe(200);
+    const result = await response.json();
+    expect(result.options.authenticatorSelection.authenticatorAttachment).toBe(attachment);
+    expect(result.options.hints).toEqual(hint ? [hint] : []);
+    expect(result.options.authenticatorSelection.userVerification).toBe('required');
+    expect(result.options.excludeCredentials).toHaveLength(1);
+    methodProof.push({ method, attachment: attachment ?? null, hints: result.options.hints, userVerification: 'required', excludedExistingKeys: 1 });
+    expect((await aContext.request.post('/api/auth/cancel', { data: { challengeId: result.challengeId }, headers: { Origin: target } })).status()).toBe(204);
+  }
+  registrationMethodProof = { options: methodProof, realVirtualAuthenticatorTransports: ['internal', 'usb'], actualGoogleOrIcloudProviderVerified: false };
   await expect(a.getByText('예비 열쇠 하나, 더 든든하게.')).toBeVisible();
   await a.getByRole('button', { name: '예비 패스키 추가', exact: false }).click();
   await expect(a.getByRole('heading', { name: '두 번째 패스키 등록 방법' })).toBeVisible();
@@ -150,7 +169,7 @@ try {
     await a.getByRole('button', { name: '예비 패스키 등록', exact: true }).click();
     const response = await optionsResponse;
     expect(response.status()).toBe(200);
-    expect(response.request().postDataJSON()).toEqual({});
+    expect(response.request().postDataJSON()).toEqual({ method: 'device' });
     await expect(a.getByRole('alert')).toContainText('저장소 메모를 바꿔도 실제 저장소는 바뀌지 않아요');
     expect((await store.credentials(users[0])).length).toBe(1);
     memoAttempts.push({ userMemo: memo, duplicateRejected: true, storedKeyCount: 1 });
@@ -161,8 +180,11 @@ try {
   await a.screenshot({ path: 'evidence/deployment/storage-memo-https.png', fullPage: true });
   await a.getByText('저장소 메모 남기기 (선택)', { exact: true }).click();
   storageMemoProof = { memoControlInitiallyCollapsed: true, memoAttempts, secondPasskeyStepsVisible: true, qrAndDuplicateHelpVisible: true };
-  aId = await replace(authA.cdp, aId);
+  aId = await replace(authA.cdp, aId, undefined, 'usb');
+  await a.getByLabel('패스키 등록 방식').selectOption('security-key');
   const second = await register(a, 'HTTPS A 예비 패스키', false);
+  expect(second.options.options.hints).toEqual(['security-key']);
+  expect(second.options.options.authenticatorSelection.authenticatorAttachment).toBe('cross-platform');
   const key2 = await credential(authA.cdp, aId);
   await expect(a.locator('.passkey-list li')).toHaveCount(2);
   expect(first.options.options.challenge).not.toBe(second.options.options.challenge);
@@ -256,7 +278,7 @@ try {
 }
 const proof = { executedAt: new Date().toISOString(), timezone: 'Asia/Seoul', origin: target, sourceCommit, deploymentId: process.env.DEPLOYMENT_ID ?? null,
   passed: success, syntheticAccountsRemoved: cleaned, environment: 'actual public HTTPS deployment and Neon PostgreSQL; Chromium CDP virtual authenticator; no mocked signature verification',
-  physicalDeviceVerified: false, stage, adminEntry: success ? { signedOutDestination: '/login?next=%2Fvault', afterLogin: '/vault', signedInDestination: '/vault', privateItemsShown: 3 } : null, storedPublicKeys: credentialProof, accountCounts: counts, storageMemo: storageMemoProof, cookiePolicy: success ? { secure: true, httpOnly: true, sameSite: 'Strict', prefix: '__Host-' } : null, records };
+  physicalDeviceVerified: false, stage, adminEntry: success ? { signedOutDestination: '/login?next=%2Fvault', afterLogin: '/vault', signedInDestination: '/vault', privateItemsShown: 3 } : null, storedPublicKeys: credentialProof, accountCounts: counts, storageMemo: storageMemoProof, registrationMethods: registrationMethodProof, cookiePolicy: success ? { secure: true, httpOnly: true, sameSite: 'Strict', prefix: '__Host-' } : null, records };
 const json = JSON.stringify(proof, null, 2);
 expect(json).not.toMatch(/"(?:privateKey|token|sessionHash|Cookie|Set-Cookie|Authorization)"\s*:/i);
 expect(json).not.toMatch(/#token=[A-Za-z0-9_-]{43}/);

@@ -41,6 +41,20 @@ test('HTTP 경계: 미인증·양방향 타 계정·변조·로그아웃·CSRF·
     const optionsB = await (await send('/api/auth/authentication/options', '', 'POST', {})).json();
     assert.notEqual(optionsA.options.challenge, optionsB.options.challenge);
     assert.equal((await send('/api/auth/registration/options', '', 'POST', {})).status, 401);
+    for (const [method, attachment, hint] of [
+      ['device', 'platform', 'client-device'], ['phone', 'cross-platform', 'hybrid'],
+      ['security-key', 'cross-platform', 'security-key'], ['auto', undefined, undefined],
+    ] as const) {
+      const result = await send('/api/auth/registration/options', cookieA, 'POST', { method });
+      assert.equal(result.status, 200);
+      const { options } = await result.json();
+      assert.equal(options.authenticatorSelection.authenticatorAttachment, attachment);
+      assert.deepEqual(options.hints, hint ? [hint] : []);
+      assert.equal(options.authenticatorSelection.userVerification, 'required');
+      assert.equal(options.authenticatorSelection.residentKey, 'required');
+      assert.equal(options.excludeCredentials[0].id, a.credential.id);
+    }
+    assert.equal((await send('/api/auth/registration/options', cookieA, 'POST', { method: 'icloud' })).status, 400);
     const setup = store.issueBootstrap('cancelled', '가상 취소');
     const exchanged = await send('/api/setup/exchange', '', 'POST', { token: setup });
     const enrollmentCookie = exchanged.headers.getSetCookie()[0].split(';')[0];
