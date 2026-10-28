@@ -1,5 +1,7 @@
 # 설계와 경계
 
+인터랙티브 설계도와 생성 소스는 [공개 설계도](https://passkey-architecture-08-m2021.happybay512.chatgpt.site)와 [전용 프로젝트 폴더](https://github.com/jkimsvsd-code/project-architecture-diagram_src/tree/main/projects/project-apprenticeship-08)에서 관리합니다. 이 문서는 앱 고유의 설계 설명으로 보존합니다. 원본에 이전할 기존 인터랙티브 HTML·모델·생성기는 없었으며, 새 생성물은 전용 저장소에만 저장했습니다.
+
 상태: React·Express·SimpleWebAuthn, 로컬 SQLite / 운영 Neon PostgreSQL로 구현하고 실제 HTTPS에서 자동 검증했습니다. 물리 기기는 별도 확인이 필요합니다. API는 src/server/app.ts, 검증은 src/server/auth/webauthn.ts, 저장은 src/server/storage/store.ts 및 postgres.ts에 있습니다.
 
 ## 역할
