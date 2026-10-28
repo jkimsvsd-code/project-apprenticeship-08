@@ -1,8 +1,8 @@
 {
-  "executedAt": "2026-10-28T04:23:09.534Z",
+  "executedAt": "2026-10-28T04:46:21.594Z",
   "timezone": "Asia/Seoul",
   "environment": "Chromium CDP software virtual authenticator; no mocked verifier; no physical passkey provider",
-  "sourceDigest": "04033466771ad6954a24235effa8f3dd63aa99e13f476111f7654a48ea24c2ae",
+  "sourceDigest": "0f63723ede5cee49221c6c1fac6cc61223b533a731f91caea08726803fa7b195",
   "U1": "environment support and unsupported-browser guidance",
   "U2": "pending button disabled, cancellation, controlled 60s timeout, fresh challenge retry",
   "U3": "passkeys destination restored, external next forced to vault",

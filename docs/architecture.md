@@ -1,6 +1,6 @@
 # 설계와 경계
 
-상태: React·Express·SQLite·SimpleWebAuthn으로 로컬 구현했습니다. 실제 기기·HTTPS 운영은 별도 확인이 필요합니다. API는 src/server/app.ts, 검증은 src/server/auth/webauthn.ts, 저장은 src/server/storage/store.ts에 있습니다.
+상태: React·Express·SimpleWebAuthn, 로컬 SQLite / 운영 Neon PostgreSQL로 구현하고 실제 HTTPS에서 자동 검증했습니다. 물리 기기는 별도 확인이 필요합니다. API는 src/server/app.ts, 검증은 src/server/auth/webauthn.ts, 저장은 src/server/storage/store.ts 및 postgres.ts에 있습니다.
 
 ## 역할
 
@@ -86,3 +86,5 @@ fixture의 계정 ID는 인증 수단이 아닙니다. 계정 전환 우회 버�
 삭제한 패스키로 생성한 모든 세션은 외래키 연쇄 삭제로 무효화합니다.
 브라우저는 세션 만료·로그아웃·탭 전환·뒤로 가기 복원 시 개인 공간을 다시 확인하고, 사용자별 컴포넌트 키로 자료 혼합을 막습니다.
 개발용 Vite에도 runtime·server·tests·evidence·docs의 직접 파일 요청 차단을 적용합니다.
+
+운영 진입점 server.mjs는 빌드한 src/server/vercel.ts를 불러옵니다. pg Pool은 Vercel attachDatabasePool과 연결하고 TLS 인증서를 확인합니다. 사용자별 트랜잭션 잠금으로 로그인 완료·키 삭제의 경합을 처리합니다. [운영 구성](hosting.md), [운영 성공·거절 증거](../evidence/deployment/https-verification.json)를 참고하세요.

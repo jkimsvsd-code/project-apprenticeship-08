@@ -1,4 +1,4 @@
-# 로컬 검증 결과
+# 로컬·HTTPS 운영 검증 결과
 
 검증 환경: Node.js 24, macOS, 설치된 Chrome의 CDP 가상 인증기. 실행일: 2026-10-28 (Asia/Seoul).
 실제 기기·지문·얼굴·물리 보안 키를 확인한 기록이 아닙니다. 서명 검증 함수는 실제 SimpleWebAuthn을 사용합니다.
@@ -18,14 +18,14 @@
 | UX | U1–U6, 320·375px 넘침 없음, 대화상자 포커스·Escape·복귀, 자동 WCAG 검사 | evidence/ux/ |
 
 최종 실행: 아래 명령이 모두 통과했습니다. JSON 증거에는 실행 시각과 소스·테스트·lockfile의 SHA-256 요약을 포함합니다.
-Git 저장소가 아직 초기화되지 않았으므로 커밋 SHA를 만들어 적지 않습니다.
+운영 검증은 소스 커밋 `fa44a4cc6d98e82ae2ac3cf57fa470a20991ba80`와 Vercel 배포 `dpl_4rc6u9BvcqkGzNt6StwuHpgPQPZ3`를 기록합니다. 이후 문서·증거 커밋은 운영 코드 변경을 포함하지 않습니다.
 
 ## 명령과 현재 결과
 
 - `npm run check`: 단위·HTTP 통합 테스트 10개 통과, TypeScript 형 검사 및 Vite·서버 빌드 성공.
 - `PLAYWRIGHT_CHANNEL=chrome npm run test:e2e`: 브라우저 시나리오 3개 모두 통과. 주요 화면 axe WCAG A/AA 위반 0건. 실기기 수동 검사 결과는 아님.
-- `npm run test:production`: npm start와 같은 운영 진입점, 운영 HTML·immutable 자산·API·CSP·컴파일된 초기 등록 CLI·해시 저장·Secure/HttpOnly/SameSite 쿠키 검사 통과. 내부 HTTP로 확인했으며 외부 TLS는 미검증.
-- GitHub Actions workflow: 작성했으나 원격에서 실행하지 않음.
+- `npm run test:production`: npm start와 같은 운영 진입점, 운영 HTML·immutable 자산·API·CSP·컴파일된 초기 등록 CLI·해시 저장·Secure/HttpOnly/SameSite 쿠키 검사 통과. 내부 HTTP 스모크 검사이며, 외부 TLS는 아래 운영 검증으로 별도 확인.
+- GitHub Actions: 원격 실행 통과. [실행 기록](https://github.com/jkimsvsd-code/project-apprenticeship-08/actions/runs/40634160981).
 - Docker 이미지: 정의했으나 Docker 빌드는 실행하지 않음.
 
 ## 남은 실제 환경 검증
@@ -33,5 +33,24 @@ Git 저장소가 아직 초기화되지 않았으므로 커밋 SHA를 만들어 
 - 물리 인증기 2개 또는 독립된 실제 패스키 저장 위치로 등록·삭제·잔여 키 로그인 확인.
 - 패스키 실제 저장 제공자와 동기화·복구 특성 확인.
 - Safari·Firefox·실제 iOS/Android와 스크린리더 수동 확인.
-- 고정된 HTTPS Origin/RP ID, 운영 Secure 쿠키, 영속 디스크·백업 점검.
-- public 결과물·소스 URL의 시크릿 창 검증과 최종 제출.
+- Neon 백업·복구 정책 확인 및 실제 복원 훈련.
+- 사용자 판단 문구 보완과 과제 최종 제출.
+
+## 실제 HTTPS 운영 검증
+
+운영 주소 https://project-apprenticeship-08.vercel.app 에서 2026-10-28 실행했습니다. TLS 검증을 끄거나 Vercel 인증 우회 헤더를 사용하지 않았습니다. 공개 첫 화면과 JS·CSS는 인증 없이 200입니다.
+실제 Chrome CDP 가상 인증기가 생성한 WebAuthn 서명을 실제 서버·Neon DB로 검증했습니다. 저장소나 서명 검증을 mock하지 않았습니다.
+
+| 동작 | 실제 결과 |
+| --- | --- |
+| 패스키 등록 | A에 서로 다른 키 2개, B에 1개 등록 201; 공개키 DB 저장 |
+| 패스키 로그인 | 올바른 서명 200, 변조 서명·소비한 질문 400 |
+| 패스키 삭제 | 예비 키 삭제 200; 삭제된 키 로그인 400; 남은 키 로그인 200; 마지막 키 삭제 409 |
+| 비공개 자료 | 미인증 401; 각 계정 본인 자료 3개 200; A→B·B→A 403 |
+| 계정값 변조 | 서버 세션 사용자의 자료만 반환; 자료 건수 3·3 유지 |
+| 세션·출처 | Secure·HttpOnly·SameSite=Strict·__Host- 쿠키; 로그아웃 이전 쿠키 401; 잘못된 Origin 403 |
+| 영속 저장소 | 동일 Neon DB로 공개키·질문·세션 처리; DB 동시 질문 소비·키 삭제 검증도 통과 |
+| 정리 | 생성한 테스트 계정·공개키·자료만 삭제, 소유자 자료 초기화 없음 |
+
+[요청·응답·공개키 JSON](../evidence/deployment/https-verification.json), [실제 PostgreSQL 동시성 검사](../evidence/deployment/postgres-check.json), [운영 화면](../evidence/deployment/public-https.png).
+쿠키·세션 원문·초기 링크·개인키는 증거에서 제외했습니다. 초기 배포의 JS/CSS 누락은 수정 후 전체 시나리오를 다시 통과했습니다.

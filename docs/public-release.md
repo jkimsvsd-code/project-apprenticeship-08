@@ -1,39 +1,43 @@
 # GitHub public 공개와 배포 점검
 
-현재 로컬 구현과 검증 단계입니다. GitHub 생성·push·클라우드 배포·과제 제출은 수행하지 않았습니다.
+GitHub public 게시·Vercel HTTPS 배포·Neon 영속 DB 연결과 운영 WebAuthn 자동 검증을 완료했습니다. 과제 최종 제출은 진행하지 않았습니다.
 
-## 완료한 준비
+- 결과물: https://project-apprenticeship-08.vercel.app
+- 소스: https://github.com/jkimsvsd-code/project-apprenticeship-08
+- 운영 코드: fa44a4cc6d98e82ae2ac3cf57fa470a20991ba80
+- 운영 증거: [HTTPS 요청·응답](../evidence/deployment/https-verification.json), [검증 결과](verification-results.md).
 
-- [x] 사용자가 지정한 과제1 소개 본문·스타일을 보존하고 출처·blob SHA를 기록했다.
-- [x] 개인 공간에는 가상 데이터만 사용하고 실제 개인정보를 넣지 않았다.
+## 완료한 점검
+
+- [x] 지정한 과제1 소개 본문·스타일을 보존하고 출처·blob SHA를 기록했다.
+- [x] 개인 공간과 테스트 계정에는 가상 데이터만 사용했다.
 - [x] Node.js 24, 패키지 명세·lockfile, 예시 환경변수, 설치·실행·검증 명령을 추가했다.
-- [x] 환경변수·운영 DB·세션·비밀키·원본 인증 로그를 Git과 Docker 빌드 입력에서 제외했다.
-- [x] 실제 WebAuthn 검증·서버 소유권·세션 폐기와 U1–U6을 구현했다.
-- [x] GitHub Actions에 형 검사·서버 테스트·빌드·브라우저 테스트를 정의했다. 원격 실행은 미확인이다.
-- [x] 단일 서버용 Dockerfile을 추가했다. Docker 빌드는 미실행이다.
+- [x] 환경변수·운영 DB·세션·비밀키·원본 인증 로그를 Git과 배포 입력에서 제외했다.
+- [x] 실제 WebAuthn 검증·서버 소유권·세션 폐기와 U1–U6을 구현하고 자동 검사했다.
+- [x] public 저장소의 설명과 홈페이지 URL을 설정하고 인증 없는 소스 접속을 확인했다.
+- [x] GitHub Actions의 형 검사·서버 테스트·빌드·운영 진입점·브라우저 테스트 원격 실행을 확인했다.
+- [x] 고정 HTTPS Origin/RP ID와 Secure 쿠키를 실제 운영에서 확인했다.
+- [x] 새 브라우저 컨텍스트에서 공개 소개·JS·CSS 200, 미인증 비공개 API 401을 확인했다.
+- [x] 운영 A·B 계정으로 등록·로그인·자료 격리·키 삭제 후 로그인과 각 거절 응답을 기록했다.
+- [x] 영속 Neon PostgreSQL을 사용하고 생성한 테스트 계정만 정리했다.
 
-## 운영 방식
+## 배포 방식
 
-`npm run build`는 `dist/client/`와 `dist/server/`를 만듭니다.
-`npm start`는 NODE_ENV=production을 설정하고 정적 클라이언트·API만 제공하며 Vite를 실행하지 않습니다.
-운영은 `APP_ORIGIN=https://실제도메인`, `WEBAUTHN_RP_ID=실제도메인`, `PORT=3000`, 영속 `DATABASE_PATH`를 지정해야 합니다.
-Origin에는 경로·끝 슬래시를 붙이지 않습니다. 이 앱은 RP ID와 Origin 호스트를 동일하게 제한합니다.
-HTTPS는 호스팅의 TLS 종료 프록시에서 제공하고 Node HTTP 포트는 내부로 둡니다.
-원본 DB 파일을 영속 볼륨에 유지해야 하며, 임시 디스크·다중 인스턴스에는 이 SQLite 설계를 그대로 사용하지 않습니다.
+실제 운영은 Vercel Express + Neon PostgreSQL입니다. [설정과 재배포](hosting.md)를 참고하세요.
+로컬 `npm run dev`와 단일 서버 `npm start`는 SQLite를 사용합니다. SQLite를 서버리스 임시 디스크에 배치하지 않습니다.
+CLI 배포 전 `npm run vercel-build`로 public/ 생성물을 준비해야 CDN에 JS·CSS가 함께 업로드됩니다.
 
-Docker를 사용할 경우 이미지 빌드 후 APP_ORIGIN을 실제 HTTPS 주소로 설정하고 `/app/runtime`에 영속 볼륨을 연결합니다.
-컨테이너의 최초 등록 명령은 `node dist/server/server/auth/bootstrap-cli.js --account owner --name "가상 사용자"`입니다.
-이 출력에는 초기 등록 링크가 있으므로 공개 빌드 로그·이슈·스크린샷에 남기지 않습니다.
+Dockerfile은 단일 서버 SQLite 운영을 위한 별도 선택지입니다. Docker 빌드는 실행하지 않았습니다.
+그 경우 HTTPS 종료 프록시와 `/app/runtime` 영속 볼륨, 고정 APP_ORIGIN·WEBAUTHN_RP_ID가 필요합니다.
+관리 명령의 초기 등록 링크는 공개 빌드 로그·이슈·스크린샷에 남기지 않습니다.
 
-## 아직 필요한 공개 확인
+## 남은 사용자 확인
 
 - [ ] 실제 기기 2개 또는 독립된 패스키 저장 위치로 등록·삭제·잔여 키 로그인을 확인한다.
-- [ ] 고정된 운영 HTTPS Origin/RP ID, Secure 쿠키, 데이터 영속성·백업을 확인한다.
-- [ ] GitHub 저장소를 만들고 커밋 대상과 전체 Git 이력의 비밀값을 검사한다.
-- [ ] 저장소 LICENSE와 기존 자산의 이용 범위를 최종 확정한다.
-- [ ] GitHub Private vulnerability reporting을 활성화한다.
-- [ ] 실제 GitHub Actions 실행 결과를 확인한다.
-- [ ] 새 시크릿 창에서 결과물 첫 화면과 public 소스가 인증 없이 열리는지 확인한다.
-- [ ] 설명서의 사용자 판단, 결과물·소스 URL을 보완한 후 제출한다.
+- [ ] 실제 모바일·Safari·Firefox·스크린리더를 확인한다.
+- [ ] Neon 백업·복구 범위와 복원 훈련을 확인한다.
+- [ ] 재사용 허용을 원한다면 LICENSE와 기존 자산의 이용 범위를 결정한다. 현재 라이선스는 지정하지 않았다.
+- [ ] Private vulnerability reporting을 사용할지 결정한다.
+- [ ] 설명서의 사용자 판단 부분을 보완한 후 과제를 제출한다.
 
-`.gitignore`는 이미 커밋한 비밀값이나 가공하지 않은 증거 본문을 제거하지 않습니다.
+`.gitignore`는 이미 커밋한 비밀값을 제거하지 않습니다. 공개 증거에는 쿠키·세션·토큰·개인키 원문을 포함하지 않습니다.

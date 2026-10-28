@@ -8,6 +8,7 @@ Chromium 가상 인증기의 실제 WebAuthn 검증에서 생성한 공개용 JS
 | authentication/ | 로그인 질문 비교, 정상·변조 서명, 질문 재사용, 로그아웃 이전 인증값 재사용 |
 | authorization/ | 미인증 접근, A↔B 접근, 계정값 변조, 자료 건수 전후 비교, 미인증 응답 본문 |
 | passkey-lifecycle/ | 패스키 2개 목록, 하나 삭제, 남은 것의 성공·삭제한 것의 실패, 마지막 삭제 차단 |
+| deployment/ | 실제 HTTPS + Neon 검증 요청·응답·저장 공개키와 운영 화면, DB 동시성 검사 |
 | ux/ | U1–U6의 화면·기기·키보드·오류 동선 확인 |
 
 ## 작성 형식
@@ -42,3 +43,5 @@ Chromium 가상 인증기의 실제 WebAuthn 검증에서 생성한 공개용 JS
 - ux/verified-ux.json 및 PNG: U1–U6 자동 확인과 화면.
 
 E2E를 실행하면 같은 경로를 새 실행 기록으로 덮어씁니다. 실행에 실패한 경우 일부 이전 기록이 남을 수 있으므로 executedAt·sourceDigest와 최근 전체 테스트 결과를 함께 확인합니다.
+
+운영 증거 deployment/https-verification.json은 sourceCommit과 deploymentId를 명시합니다. 물리 인증기 대신 독립된 CDP 가상 인증기를 사용했으며 테스트 계정은 검증 후 삭제했습니다.

@@ -1,7 +1,7 @@
 # 실제 폴더 구조
 
-React·Express·SQLite·SimpleWebAuthn 구현과 검증·제출 문서를 포함합니다.
-생성된 node_modules·dist·runtime·test-results 및 .gitkeep은 트리에서 생략했습니다.
+React·Express·SimpleWebAuthn, 로컬 SQLite / 운영 Neon PostgreSQL, 배포·검증·제출 문서를 포함합니다.
+공개 소스·가공한 증거만 표시합니다. node_modules·dist·runtime·public 생성물·로컬 환경변수·test-results 및 .gitkeep은 생략했습니다.
 
 ```text
 project-apprenticeship-08/
@@ -11,6 +11,9 @@ project-apprenticeship-08/
 │   ├── workflows/
 │   │   └── ci.yml
 │   └── pull_request_template.md
+├── db/
+│   └── migrations/
+│       └── 001_passkey.sql
 ├── docs/
 │   ├── baseline/
 │   │   └── assignment01/
@@ -19,6 +22,7 @@ project-apprenticeship-08/
 │   │       └── styles.css
 │   ├── architecture.md
 │   ├── authentication-report.md
+│   ├── hosting.md
 │   ├── public-release.md
 │   ├── requirements.md
 │   ├── stack.md
@@ -33,6 +37,12 @@ project-apprenticeship-08/
 │   ├── authorization/
 │   │   ├── anonymous-page.html
 │   │   └── verified-isolation.json
+│   ├── deployment/
+│   │   ├── https-verification.json
+│   │   ├── postgres-check.json
+│   │   ├── private-https.png
+│   │   ├── public-https.png
+│   │   └── two-passkeys-https.png
 │   ├── passkey-lifecycle/
 │   │   ├── two-passkeys.png
 │   │   └── verified-revocation.json
@@ -47,14 +57,18 @@ project-apprenticeship-08/
 │   │   └── verified-ux.json
 │   └── README.md
 ├── public/
-│   ├── images/
 │   └── favicon.svg
 ├── scripts/
 │   ├── README.md
+│   ├── bootstrap-postgres.ts
 │   ├── bootstrap.ts
+│   ├── check-postgres.ts
+│   ├── migrate-postgres.ts
+│   ├── prepare-vercel.mjs
 │   ├── production.mjs
 │   ├── smoke-production.mjs
-│   └── test-server.ts
+│   ├── test-server.ts
+│   └── verify-deployment.ts
 ├── src/
 │   ├── client/
 │   │   ├── passkeys/
@@ -89,9 +103,13 @@ project-apprenticeship-08/
 │   │   ├── private-data/
 │   │   │   └── service.ts
 │   │   ├── storage/
+│   │   │   ├── contracts.ts
+│   │   │   ├── pool.ts
+│   │   │   ├── postgres.ts
 │   │   │   └── store.ts
 │   │   ├── app.ts
-│   │   └── index.ts
+│   │   ├── index.ts
+│   │   └── vercel.ts
 │   └── shared/
 │       └── contracts.ts
 ├── tests/
@@ -111,6 +129,7 @@ project-apprenticeship-08/
 ├── .env.example
 ├── .gitignore
 ├── .nvmrc
+├── .vercelignore
 ├── Dockerfile
 ├── README.md
 ├── SECURITY.md
@@ -118,8 +137,10 @@ project-apprenticeship-08/
 ├── package-lock.json
 ├── package.json
 ├── playwright.config.ts
+├── server.mjs
 ├── tsconfig.json
 ├── tsconfig.server.json
+├── vercel.json
 └── vite.config.ts
 ```
 
@@ -134,7 +155,7 @@ project-apprenticeship-08/
 | src/server/auth | 실제 WebAuthn 검증·초기 등록 CLI·토큰·오류 |
 | src/server/authorization | 세션 필수 검사 |
 | src/server/private-data | 세션 사용자에 따른 본인 자료 조회 |
-| src/server/storage | SQLite 스키마·공개키·질문·세션·소유권·삭제 트랜잭션 |
+| src/server/storage | SQLite·PostgreSQL 구현·공개키·질문·세션·소유권·삭제 트랜잭션 |
 | src/server/config | HTTPS·Origin·RP ID·저장 경로·수명 설정 |
 | tests | Node 단위·HTTP 통합·실제 서명 E2E 및 가상 예시 |
 | evidence | 쿠키·세션·토큰·개인키를 제외한 가상 인증기 증거 |
@@ -142,4 +163,6 @@ project-apprenticeship-08/
 | scripts | 로컬 관리·운영 시작·전용 테스트 서버·운영 스모크 검사 |
 | .github | CI·PR·버그 신고 틀 |
 
-GitHub 게시·클라우드 배포·물리 패스키 검증은 아직 남아 있습니다.
+GitHub public과 Vercel HTTPS에 게시했습니다. 운영 검증 기록은 evidence/deployment/에 있습니다. 물리 패스키·저장 제공자 검증은 별도입니다.
+
+운영 진입점은 server.mjs → src/server/vercel.ts이며 db/migrations/는 PostgreSQL 스키마를 관리합니다.

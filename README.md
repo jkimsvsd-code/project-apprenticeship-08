@@ -11,7 +11,7 @@
 - 개인 공간과 검증 계정의 자료는 모두 가상입니다. 공개 소개의 경험은 원래 공개한 내용을 유지했습니다.
 - 실제 WebAuthn 검증 라이브러리와 Chromium 가상 인증기로 성공·거절 흐름을 검증합니다. 검증기를 mock하지 않습니다.
 - 실제 지문·얼굴·물리 보안 키, 저장 제공자 동기화, Safari·모바일 실기기 검증은 별도 필요합니다.
-- public 소스 게시와 GitHub Actions 검증을 완료했습니다. HTTPS 배포와 운영 검증을 진행합니다. [배포 안내](docs/hosting.md)와 [공개 점검](docs/public-release.md)을 확인하세요.
+- public 소스 게시·GitHub Actions·HTTPS 운영의 패스키 및 접근 제어 검증을 완료했습니다. [배포 안내](docs/hosting.md)와 [공개 점검](docs/public-release.md)을 확인하세요.
 
 ## 기술 스택
 
@@ -68,9 +68,11 @@ E2E 전용 서버는 localhost:4318을 사용하고 `runtime/e2e/`만 초기화�
 
 소스: https://github.com/jkimsvsd-code/project-apprenticeship-08
 
-고정 운영 주소: https://project-apprenticeship-08.vercel.app (현재 배포 검증 진행 중)
+고정 운영 주소: https://project-apprenticeship-08.vercel.app
 
-배포는 Vercel + Neon 영속 PostgreSQL을 사용합니다. 설정·관리·재배포는 [배포 안내](docs/hosting.md)를 확인하세요.
+배포는 Vercel + Neon 영속 PostgreSQL을 사용합니다. 실제 HTTPS에서 패스키 2개 등록·로그인·삭제, 삭제 키 거절·잔여 키 성공, 미인증 401·타인 자료 403을 확인했습니다. [운영 검증 기록](evidence/deployment/https-verification.json)을 공개합니다.
+
+설정·초기 소유자 등록·재배포는 [배포 안내](docs/hosting.md)를 확인하세요. 공개 회원가입이 없으므로 처음 사용할 때 관리 CLI `npm run bootstrap:postgres -- --account owner --name "가상 사용자"`로 일회성 등록 링크를 발급합니다. 이 명령에는 Git에서 제외한 운영 DB 환경변수가 필요합니다.
 
 ## 화면과 API
 
@@ -94,4 +96,4 @@ API는 [설계](docs/architecture.md), 실제 소스는 `src/server/app.ts`에�
 - [공개·배포 점검](docs/public-release.md) / [증거 보관](evidence/README.md)
 - [과제1 원본 출처](docs/baseline/assignment01/README.md)
 
-라이선스는 아직 선택하지 않았습니다. GitHub 게시·배포 전에 원본 자산의 공개 범위와 라이선스를 최종 확인합니다.
+별도 오픈소스 라이선스는 지정하지 않았습니다. public 게시만으로 소스·원본 자산의 재사용 권한을 부여하지 않습니다.

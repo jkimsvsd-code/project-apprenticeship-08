@@ -1,11 +1,11 @@
 # 인증 구현 설명서
 
-로컬 구현과 자동 검증 기록입니다. 물리 기기 검증·HTTPS 배포·과제 제출까지 완료한 문서는 아닙니다.
+로컬 및 실제 HTTPS 배포의 자동 검증 기록입니다. 물리 기기 검증과 과제 최종 제출은 별도입니다.
 
 ## ① 무엇으로 붙였나
 
 라이브러리 방식입니다. SimpleWebAuthn server 14.0.3 / browser 14.0.0으로 WebAuthn을 처리합니다.
-React·TypeScript·Vite 화면, Express 서버, 로컬 Node.js 24 SQLite와 배포 Neon PostgreSQL을 사용합니다. 배포 진입점은 server.ts, 영속 저장 구현은 src/server/storage/postgres.ts입니다. 전체 고정 버전은 package-lock.json에 있습니다.
+React·TypeScript·Vite 화면, Express 서버, 로컬 Node.js 24 SQLite와 배포 Neon PostgreSQL을 사용합니다. 배포 진입점은 server.mjs → src/server/vercel.ts, 영속 저장 구현은 src/server/storage/postgres.ts입니다. 전체 고정 버전은 package-lock.json에 있습니다.
 서비스 서버에는 credential ID, 공개키, 카운터, 소유자, 이름·등록일·사용자가 기록한 저장 위치를 저장합니다.
 개인키나 지문·얼굴 정보는 서비스에 전송하지 않습니다.
 
@@ -17,7 +17,7 @@ React·TypeScript·Vite 화면, Express 서버, 로컬 Node.js 24 SQLite와 배�
 
 공개키 검증을 직접 작성하지 않으면서 일회성 질문·서버 세션·계정 격리·삭제를 소스와 DB에서 추적할 수 있기 때문입니다.
 추가 서비스 계정 없이 Node.js 24에서 재현하고, SQLite 트랜잭션으로 질문 소비와 마지막 패스키 삭제의 경합을 처리합니다.
-여러 서버로 확장하거나 서버리스에 배포하려면 별도의 공유 저장소 설계가 필요합니다. [선정 근거](stack.md)에 대안을 정리했습니다.
+Vercel 운영에서는 영속 Neon PostgreSQL과 사용자별 트랜잭션 잠금을 적용해 여러 함수 인스턴스가 같은 질문·세션·공개키를 공유합니다. [선정 근거](stack.md)에 대안을 정리했습니다.
 
 ## ③ 어디를 어떻게 고쳤나
 
@@ -26,7 +26,7 @@ React·TypeScript·Vite 화면, Express 서버, 로컬 Node.js 24 SQLite와 배�
 | 첫 등록 | SetupPage.tsx → POST /api/setup/exchange → Store.exchangeBootstrap → registration/options·verify → WebAuthnService.register → Store.registerCredential |
 | 추가 등록 | RegistrationForm.tsx·useCeremony.ts → POST /api/auth/registration/options·verify → 세션·Origin·RP ID·질문·UV 검증 → credential 저장 |
 | 로그인 | LoginPage.tsx·useCeremony.ts → POST /api/auth/authentication/options·verify → WebAuthnService.authenticate → Store.completeLogin → HttpOnly 쿠키 |
-| 로그아웃 | shared/session.tsx → POST /api/auth/logout → Store.revokeSession → 쿠키·등록 질문·클라이언트 자료 정리 |
+| 로그아웃 | shared/session.tsx → POST /api/auth/logout → Store.logout → 쿠키·등록 질문·클라이언트 자료 정리 |
 | 비공개 조회 | VaultPage.tsx → GET /api/private/items[/:id] → private-data/service.ts → requireSession → Store.items/item의 소유권 제한 |
 | 삭제 | PasskeysPage.tsx → DELETE /api/passkeys/:id → Store.deleteCredential → 소유권·마지막 키 검사 → 해당 키의 세션 폐기 |
 
@@ -60,4 +60,4 @@ React·TypeScript·Vite 화면, Express 서버, 로컬 Node.js 24 SQLite와 배�
 3. 요청 횟수 제한은 단일 프로세스 메모리입니다. 다중 인스턴스·서버 재시작을 가로지르는 공격 제한에는 공유 저장소가 필요합니다.
 4. 소유자의 기기·브라우저 자체가 장악되거나 서버 관리 권한이 유출된 상황까지 방어하지는 못합니다.
 
-위 한계와 물리 기기·운영 환경 미검증을 남겨 두며 안전성을 보증하지 않습니다.
+실제 HTTPS 운영의 성공·거절 요청과 저장 공개키는 [운영 검증 기록](../evidence/deployment/https-verification.json)에 있습니다. 물리 기기·저장 제공자·백업 복원은 검증하지 않았습니다.
