@@ -3,7 +3,7 @@
   "framework": "express",
   "buildCommand": "npm run vercel-build",
   "regions": ["sin1"],
-  "functions": { "server.ts": { "maxDuration": 60, "includeFiles": "dist/client/index.html" } },
+  "functions": { "server.mjs": { "maxDuration": 60, "includeFiles": "dist/client/index.html" } },
   "headers": [{
     "source": "/(.*)",
     "headers": [

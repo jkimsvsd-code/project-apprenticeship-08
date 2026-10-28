@@ -1,9 +1,9 @@
 import express from 'express';
 import path from 'node:path';
-import { createApp } from './src/server/app.js';
-import { loadConfig } from './src/server/config/env.js';
-import { PostgresStore } from './src/server/storage/postgres.js';
-import { createDatabasePool } from './src/server/storage/pool.js';
+import { createApp } from './app.js';
+import { loadConfig } from './config/env.js';
+import { PostgresStore } from './storage/postgres.js';
+import { createDatabasePool } from './storage/pool.js';
 
 // Vercel Express entry point. No local DB files, migrations, bootstrap endpoints or test hooks.
 const app = express();
