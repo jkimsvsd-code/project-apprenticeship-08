@@ -135,6 +135,14 @@ export class Store {
     this.db.prepare('DELETE FROM challenges WHERE actor_hash = ?').run(hash);
   }
 
+  logout(actor: { sessionHash?: string; enrollmentHash?: string; flowHash?: string }) {
+    this.transaction(() => {
+      this.revokeSession(actor.sessionHash);
+      if (actor.enrollmentHash) this.db.prepare('DELETE FROM enrollments WHERE hash = ?').run(actor.enrollmentHash);
+      if (actor.flowHash) this.db.prepare('DELETE FROM challenges WHERE flow_hash = ?').run(actor.flowHash);
+    });
+  }
+
   createChallenge(input: Omit<Challenge, 'id'>): Challenge {
     this.prune();
     // One outstanding ceremony per browser flow; a retry always replaces it.

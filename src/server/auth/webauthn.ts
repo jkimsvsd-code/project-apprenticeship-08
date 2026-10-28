@@ -4,12 +4,13 @@ import {
   type RegistrationResponseJSON, type AuthenticationResponseJSON, type AuthenticatorTransport,
 } from '@simplewebauthn/server';
 import type { Config } from '../config/env.js';
-import { Store, type Session, type Enrollment, type Credential } from '../storage/store.js';
+import type { Session, Enrollment, Credential } from '../storage/store.js';
+import type { DataStore } from '../storage/contracts.js';
 import type { Provider } from '../../shared/contracts.js';
 import { invalidCeremony, unauthorized } from './errors.js';
 
 export class WebAuthnService {
-  constructor(private store: Store, private config: Config) {}
+  constructor(private store: DataStore, private config: Config) {}
 
   async registrationOptions(flowHash: string, session: Session | null, enrollment: Enrollment | null) {
     if (!session && !enrollment) throw unauthorized();
@@ -20,9 +21,9 @@ export class WebAuthnService {
       attestationType: 'none', timeout: 60_000,
       authenticatorSelection: { residentKey: 'required', userVerification: 'required' },
       supportedAlgorithmIDs: [-7, -257],
-      excludeCredentials: this.store.credentials(user.id).map(credential => ({ id: credential.id, transports: credential.transports })),
+      excludeCredentials: (await this.store.credentials(user.id)).map(credential => ({ id: credential.id, transports: credential.transports })),
     });
-    const challenge = this.store.createChallenge({
+    const challenge = await this.store.createChallenge({
       value: options.challenge, purpose: 'registration', flowHash,
       actorHash: session?.hash ?? enrollment!.hash, userId: user.id, expiresAt: Date.now() + this.config.challengeTtl,
     });
@@ -31,7 +32,7 @@ export class WebAuthnService {
 
   async register(input: { challengeId: string; response: RegistrationResponseJSON; name: string; provider: Provider },
     flowHash: string, session: Session | null, enrollment: Enrollment | null) {
-    const challenge = this.store.consumeChallenge(input.challengeId, flowHash, 'registration');
+    const challenge = await this.store.consumeChallenge(input.challengeId, flowHash, 'registration');
     const actorHash = session?.hash ?? enrollment?.hash;
     const userId = session?.user.id ?? enrollment?.userId;
     if (!actorHash || actorHash !== challenge.actorHash || !userId || userId !== challenge.userId) throw invalidCeremony();
@@ -55,7 +56,7 @@ export class WebAuthnService {
 
   async authenticationOptions(flowHash: string) {
     const options = await generateAuthenticationOptions({ rpID: this.config.rpId, userVerification: 'required', timeout: 60_000 });
-    const challenge = this.store.createChallenge({
+    const challenge = await this.store.createChallenge({
       value: options.challenge, purpose: 'authentication', flowHash, actorHash: null, userId: null,
       expiresAt: Date.now() + this.config.challengeTtl,
     });
@@ -63,10 +64,10 @@ export class WebAuthnService {
   }
 
   async authenticate(input: { challengeId: string; response: AuthenticationResponseJSON }, flowHash: string) {
-    const challenge = this.store.consumeChallenge(input.challengeId, flowHash, 'authentication');
-    const credential = this.store.getCredential(input.response.id);
+    const challenge = await this.store.consumeChallenge(input.challengeId, flowHash, 'authentication');
+    const credential = await this.store.getCredential(input.response.id);
     if (!credential) throw invalidCeremony();
-    const account = this.store.getAccount(credential.userId);
+    const account = await this.store.getAccount(credential.userId);
     if (!account || input.response.response.userHandle !== account.handle) throw invalidCeremony();
     let verification;
     try {

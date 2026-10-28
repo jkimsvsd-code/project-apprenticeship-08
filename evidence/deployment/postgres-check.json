@@ -1,0 +1,11 @@
+{
+  "executedAt": "2026-10-28T04:21:36.891Z",
+  "environment": "dedicated Neon production database; repository-level synthetic fixtures, no mocked SQL",
+  "accountIsolation": true,
+  "itemCountEach": 3,
+  "concurrentChallengeConsumersSucceeded": 1,
+  "concurrentDeletesSucceeded": 1,
+  "remainingCredentials": 1,
+  "logoutRevoked": true,
+  "testUsersRemovedAfterRun": true
+}

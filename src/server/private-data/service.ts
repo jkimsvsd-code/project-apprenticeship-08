@@ -1,9 +1,10 @@
-import type { Store, Session } from '../storage/store.js';
+import type { Session } from '../storage/store.js';
+import type { DataStore } from '../storage/contracts.js';
 import { requireSession } from '../authorization/access.js';
 
-export function listPrivateItems(store: Store, session: Session | null) {
+export function listPrivateItems(store: DataStore, session: Session | null) {
   return store.items(requireSession(session).user.id);
 }
-export function getPrivateItem(store: Store, session: Session | null, id: string) {
+export function getPrivateItem(store: DataStore, session: Session | null, id: string) {
   return store.item(requireSession(session).user.id, id);
 }

@@ -1,0 +1,17 @@
+node_modules
+runtime
+dist
+public/assets
+public/index.html
+.git
+.env
+.env.*
+!.env.example
+evidence
+test-results
+playwright-report
+*.har
+*.sqlite*
+*.db*
+*.key
+*.pem

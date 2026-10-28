@@ -5,7 +5,7 @@ import { rateLimit } from 'express-rate-limit';
 import { z, ZodError } from 'zod';
 import type { RegistrationResponseJSON, AuthenticationResponseJSON } from '@simplewebauthn/server';
 import type { Config } from './config/env.js';
-import { Store } from './storage/store.js';
+import type { DataStore } from './storage/contracts.js';
 import { WebAuthnService } from './auth/webauthn.js';
 import { AppError } from './auth/errors.js';
 import { hashToken, randomToken } from './auth/tokens.js';
@@ -26,7 +26,7 @@ export function cookieNames(config: Config) {
   return { session: `${prefix}session`, flow: `${prefix}flow`, enrollment: `${prefix}enrollment` };
 }
 
-export function createApp(config: Config, store: Store) {
+export function createApp(config: Config, store: DataStore) {
   const app = express();
   const auth = new WebAuthnService(store, config);
   const names = cookieNames(config);
@@ -44,11 +44,12 @@ export function createApp(config: Config, store: Store) {
     res.cookie(names.flow, token, { ...cookieOptions, maxAge: config.enrollmentTtl });
     return hashToken(token);
   };
-  const setSession = (req: Request, res: Response, result: { token: string; expiresAt: number }) => {
-    store.revokeSession(readHash(req, names.session));
+  const setSession = async (req: Request, res: Response, result: { token: string; expiresAt: number }) => {
+    await store.revokeSession(readHash(req, names.session));
     res.cookie(names.session, result.token, { ...cookieOptions, maxAge: Math.max(0, result.expiresAt - Date.now()) });
   };
   app.disable('x-powered-by');
+  if (process.env.VERCEL) app.set('trust proxy', 1);
   app.use(helmet({
     strictTransportSecurity: config.secureCookies ? undefined : false,
     contentSecurityPolicy: { directives: {
@@ -80,9 +81,9 @@ export function createApp(config: Config, store: Store) {
   app.use('/api/setup', limiter);
 
   app.get('/api/health', (_req, res) => res.json({ ok: true }));
-  app.get('/api/session', (req, res) => {
+  app.get('/api/session', async (req, res) => {
     const hash = readHash(req, names.session);
-    const current = store.getSession(hash);
+    const current = await store.getSession(hash);
     if (!current) {
       // A cross-site top-level GET may omit a SameSite=Strict cookie. It must not log the user out.
       if (hash) res.clearCookie(names.session, cookieOptions);
@@ -91,21 +92,21 @@ export function createApp(config: Config, store: Store) {
     res.json({ user: { id: current.user.id, displayName: current.user.displayName }, expiresAt: current.expiresAt });
   });
 
-  app.post('/api/setup/exchange', (req, res) => {
-    if (session(req)) throw new AppError(409, 'ALREADY_SIGNED_IN', '이미 로그인되어 있습니다. 패스키 관리에서 추가하세요.');
+  app.post('/api/setup/exchange', async (req, res) => {
+    if (await session(req)) throw new AppError(409, 'ALREADY_SIGNED_IN', '이미 로그인되어 있습니다. 패스키 관리에서 추가하세요.');
     const { token } = z.object({ token: z.string().length(43).regex(/^[A-Za-z0-9_-]+$/) }).strict().parse(req.body);
-    const result = store.exchangeBootstrap(token, config.enrollmentTtl);
+    const result = await store.exchangeBootstrap(token, config.enrollmentTtl);
     res.cookie(names.enrollment, result.token, { ...cookieOptions, maxAge: config.enrollmentTtl });
     res.json({ displayName: result.enrollment.displayName, expiresAt: result.enrollment.expiresAt });
   });
-  app.get('/api/setup', (req, res) => {
-    const current = enrollment(req);
+  app.get('/api/setup', async (req, res) => {
+    const current = await enrollment(req);
     if (!current) throw new AppError(401, 'SETUP_REQUIRED', '유효한 초기 등록 링크가 필요합니다. 관리자 도구에서 새 링크를 발급하세요.');
     res.json({ displayName: current.displayName, expiresAt: current.expiresAt });
   });
 
   app.post('/api/auth/registration/options', async (req, res) => {
-    res.json(await auth.registrationOptions(flow(req, res), session(req), enrollment(req)));
+    res.json(await auth.registrationOptions(flow(req, res), await session(req), await enrollment(req)));
   });
   app.post('/api/auth/registration/verify', async (req, res) => {
     const input = z.object({
@@ -114,8 +115,8 @@ export function createApp(config: Config, store: Store) {
     }).strict().parse(req.body);
     const flowHash = readHash(req, names.flow);
     if (!flowHash) throw new AppError(400, 'FLOW_REQUIRED', '등록을 새로 시작해 주세요.');
-    const result = await auth.register({ ...input, response: input.response as unknown as RegistrationResponseJSON }, flowHash, session(req), enrollment(req));
-    if (result) setSession(req, res, result);
+    const result = await auth.register({ ...input, response: input.response as unknown as RegistrationResponseJSON }, flowHash, await session(req), await enrollment(req));
+    if (result) await setSession(req, res, result);
     res.clearCookie(names.enrollment, cookieOptions);
     res.status(201).json({ verified: true });
   });
@@ -127,39 +128,35 @@ export function createApp(config: Config, store: Store) {
     const flowHash = readHash(req, names.flow);
     if (!flowHash) throw new AppError(400, 'FLOW_REQUIRED', '로그인을 새로 시작해 주세요.');
     const result = await auth.authenticate({ ...input, response: input.response as unknown as AuthenticationResponseJSON }, flowHash);
-    setSession(req, res, result);
+    await setSession(req, res, result);
     res.json({ verified: true });
   });
-  app.post('/api/auth/cancel', (req, res) => {
+  app.post('/api/auth/cancel', async (req, res) => {
     const { challengeId } = z.object({ challengeId: idSchema }).strict().parse(req.body);
     const flowHash = readHash(req, names.flow);
-    if (flowHash) store.cancelChallenge(challengeId, flowHash);
+    if (flowHash) await store.cancelChallenge(challengeId, flowHash);
     res.status(204).end();
   });
-  app.post('/api/auth/logout', (req, res) => {
-    store.revokeSession(readHash(req, names.session));
-    const enrollmentHash = readHash(req, names.enrollment);
-    if (enrollmentHash) store.db.prepare('DELETE FROM enrollments WHERE hash = ?').run(enrollmentHash);
-    const flowHash = readHash(req, names.flow);
-    if (flowHash) store.db.prepare('DELETE FROM challenges WHERE flow_hash = ?').run(flowHash);
+  app.post('/api/auth/logout', async (req, res) => {
+    await store.logout({ sessionHash: readHash(req, names.session), enrollmentHash: readHash(req, names.enrollment), flowHash: readHash(req, names.flow) });
     for (const name of Object.values(names)) res.clearCookie(name, cookieOptions);
     res.status(204).end();
   });
-  app.get('/api/passkeys', (req, res) => res.json({ passkeys: store.passkeys(requireSession(session(req))) }));
-  app.delete('/api/passkeys/:id', (req, res) => {
-    const current = requireSession(session(req));
+  app.get('/api/passkeys', async (req, res) => res.json({ passkeys: await store.passkeys(requireSession(await session(req))) }));
+  app.delete('/api/passkeys/:id', async (req, res) => {
+    const current = requireSession(await session(req));
     const id = encoded.max(2048).parse(req.params.id);
-    store.deleteCredential(current.user.id, id);
-    const sessionRevoked = !store.getSession(current.hash);
+    await store.deleteCredential(current.user.id, id);
+    const sessionRevoked = !await store.getSession(current.hash);
     if (sessionRevoked) res.clearCookie(names.session, cookieOptions);
     res.json({ deleted: true, sessionRevoked });
   });
-  app.get('/api/private/items', (req, res) => {
+  app.get('/api/private/items', async (req, res) => {
     // Query/body account identifiers never grant access; the session determines the owner.
-    res.json({ items: listPrivateItems(store, session(req)) });
+    res.json({ items: await listPrivateItems(store, await session(req)) });
   });
-  app.get('/api/private/items/:id', (req, res) => {
-    res.json({ item: getPrivateItem(store, session(req), z.string().min(1).max(200).parse(req.params.id)) });
+  app.get('/api/private/items/:id', async (req, res) => {
+    res.json({ item: await getPrivateItem(store, await session(req), z.string().min(1).max(200).parse(req.params.id)) });
   });
   app.use('/api', () => { throw new AppError(404, 'NOT_FOUND', '요청한 기능을 찾을 수 없습니다.'); });
   app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {

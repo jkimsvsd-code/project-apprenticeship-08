@@ -5,7 +5,7 @@
 ## ① 무엇으로 붙였나
 
 라이브러리 방식입니다. SimpleWebAuthn server 14.0.3 / browser 14.0.0으로 WebAuthn을 처리합니다.
-React·TypeScript·Vite 화면, Express 서버, Node.js 24 내장 SQLite를 사용합니다. 전체 고정 버전은 package-lock.json에 있습니다.
+React·TypeScript·Vite 화면, Express 서버, 로컬 Node.js 24 SQLite와 배포 Neon PostgreSQL을 사용합니다. 배포 진입점은 server.ts, 영속 저장 구현은 src/server/storage/postgres.ts입니다. 전체 고정 버전은 package-lock.json에 있습니다.
 서비스 서버에는 credential ID, 공개키, 카운터, 소유자, 이름·등록일·사용자가 기록한 저장 위치를 저장합니다.
 개인키나 지문·얼굴 정보는 서비스에 전송하지 않습니다.
 
@@ -56,7 +56,7 @@ React·TypeScript·Vite 화면, Express 서버, Node.js 24 내장 SQLite를 사�
 ## ⑥ 아직 못 막은 것
 
 1. 모든 패스키·제공자 계정에 접근할 수 없을 때 복구할 독립적인 수단이 없습니다. 마지막 키 삭제 차단으로 기기 분실까지 해결하지는 못합니다.
-2. SQLite의 공개키·자료는 애플리케이션 수준에서 암호화하지 않습니다. 호스트의 관리자·백업 접근까지 막는 설계가 아니므로 가상 자료만 사용합니다.
+2. SQLite·PostgreSQL의 공개키·자료는 애플리케이션 수준에서 암호화하지 않습니다. 호스트의 관리자·백업 접근까지 막는 설계가 아니므로 가상 자료만 사용합니다.
 3. 요청 횟수 제한은 단일 프로세스 메모리입니다. 다중 인스턴스·서버 재시작을 가로지르는 공격 제한에는 공유 저장소가 필요합니다.
 4. 소유자의 기기·브라우저 자체가 장악되거나 서버 관리 권한이 유출된 상황까지 방어하지는 못합니다.
 
